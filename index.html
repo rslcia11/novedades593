@@ -525,7 +525,7 @@ footer { margin-top: 96px; background: var(--soft); padding-block: 44px; }
 
 <script>
 /* ===================== Datos editables ===================== */
-var CREATOR = { name: '[Creador]', initials: 'CR', years: '4 años', battles: '+300' };
+var CREATOR = { name: 'Yeri Loco', initials: 'YL', years: '4 años', battles: '+300' };
 /* Canales de la comunidad: deja solo los que use el creador (WhatsApp, Discord, Telegram…) */
 var COMMUNITY = ['WhatsApp', 'Discord', 'Telegram'];
 var GTA_DATE = new Date('2026-11-19T00:00:00-05:00');
@@ -827,7 +827,7 @@ function inSec(s) { return A.filter(function (a) { return a.sec === s; }); }
 function inGame(g) { return A.filter(function (a) { return a.game === g; }); }
 function popular() { return A.filter(function (a) { return a.top; }); }
 function host() {
-  return '<div class="host"><div class="face" aria-hidden="true">' + esc(CREATOR.initials) + '</div><div><h3>Aprende con ' + esc(CREATOR.name) + '</h3><p>Hace lives y batallas en TikTok y streamea Minecraft, Roblox y Free Fire. Aquí explica lo que le funcionó a él.</p></div><div class="stats"><div><strong>' + esc(CREATOR.years) + '</strong>haciendo lives</div><div><strong>' + esc(CREATOR.battles) + '</strong>batallas</div></div><a class="btn" href="#/creadores">Ver sus guías</a></div>';
+  return '<div class="host"><div class="face" aria-hidden="true">' + esc(CREATOR.initials) + '</div><div><h3>Aprende con ' + esc(CREATOR.name) + '</h3><p>Hace lives y batallas en TikTok y streamea Minecraft, Roblox y Free Fire. Aquí cuenta lo que le funcionó de verdad.</p></div><div class="stats"><div><strong>' + esc(CREATOR.years) + '</strong>haciendo lives</div><div><strong>' + esc(CREATOR.battles) + '</strong>batallas</div></div><a class="btn" href="#/creadores">Ver sus guías</a></div>';
 }
 function countdownHTML() { return '<div class="band"><div><h2>GTA VI sale el 19 de noviembre.</h2><p>Precio en Latinoamérica, plataformas y requisitos. Lo actualizamos cada vez que Rockstar confirma algo.</p><a class="btn y" href="#/a/gta-6-todo-lo-que-sabemos">Todo lo que sabemos</a></div><div class="clock" aria-label="Cuenta regresiva"><div><strong data-cd="d">—</strong><span>días</span></div><div><strong data-cd="h">—</strong><span>horas</span></div><div><strong data-cd="m">—</strong><span>min</span></div></div></div>'; }
 
