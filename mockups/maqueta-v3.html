@@ -1,0 +1,729 @@
+<title>Novedades593 Maqueta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&display=swap">
+<style>
+/* Identidad: blanco, negro y el amarillo de la bandera de Ecuador. Sin degradados ni sombras.
+   Una sola familia tipográfica. Navegación por juego, buscador al frente y barra inferior en celular.
+   Diseño de un solo tema a propósito: el amarillo sobre blanco y negro es la marca. */
+:root {
+  --ink: #111111;
+  --ink-2: #3A3A3A;
+  --muted: #6B6B6B;
+  --paper: #FFFFFF;
+  --soft: #F3F4F5;
+  --line: #E3E3E3;
+  --yellow: #FFD100;
+  --font: "Schibsted Grotesk", "Helvetica Neue", Arial, system-ui, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { background: var(--paper); color: var(--ink); }
+body { font: 400 16px/1.5 var(--font); -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; color: inherit; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { text-wrap: balance; letter-spacing: -0.02em; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.mark { background: var(--yellow); padding: 0 .12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+
+/* ---------- Barra de la maqueta (no es parte del sitio) ---------- */
+.demo { background: var(--ink); color: #fff; font-size: 13px; }
+.demo-in { max-width: 1200px; margin: 0 auto; padding: 8px 16px; display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; }
+.demo-in span { opacity: .75; }
+.demo-ctrls { display: flex; flex-wrap: wrap; gap: 8px; }
+.seg { display: inline-flex; border: 1px solid #444; border-radius: 6px; overflow: hidden; }
+.seg button { background: transparent; border: 0; padding: 6px 11px; cursor: pointer; color: #ddd; font-weight: 600; font-size: 13px; }
+.seg button + button { border-left: 1px solid #444; }
+.seg button[aria-pressed="true"] { background: var(--yellow); color: var(--ink); }
+
+/* ---------- Escenario ---------- */
+.stage.phone { background: var(--soft); padding: 24px 16px 40px; }
+.site { container: site / inline-size; background: var(--paper); margin: 0 auto; }
+.stage.phone .site { max-width: 390px; border: 1px solid var(--ink); border-radius: 28px; overflow: clip; }
+.wrap { max-width: 1200px; margin: 0 auto; padding-inline: 32px; }
+@container site (max-width: 700px) { .wrap { padding-inline: 16px; } }
+
+/* ---------- Cabecera ---------- */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--paper); border-bottom: 1px solid var(--line); }
+.top-in { display: flex; align-items: center; gap: 28px; min-height: 64px; }
+.logo { display: inline-flex; align-items: center; font-weight: 800; font-size: 21px; letter-spacing: -0.03em; white-space: nowrap; }
+.logo b { background: var(--yellow); padding: 1px 6px 2px; margin-left: 3px; border-radius: 3px; font-weight: 900; }
+.nav { display: flex; gap: 22px; font-weight: 600; font-size: 15px; }
+.nav a { padding: 6px 0; border-bottom: 2px solid transparent; }
+.nav a:hover, .nav a[aria-current="page"] { border-color: var(--ink); }
+.top-r { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+.icon-btn { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); background: var(--paper); cursor: pointer; }
+.icon-btn:hover { border-color: var(--ink); }
+@container site (max-width: 900px) { .nav { display: none; } }
+
+/* ---------- Piezas comunes ---------- */
+.sec { margin-top: 72px; }
+.sec-h { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+.sec-h h2 { font-size: clamp(24px, 3.2cqi, 32px); font-weight: 800; line-height: 1.1; }
+.sec-h a { font-weight: 600; font-size: 15px; white-space: nowrap; border-bottom: 1.5px solid var(--ink); }
+.sec-h p { color: var(--muted); font-size: 15px; margin-top: 6px; }
+@container site (max-width: 700px) { .sec { margin-top: 52px; } }
+.meta { font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 10px; }
+.meta .new { color: var(--ink); font-weight: 700; }
+.tag { font-size: 13px; font-weight: 700; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 46px; padding: 0 18px; border-radius: 6px; border: 1.5px solid var(--ink); background: var(--ink); color: #fff; font-weight: 700; font-size: 15px; cursor: pointer; white-space: nowrap; }
+.btn.y { background: var(--yellow); color: var(--ink); }
+.btn.o { background: var(--paper); color: var(--ink); }
+
+/* Portadas tipográficas: el sistema de imágenes de la marca para la maqueta.
+   En el sitio real son capturas propias del juego o del stream (16:9, 1200 px o más). */
+.cover { container-type: inline-size; aspect-ratio: 16/9; max-width: 100%; border-radius: 6px; position: relative; overflow: hidden; display: flex; align-items: flex-end; padding: 12px 14px; background: var(--soft); }
+.cover span { font-weight: 900; font-size: 15cqi; line-height: .9; letter-spacing: -0.04em; }
+.cover::after { content: "593"; position: absolute; top: 10px; right: 12px; font-size: 11px; font-weight: 800; padding: 1px 5px; border-radius: 3px; background: var(--yellow); color: var(--ink); }
+.cover.k { background: var(--ink); color: #fff; }
+.cover.y { background: var(--yellow); }
+.cover.y::after { background: var(--ink); color: var(--yellow); }
+.cover.px { background-color: var(--soft); background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 16px 16px; }
+
+/* Anuncios: discretos, con alto reservado */
+.ad { background: var(--soft); border-radius: 6px; display: grid; place-items: center; text-align: center; color: var(--muted); font-size: 12px; padding: 10px; }
+.ad b { display: block; font-size: 12px; font-weight: 600; color: var(--ink-2); }
+.ad-l { font-size: 11px; color: var(--muted); text-align: center; margin-bottom: 6px; letter-spacing: .02em; }
+.ad-bill { min-height: 250px; }
+@container site (max-width: 700px) { .ad-bill { min-height: 100px; } }
+.ad-box { min-height: 250px; }
+.ad-tall { min-height: 600px; }
+
+/* ---------- Inicio: intro + buscador ---------- */
+.intro { padding-top: 56px; display: grid; gap: 20px; max-width: 860px; }
+.intro > * { min-width: 0; }
+.intro h1 { font-size: clamp(36px, 6cqi, 68px); font-weight: 900; line-height: 1.12; letter-spacing: -0.04em; }
+.intro p { font-size: 19px; color: var(--ink-2); max-width: 56ch; }
+@container site (max-width: 700px) { .intro { padding-top: 32px; } .intro p { font-size: 17px; } }
+.search { position: relative; max-width: 720px; }
+.search label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.search-box { display: flex; align-items: center; gap: 10px; height: 60px; border: 2px solid var(--ink); border-radius: 8px; padding: 0 8px 0 18px; background: var(--paper); }
+.search-box input { flex: 1; min-width: 0; border: 0; outline: none; background: transparent; font-size: 17px; }
+.search-box .btn { height: 44px; }
+@container site (max-width: 520px) { .search-box .btn span { display: none; } .search-box .btn { width: 44px; padding: 0; } }
+.suggest { position: absolute; left: 0; right: 0; top: 66px; z-index: 10; background: var(--paper); border: 2px solid var(--ink); border-radius: 8px; padding: 6px; display: grid; }
+.suggest a { padding: 10px 12px; border-radius: 4px; display: flex; justify-content: space-between; gap: 12px; }
+.suggest a:hover, .suggest a.on { background: var(--yellow); }
+.suggest small { color: var(--muted); }
+.popular { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; color: var(--muted); align-items: baseline; }
+.popular a { color: var(--ink); font-weight: 600; border-bottom: 1px solid var(--line); }
+.popular a:hover { border-color: var(--ink); }
+
+/* Elige tu juego */
+.games { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+.game { border: 1.5px solid var(--ink); border-radius: 8px; padding: 14px; aspect-ratio: 1; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; transition: background .15s; }
+.game:hover { background: var(--yellow); }
+.game strong { font-size: clamp(18px, 2.1cqi, 24px); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; }
+.game small { display: block; font-size: 13px; color: var(--ink-2); margin-top: 4px; }
+.game .ic { width: 34px; height: 34px; }
+.game.all { background: var(--ink); color: #fff; }
+.game.all small { color: #ccc; }
+.game.all:hover { background: var(--yellow); color: var(--ink); }
+@container site (max-width: 900px) { .games { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@container site (max-width: 520px) { .games { grid-template-columns: repeat(2, minmax(0, 1fr)); } .game { aspect-ratio: auto; min-height: 112px; gap: 14px; } }
+
+/* Nuevo + más buscado */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 48px; align-items: start; }
+@container site (max-width: 960px) { .split { grid-template-columns: 1fr; } }
+.list { display: grid; }
+.row { display: grid; grid-template-columns: 200px 1fr; gap: 20px; padding: 18px 0; border-top: 1px solid var(--line); align-items: center; }
+.row:first-child { border-top: 0; padding-top: 0; }
+.row h3 { font-size: 20px; font-weight: 800; line-height: 1.2; margin: 4px 0 6px; }
+.row:hover h3 { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.row p { color: var(--ink-2); font-size: 15px; }
+@container site (max-width: 600px) { .row { grid-template-columns: 112px 1fr; gap: 14px; } .row h3 { font-size: 16px; } .row p { display: none; }  }
+.side { display: grid; gap: 28px; }
+.top5 h2 { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+.top5 ol { list-style: none; margin: 0; padding: 0; counter-reset: n; }
+.top5 li { counter-increment: n; display: grid; grid-template-columns: 34px 1fr; gap: 8px; padding: 12px 0; border-top: 1px solid var(--line); }
+.top5 li::before { content: counter(n); font-weight: 900; font-size: 22px; line-height: 1.1; }
+.top5 li:first-child::before { background: var(--yellow); width: 28px; text-align: center; border-radius: 3px; }
+.top5 a { font-weight: 600; line-height: 1.35; }
+.top5 a:hover { text-decoration: underline; }
+.top5 small { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+
+/* Banda GTA VI */
+.band { background: var(--ink); color: #fff; border-radius: 10px; padding: 36px 40px; display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; }
+.band h2 { font-size: clamp(26px, 3.6cqi, 40px); font-weight: 900; line-height: 1.05; }
+.band p { color: #cfcfcf; margin-top: 10px; max-width: 46ch; }
+.band .btn { margin-top: 20px; }
+.clock { display: flex; gap: 10px; }
+.clock div { min-width: 92px; text-align: center; border: 1.5px solid #444; border-radius: 8px; padding: 12px 10px; }
+.clock strong { display: block; font-size: 44px; font-weight: 900; line-height: 1; color: var(--yellow); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
+.clock span { font-size: 13px; color: #cfcfcf; }
+@container site (max-width: 760px) { .band { grid-template-columns: 1fr; padding: 24px 20px; } .clock div { min-width: 0; flex: 1; } .clock strong { font-size: 34px; } }
+
+/* Creadores */
+.creators { display: grid; grid-template-columns: 1.1fr 2fr; gap: 24px; align-items: stretch; }
+.host { background: var(--yellow); border-radius: 10px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; }
+.host .face { width: 72px; height: 72px; border-radius: 50%; background: var(--ink); color: var(--yellow); display: grid; place-items: center; font-weight: 900; font-size: 24px; }
+.host h3 { font-size: 26px; font-weight: 900; line-height: 1.1; }
+.host p { font-size: 16px; color: var(--ink-2); margin-top: 8px; }
+.host .stats { display: flex; gap: 22px; font-size: 13px; }
+.host .stats strong { display: block; font-size: 22px; font-weight: 900; font-variant-numeric: tabular-nums; }
+.c-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 20px; }
+.card { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.card h3 { font-size: 18px; font-weight: 800; line-height: 1.22; }
+.card:hover h3 { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+@container site (max-width: 900px) { .creators { grid-template-columns: 1fr; } }
+@container site (max-width: 520px) { .c-grid { grid-template-columns: 1fr; } }
+
+/* Herramientas */
+.tools { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.tool-t { border: 1.5px solid var(--ink); border-radius: 10px; padding: 22px; display: grid; gap: 10px; align-content: start; transition: background .15s; }
+.tool-t:hover { background: var(--yellow); }
+.tool-t .ic { width: 40px; height: 40px; }
+.tool-t h3 { font-size: 20px; font-weight: 800; line-height: 1.15; }
+.tool-t p { color: var(--ink-2); font-size: 15px; }
+.tool-t .go { font-weight: 700; font-size: 15px; margin-top: 4px; }
+@container site (max-width: 800px) { .tools { grid-template-columns: 1fr; } }
+
+/* Virales */
+.clips { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(180px, 1fr); gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; }
+.clip { scroll-snap-align: start; display: grid; gap: 8px; align-content: start; }
+.clip .v { aspect-ratio: 9/14; border-radius: 8px; background: var(--ink); color: #fff; position: relative; display: grid; place-items: center; }
+.clip .v.y { background: var(--yellow); color: var(--ink); }
+.clip .v.s { background: var(--soft); color: var(--ink); }
+.clip .v svg { width: 44px; height: 44px; }
+.clip .v small { position: absolute; left: 10px; bottom: 10px; font-size: 12px; font-weight: 700; }
+.clip h3 { font-size: 15px; font-weight: 700; line-height: 1.3; }
+
+/* Comunidad */
+.join { display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; border-top: 2px solid var(--ink); padding-top: 28px; }
+.join h2 { font-size: clamp(22px, 2.8cqi, 28px); font-weight: 800; }
+.join p { color: var(--ink-2); margin-top: 6px; }
+.join .btns { display: flex; flex-wrap: wrap; gap: 10px; }
+@container site (max-width: 760px) { .join { grid-template-columns: 1fr; } }
+
+/* Pie */
+footer { margin-top: 80px; background: var(--soft); padding-block: 40px 96px; }
+.foot { display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 28px; font-size: 15px; }
+.foot h4 { font-size: 13px; color: var(--muted); font-weight: 600; margin: 0 0 10px; }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.foot p { color: var(--ink-2); margin-top: 10px; max-width: 34ch; }
+@container site (max-width: 760px) { .foot { grid-template-columns: 1fr 1fr; } }
+
+/* Barra inferior (celular) */
+.tabbar { display: none; }
+@container site (max-width: 700px) {
+  .tabbar { display: grid; grid-template-columns: repeat(5, 1fr); position: sticky; bottom: 0; z-index: 30; background: var(--paper); border-top: 1px solid var(--line); padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px)); }
+  .tabbar a { display: grid; justify-items: center; gap: 2px; font-size: 11px; font-weight: 600; padding: 4px 0; color: var(--muted); }
+  .tabbar a[aria-current="page"] { color: var(--ink); }
+  .tabbar a[aria-current="page"] svg { background: var(--yellow); border-radius: 6px; }
+  .tabbar svg { width: 34px; height: 26px; padding: 2px 6px; }
+}
+
+/* ---------- Página de juego ---------- */
+.hub-h { padding-top: 40px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; border-bottom: 2px solid var(--ink); padding-bottom: 28px; }
+.crumbs { font-size: 14px; color: var(--muted); margin-bottom: 14px; }
+.crumbs a:hover { color: var(--ink); text-decoration: underline; }
+.hub-h h1 { font-size: clamp(44px, 8cqi, 96px); font-weight: 900; line-height: .9; letter-spacing: -0.05em; }
+.hub-h p { font-size: 18px; color: var(--ink-2); margin-top: 14px; max-width: 54ch; }
+.hub-facts { display: flex; gap: 28px; font-size: 13px; color: var(--muted); }
+.hub-facts strong { display: block; font-size: 28px; font-weight: 900; color: var(--ink); font-variant-numeric: tabular-nums; }
+@container site (max-width: 700px) { .hub-h { grid-template-columns: 1fr; } }
+.filters { display: flex; gap: 8px; overflow-x: auto; padding: 20px 0; scrollbar-width: none; }
+.filters button { flex: none; height: 40px; padding: 0 16px; border-radius: 6px; border: 1.5px solid var(--ink); background: var(--paper); font-weight: 600; font-size: 14px; cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.start { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 40px; }
+.start a { background: var(--soft); border-radius: 8px; padding: 18px; display: grid; gap: 6px; }
+.start a:hover { background: var(--yellow); }
+.start small { font-size: 13px; color: var(--muted); font-weight: 600; }
+.start strong { font-size: 18px; font-weight: 800; line-height: 1.2; }
+@container site (max-width: 760px) { .start { grid-template-columns: 1fr; } }
+
+/* ---------- Guía ---------- */
+.g-head { padding-top: 32px; max-width: 820px; display: grid; gap: 16px; }
+.g-head h1 { font-size: clamp(32px, 5cqi, 52px); font-weight: 900; line-height: 1.04; letter-spacing: -0.035em; }
+.g-head .dek { font-size: 19px; color: var(--ink-2); }
+.byline { display: flex; align-items: center; gap: 12px; font-size: 14px; }
+.byline .face { width: 44px; height: 44px; border-radius: 50%; background: var(--ink); color: var(--yellow); display: grid; place-items: center; font-weight: 900; font-size: 15px; flex: none; }
+.byline b { display: block; font-size: 15px; }
+.byline span { color: var(--muted); }
+.g-cover { margin-top: 28px; }
+.g-cover .cover { aspect-ratio: 21/9; border-radius: 10px; }
+.g-cover .cover span { font-size: 9cqi; }
+.caption { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.g-grid { display: grid; grid-template-columns: minmax(0, 700px) 300px; justify-content: space-between; gap: 48px; margin-top: 36px; }
+@container site (max-width: 1060px) { .g-grid { grid-template-columns: minmax(0, 1fr); } .g-side { display: none !important; } }
+.prose { font-size: 18px; line-height: 1.7; }
+.prose > * + * { margin-top: 1.1em; }
+.prose h2 { font-size: 28px; font-weight: 900; line-height: 1.15; margin-top: 1.9em; scroll-margin-top: 84px; }
+.quick { background: var(--yellow); border-radius: 8px; padding: 20px 22px; font-size: 17px; line-height: 1.55; }
+.quick b { display: block; font-size: 14px; margin-bottom: 4px; }
+.facts3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.facts3 div { border: 1.5px solid var(--ink); border-radius: 8px; padding: 14px 16px; }
+.facts3 strong { display: block; font-size: 30px; font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.facts3 span { display: block; font-size: 14px; line-height: 1.4; color: var(--ink-2); margin-top: 4px; }
+@container site (max-width: 560px) { .facts3 { grid-template-columns: 1fr; } }
+.steps { list-style: none; margin: 0; padding: 0; counter-reset: s; display: grid; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 48px 1fr; gap: 14px; padding: 16px 0; border-top: 1px solid var(--line); font-size: 17px; line-height: 1.55; }
+.steps li::before { content: counter(s); width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--ink); display: grid; place-items: center; font-weight: 900; font-size: 18px; }
+.steps b { display: block; }
+.avoid { border: 2px solid var(--ink); border-radius: 8px; padding: 18px 22px; }
+.avoid b { display: block; font-size: 15px; margin-bottom: 6px; }
+.avoid ul { margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.6; }
+.prose .ad { margin-block: 36px; min-height: 280px; }
+.useful { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; border-top: 2px solid var(--ink); padding-top: 20px; }
+.useful b { font-size: 17px; }
+.useful .btns { display: flex; gap: 8px; }
+.sources { font-size: 14px; color: var(--muted); }
+.g-side { display: grid; align-content: start; gap: 28px; }
+.sticky { position: sticky; top: 88px; display: grid; gap: 28px; }
+.toc b { display: block; font-size: 14px; margin-bottom: 8px; }
+.toc ol { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 15px; }
+.toc a:hover { text-decoration: underline; }
+.toc-m { display: none; border: 1.5px solid var(--ink); border-radius: 8px; padding: 14px 18px; }
+.toc-m summary { font-weight: 700; cursor: pointer; }
+.toc-m ol { margin: 10px 0 0; padding-left: 18px; display: grid; gap: 6px; font-size: 16px; }
+@container site (max-width: 1060px) { .toc-m { display: block; } }
+
+/* ---------- Herramienta ---------- */
+.calc-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; margin-top: 32px; align-items: start; }
+@container site (max-width: 960px) { .calc-wrap { grid-template-columns: 1fr; } .calc-wrap > aside { display: none; } }
+.calc { border: 2px solid var(--ink); border-radius: 10px; padding: 28px; display: grid; gap: 22px; }
+.calc label { font-weight: 700; font-size: 15px; }
+.field { display: flex; align-items: center; height: 68px; border: 1.5px solid var(--ink); border-radius: 8px; padding: 0 18px; gap: 10px; margin-top: 8px; }
+.field input { flex: 1; min-width: 0; border: 0; outline: none; font-size: 30px; font-weight: 800; font-variant-numeric: tabular-nums; background: transparent; }
+.field span { color: var(--muted); font-weight: 600; }
+.quick-v { display: flex; flex-wrap: wrap; gap: 8px; }
+.quick-v button { height: 38px; padding: 0 14px; border-radius: 6px; border: 1px solid var(--line); background: var(--paper); font-weight: 600; cursor: pointer; font-variant-numeric: tabular-nums; }
+.quick-v button:hover { border-color: var(--ink); }
+.out { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.out div { background: var(--soft); border-radius: 8px; padding: 18px; }
+.out div.big { background: var(--yellow); }
+.out span { font-size: 14px; font-weight: 600; color: var(--ink-2); }
+.out strong { display: block; font-size: clamp(30px, 4.6cqi, 48px); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; margin-top: 6px; }
+@container site (max-width: 460px) { .out { grid-template-columns: 1fr; } }
+.how { font-size: 14px; color: var(--muted); }
+.how b { color: var(--ink); }
+</style>
+
+<div class="demo">
+  <div class="demo-in">
+    <span>Maqueta de Novedades593 · contenido de ejemplo · los recuadros grises son anuncios</span>
+    <div class="demo-ctrls">
+      <div class="seg" role="group" aria-label="Página">
+        <button id="v-home" type="button" data-view="home" aria-pressed="true">Inicio</button>
+        <button id="v-game" type="button" data-view="game" aria-pressed="false">Juego</button>
+        <button id="v-guide" type="button" data-view="guide" aria-pressed="false">Guía</button>
+        <button id="v-tool" type="button" data-view="tool" aria-pressed="false">Herramienta</button>
+      </div>
+      <div class="seg" role="group" aria-label="Dispositivo">
+        <button id="d-desk" type="button" data-dev="desk" aria-pressed="true">Computadora</button>
+        <button id="d-phone" type="button" data-dev="phone" aria-pressed="false">Celular</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 4l9 7v9h-6v-6H9v6H3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-pad" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 11v3M5.5 12.5h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="11.5" r="1.2" fill="currentColor"/><circle cx="18" cy="14" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-tool" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="m20 20-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 8v8l6-4z" fill="currentColor"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-text" viewBox="0 0 24 24"><path d="M4 6V4h16v2M12 4v16M9 20h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-block" viewBox="0 0 24 24"><path d="M12 2 21 7v10l-9 5-9-5V7z M3 7l9 5 9-5 M12 12v10" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-cube" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="9" y="9" width="6" height="6" fill="currentColor" transform="rotate(15 12 12)"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M3 15v-3l2-5h14l2 5v3zM3 15v3h3v-3M18 15v3h3v-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7.5" cy="12.5" r="1" fill="currentColor"/><circle cx="16.5" cy="12.5" r="1" fill="currentColor"/></symbol>
+  <symbol id="i-fire" viewBox="0 0 24 24"><path d="M12 22c4 0 7-3 7-7 0-5-5-7-5-12-3 2-4 5-4 7-1-1-2-2-2-4-2 2-3 5-3 9 0 4 3 7 7 7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bus" viewBox="0 0 24 24"><path d="M4 20 12 3l8 17-8-4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" fill="none" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="7" height="7" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+</svg>
+
+<div class="stage" id="stage">
+<div class="site">
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="#" data-go="home">novedades<b>593</b></a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#" data-go="game">Juegos</a>
+      <a href="#" data-go="guide">Para creadores</a>
+      <a href="#" data-go="home">Noticias</a>
+      <a href="#" data-go="home">Virales</a>
+      <a href="#" data-go="tool">Herramientas</a>
+    </nav>
+    <div class="top-r">
+      <button class="icon-btn" type="button" id="top-search" aria-label="Buscar"><svg width="18" height="18"><use href="#i-search"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= INICIO ================= -->
+<main id="view-home">
+  <div class="wrap">
+    <section class="intro">
+      <h1>Guías de juegos y <span class="mark">trucos para creadores</span>.</h1>
+      <p>Minecraft, Roblox, GTA VI, Free Fire y TikTok LIVE, explicado fácil por alguien que juega y hace lives todos los días.</p>
+      <div class="search" id="search">
+        <label for="q">Buscar en Novedades593</label>
+        <div class="search-box">
+          <svg width="20" height="20" aria-hidden="true"><use href="#i-search"/></svg>
+          <input id="q" type="search" autocomplete="off" placeholder="Busca un juego o una duda…" aria-controls="suggest">
+          <button class="btn" type="button" id="q-go"><svg width="16" height="16" aria-hidden="true"><use href="#i-search"/></svg><span>Buscar</span></button>
+        </div>
+        <div class="suggest" id="suggest" role="listbox" hidden></div>
+      </div>
+      <div class="popular"><span>Lo que más buscan:</span><a href="#" data-go="guide">códigos de Roblox</a><a href="#" data-go="guide">diamantes en Minecraft</a><a href="#" data-go="guide">requisitos GTA VI</a><a href="#" data-go="tool">cuánto paga TikTok LIVE</a></div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-h"><h2>Elige tu juego</h2><a href="#" data-go="game">Todos los juegos</a></div>
+      <div class="games">
+        <a class="game" href="#" data-go="game"><svg class="ic" aria-hidden="true"><use href="#i-block"/></svg><div><strong>Minecraft</strong><small>48 guías</small></div></a>
+        <a class="game" href="#" data-go="game"><svg class="ic" aria-hidden="true"><use href="#i-cube"/></svg><div><strong>Roblox</strong><small>36 guías</small></div></a>
+        <a class="game" href="#" data-go="game"><svg class="ic" aria-hidden="true"><use href="#i-car"/></svg><div><strong>GTA VI</strong><small>19 guías</small></div></a>
+        <a class="game" href="#" data-go="game"><svg class="ic" aria-hidden="true"><use href="#i-fire"/></svg><div><strong>Free Fire</strong><small>27 guías</small></div></a>
+        <a class="game" href="#" data-go="game"><svg class="ic" aria-hidden="true"><use href="#i-bus"/></svg><div><strong>Fortnite</strong><small>22 guías</small></div></a>
+        <a class="game all" href="#" data-go="game"><svg class="ic" aria-hidden="true"><use href="#i-grid"/></svg><div><strong>Más juegos</strong><small>12 juegos</small></div></a>
+      </div>
+    </section>
+
+    <div style="margin-top:48px">
+      <div class="ad-l">Publicidad</div>
+      <div class="ad ad-bill"><div><b>Anuncio 970×250</b>en el borde de la primera pantalla · 320×100 en celular</div></div>
+    </div>
+
+    <section class="sec split">
+      <div>
+        <div class="sec-h"><h2>Lo nuevo</h2><a href="#" data-go="game">Ver todo</a></div>
+        <div class="list">
+          <a class="row" href="#" data-go="guide"><div class="cover y"><span>GTA VI</span></div><div><span class="tag">GTA VI</span><h3>Requisitos de PC para GTA VI: lo que se sabe y qué PC armar</h3><p>Lo confirmado por Rockstar y lo que todavía es rumor.</p><div class="meta"><span class="new">Actualizado hoy</span><span>7 min</span></div></div></a>
+          <a class="row" href="#" data-go="guide"><div class="cover px"><span>Minecraft</span></div><div><span class="tag">Minecraft</span><h3>Cómo encontrar diamantes en Minecraft: la capa exacta</h3><p>Tres métodos que funcionan en Java y Bedrock.</p><div class="meta"><span>Ayer</span><span>6 min</span></div></div></a>
+          <a class="row" href="#" data-go="guide"><div class="cover k"><span>LIVE</span></div><div><span class="tag">Para creadores</span><h3>Cómo hacer LIVE en TikTok en 2026: requisitos y configuración</h3><p>Lo que necesitas y los errores que te quitan el LIVE.</p><div class="meta"><span>Ayer</span><span>8 min</span></div></div></a>
+          <a class="row" href="#" data-go="guide"><div class="cover"><span>Roblox</span></div><div><span class="tag">Roblox</span><h3>Blox Fruits: la ruta más rápida para subir de nivel</h3><p>Islas, misiones y frutas por nivel.</p><div class="meta"><span>Hace 2 días</span><span>9 min</span></div></div></a>
+        </div>
+      </div>
+      <aside class="side">
+        <div class="top5">
+          <h2>Lo más leído hoy</h2>
+          <ol>
+            <li><div><a href="#" data-go="guide">Códigos de Roblox activos hoy</a><small>Roblox</small></div></li>
+            <li><div><a href="#" data-go="guide">Cuándo sale GTA VI y cuánto cuesta</a><small>GTA VI</small></div></li>
+            <li><div><a href="#" data-go="guide">Nombres para Free Fire con letras especiales</a><small>Free Fire</small></div></li>
+            <li><div><a href="#" data-go="guide">Semillas de Minecraft para empezar</a><small>Minecraft</small></div></li>
+            <li><div><a href="#" data-go="tool">Cuánto paga TikTok LIVE por 1.000 diamantes</a><small>Para creadores</small></div></li>
+          </ol>
+        </div>
+        <div><div class="ad-l">Publicidad</div><div class="ad ad-box"><div><b>Anuncio 300×250</b></div></div></div>
+      </aside>
+    </section>
+
+    <section class="sec band" aria-label="GTA VI">
+      <div>
+        <h2>GTA VI sale el 19 de noviembre.</h2>
+        <p>Precio en Latinoamérica, plataformas, mapa y requisitos. Lo actualizamos cada vez que Rockstar confirma algo.</p>
+        <a class="btn y" href="#" data-go="guide">Todo lo que sabemos</a>
+      </div>
+      <div class="clock" aria-label="Cuenta regresiva">
+        <div><strong id="cd-d">48</strong><span>días</span></div>
+        <div><strong id="cd-h">00</strong><span>horas</span></div>
+        <div><strong id="cd-m">00</strong><span>min</span></div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-h"><div><h2>Para creadores</h2><p>Lives, batallas, OBS y equipo. Lo que aprendimos haciendo stream todos los días.</p></div><a href="#" data-go="guide">Ver todo</a></div>
+      <div class="creators">
+        <div class="host">
+          <div class="face" aria-hidden="true">CR</div>
+          <div>
+            <h3>Aprende con [Creador]</h3>
+            <p>Hace lives y batallas en TikTok y streamea Minecraft, Roblox y Free Fire. Aquí explica lo que le funcionó a él.</p>
+          </div>
+          <div class="stats"><div><strong>4 años</strong>haciendo lives</div><div><strong>+300</strong>batallas</div></div>
+          <a class="btn" href="#" data-go="guide">Leer sus guías</a>
+        </div>
+        <div class="c-grid">
+          <a class="card" href="#" data-go="guide"><div class="cover k"><span>LIVE</span></div><h3>Cómo hacer LIVE en TikTok: requisitos y configuración</h3><div class="meta"><span>8 min</span></div></a>
+          <a class="card" href="#" data-go="guide"><div class="cover y"><span>VS</span></div><h3>Cómo ganar batallas en TikTok sin quemar a tu comunidad</h3><div class="meta"><span>7 min</span></div></a>
+          <a class="card" href="#" data-go="guide"><div class="cover"><span>OBS</span></div><h3>Configurar OBS para TikTok paso a paso</h3><div class="meta"><span>Video · 12 min</span></div></a>
+          <a class="card" href="#" data-go="guide"><div class="cover px"><span>Equipo</span></div><h3>Equipo para stream por menos de $150</h3><div class="meta"><span>Probado en lives</span></div></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-h"><div><h2>Herramientas gratis</h2><p>Sin registrarte, desde el celular.</p></div></div>
+      <div class="tools">
+        <a class="tool-t" href="#" data-go="tool"><svg class="ic" aria-hidden="true"><use href="#i-tool"/></svg><h3>Calculadora de diamantes</h3><p>Cuánto valen tus diamantes y tus batallas de TikTok LIVE en dólares.</p><span class="go">Calcular →</span></a>
+        <a class="tool-t" href="#" data-go="guide"><svg class="ic" aria-hidden="true"><use href="#i-copy"/></svg><h3>Códigos de Roblox</h3><p>Los códigos activos de hoy, revisados, con botón para copiar.</p><span class="go">Ver códigos →</span></a>
+        <a class="tool-t" href="#" data-go="tool"><svg class="ic" aria-hidden="true"><use href="#i-text"/></svg><h3>Nombres con letras especiales</h3><p>Para Free Fire, TikTok y Roblox. Escribe tu nombre y copia.</p><span class="go">Crear nombre →</span></a>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-h"><div><h2>Virales de la semana</h2><p>Lo más gracioso de los lives.</p></div><a href="#" data-go="home">Ver todo</a></div>
+      <div class="clips" role="list">
+        <a class="clip" role="listitem" href="#" data-go="home"><div class="v"><svg aria-hidden="true"><use href="#i-play"/></svg><small>0:42</small></div><h3>La batalla que se ganó en el último segundo</h3></a>
+        <a class="clip" role="listitem" href="#" data-go="home"><div class="v y"><svg aria-hidden="true"><use href="#i-play"/></svg><small>0:31</small></div><h3>Cuando el lag te gana la partida en Free Fire</h3></a>
+        <a class="clip" role="listitem" href="#" data-go="home"><div class="v s"><svg aria-hidden="true"><use href="#i-play"/></svg><small>1:05</small></div><h3>Minecraft, pero el chat decide todo</h3></a>
+        <a class="clip" role="listitem" href="#" data-go="home"><div class="v"><svg aria-hidden="true"><use href="#i-play"/></svg><small>0:58</small></div><h3>Los mejores memes del tráiler de GTA VI</h3></a>
+        <a class="clip" role="listitem" href="#" data-go="home"><div class="v y"><svg aria-hidden="true"><use href="#i-play"/></svg><small>0:27</small></div><h3>El susto en Roblox que nadie esperaba</h3></a>
+      </div>
+    </section>
+
+    <section class="sec join">
+      <div><h2>Recibe los códigos antes que nadie.</h2><p>Únete al canal de WhatsApp. Un mensaje cuando hay códigos nuevos o una guía importante.</p></div>
+      <div class="btns"><span class="btn y">Unirme al canal</span><span class="btn o">Agregar como fuente en Google</span></div>
+    </section>
+  </div>
+</main>
+
+<!-- ================= JUEGO ================= -->
+<main id="view-game" hidden>
+  <div class="wrap">
+    <header class="hub-h">
+      <div>
+        <div class="crumbs"><a href="#" data-go="home">Inicio</a> / Juegos</div>
+        <h1>Minecraft</h1>
+        <p>Guías para empezar, granjas, semillas, versiones y noticias. Todo probado en Java y Bedrock.</p>
+      </div>
+      <div class="hub-facts"><div><strong>48</strong>guías</div><div><strong>1.21</strong>versión actual</div></div>
+    </header>
+    <div class="filters" role="group" aria-label="Filtrar guías">
+      <button type="button" id="f-all" data-f="all" aria-pressed="true">Todo</button>
+      <button type="button" id="f-start" data-f="start" aria-pressed="false">Para empezar</button>
+      <button type="button" id="f-farm" data-f="farm" aria-pressed="false">Granjas</button>
+      <button type="button" id="f-seed" data-f="seed" aria-pressed="false">Semillas</button>
+      <button type="button" id="f-news" data-f="news" aria-pressed="false">Noticias</button>
+    </div>
+    <div class="start">
+      <a href="#" data-go="guide"><small>Si es tu primer día</small><strong>Qué hacer en tu primera noche en Minecraft</strong></a>
+      <a href="#" data-go="guide"><small>Lo más buscado</small><strong>Cómo encontrar diamantes: la capa exacta</strong></a>
+      <a href="#" data-go="guide"><small>Para jugar con amigos</small><strong>Cómo crear un servidor gratis</strong></a>
+    </div>
+    <div class="split">
+      <div class="list" id="hub-list">
+        <a class="row" href="#" data-go="guide" data-k="start"><div class="cover px"><span>Minecraft</span></div><div><span class="tag">Para empezar</span><h3>Qué hacer en tu primera noche en Minecraft</h3><p>Refugio, comida y herramientas en 10 minutos.</p><div class="meta"><span>5 min</span></div></div></a>
+        <a class="row" href="#" data-go="guide" data-k="start"><div class="cover y"><span>Diamantes</span></div><div><span class="tag">Para empezar</span><h3>Cómo encontrar diamantes: la capa exacta y 3 métodos</h3><p>Funciona en Java y Bedrock.</p><div class="meta"><span class="new">Actualizado ayer</span><span>6 min</span></div></div></a>
+        <a class="row" href="#" data-go="guide" data-k="farm"><div class="cover k"><span>Hierro</span></div><div><span class="tag">Granjas</span><h3>Granja de hierro fácil para 1.21</h3><p>Materiales, medidas y errores comunes.</p><div class="meta"><span>11 min</span></div></div></a>
+        <a class="row" href="#" data-go="guide" data-k="seed"><div class="cover"><span>Semillas</span></div><div><span class="tag">Semillas</span><h3>10 semillas para empezar con aldea cerca</h3><p>Con coordenadas, probadas en 1.21.</p><div class="meta"><span>4 min</span></div></div></a>
+        <a class="row" href="#" data-go="guide" data-k="news"><div class="cover px"><span>1.22</span></div><div><span class="tag">Noticias</span><h3>Lo que trae la próxima actualización</h3><p>Lo confirmado por Mojang.</p><div class="meta"><span>Hace 3 días</span></div></div></a>
+      </div>
+      <aside class="side">
+        <div class="top5">
+          <h2>Lo más leído de Minecraft</h2>
+          <ol>
+            <li><div><a href="#" data-go="guide">Cómo encontrar diamantes</a></div></li>
+            <li><div><a href="#" data-go="guide">Cómo hacer un portal al Nether</a></div></li>
+            <li><div><a href="#" data-go="guide">Encantamientos: los mejores por herramienta</a></div></li>
+          </ol>
+        </div>
+        <div><div class="ad-l">Publicidad</div><div class="ad ad-box"><div><b>Anuncio 300×250</b></div></div></div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<!-- ================= GUÍA ================= -->
+<main id="view-guide" hidden>
+  <div class="wrap">
+    <header class="g-head">
+      <div class="crumbs"><a href="#" data-go="home">Inicio</a> / <a href="#" data-go="home">Para creadores</a> / TikTok LIVE</div>
+      <h1>Cómo hacer LIVE en TikTok en 2026: requisitos, configuración y errores que te bloquean</h1>
+      <p class="dek">Lo que necesitas para salir en vivo, cómo configurarlo y las reglas que más cuentas han perdido este año.</p>
+      <div class="byline"><div class="face" aria-hidden="true">CR</div><div><b>[Creador]</b><span>Actualizado el 2 oct 2026 · 8 min de lectura</span></div></div>
+    </header>
+    <div class="g-cover"><div class="cover k"><span>TikTok LIVE</span></div><p class="caption">Captura propia del panel de LIVE.</p></div>
+
+    <div class="g-grid">
+      <article class="prose">
+        <div class="quick"><b>Respuesta corta</b>Para hacer LIVE con regalos necesitas ser mayor de 18 y cumplir el mínimo de seguidores de tu país. Para batallas, además, 1.000 seguidores y la cuenta sin advertencias.</div>
+        <details class="toc-m"><summary>En esta guía</summary><ol><li><a href="#req">Requisitos</a></li><li><a href="#pasos">Paso a paso</a></li><li><a href="#errores">Errores que te bloquean</a></li></ol></details>
+
+        <h2 id="req">Requisitos</h2>
+        <div class="facts3">
+          <div><strong>18+</strong><span>para recibir regalos y hacer batallas</span></div>
+          <div><strong>1.000</strong><span>seguidores para batallas</span></div>
+          <div><strong>0</strong><span>advertencias activas en tu cuenta</span></div>
+        </div>
+        <p>Los requisitos cambian según el país y TikTok los ajusta seguido. Por eso esta guía tiene fecha de actualización arriba y la revisamos cada mes.</p>
+        <p>Párrafo de ejemplo con la experiencia del creador: cuánto tardó en llegar a los requisitos y qué haría distinto si empezara hoy.</p>
+
+        <div><div class="ad-l">Publicidad</div><div class="ad"><div><b>Anuncio 336×280</b>después del tercer párrafo</div></div></div>
+
+        <h2 id="pasos">Paso a paso desde el celular</h2>
+        <ol class="steps">
+          <li><div><b>Toca "+" y desliza hasta LIVE.</b>Si no aparece, todavía no cumples los requisitos de tu país.</div></li>
+          <li><div><b>Escribe un título que diga qué vas a hacer.</b>"Batalla a las 9 pm" funciona mejor que "LIVE".</div></li>
+          <li><div><b>Activa el filtro de comentarios.</b>Te evita problemas con palabras prohibidas en el chat.</div></li>
+          <li><div><b>Revisa el audio antes de empezar.</b>Nada de música con derechos de fondo.</div></li>
+        </ol>
+
+        <h2 id="errores">Errores que te bloquean el LIVE</h2>
+        <div class="avoid"><b>Evita siempre</b>
+          <ul>
+            <li>Música con copyright de fondo, aunque sea bajita.</li>
+            <li>Apuestas, casinos o sorteos por dinero.</li>
+            <li>Quedarte en silencio o quieto mucho tiempo.</li>
+          </ul>
+        </div>
+        <p>Cada advertencia dura 90 días. Si juntas varias de la misma regla, TikTok te quita el LIVE primero por un tiempo y después para siempre.</p>
+
+        <div class="useful"><b>¿Te sirvió esta guía?</b><div class="btns"><button class="btn o" type="button" id="fb-y">Sí</button><button class="btn o" type="button" id="fb-n">No</button></div></div>
+        <p class="sources">Fuentes: normas de la comunidad de TikTok, centro de ayuda de TikTok LIVE y experiencia propia del creador.</p>
+      </article>
+      <aside class="g-side">
+        <div class="sticky">
+          <nav class="toc" aria-label="En esta guía"><b>En esta guía</b><ol><li><a href="#req">Requisitos</a></li><li><a href="#pasos">Paso a paso</a></li><li><a href="#errores">Errores que te bloquean</a></li></ol></nav>
+          <div><div class="ad-l">Publicidad</div><div class="ad ad-tall"><div><b>Anuncio 300×600</b>solo en computadora</div></div></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<!-- ================= HERRAMIENTA ================= -->
+<main id="view-tool" hidden>
+  <div class="wrap">
+    <header class="g-head">
+      <div class="crumbs"><a href="#" data-go="home">Inicio</a> / Herramientas</div>
+      <h1>Calculadora de diamantes de TikTok LIVE</h1>
+      <p class="dek">Escribe cuántas monedas te regalaron y mira cuánto es en dólares.</p>
+    </header>
+    <div class="calc-wrap">
+      <div>
+        <section class="calc" aria-label="Calculadora">
+          <div>
+            <label for="coins">Monedas que te regalaron</label>
+            <div class="field"><input id="coins" type="number" inputmode="numeric" min="0" value="20000"><span>monedas</span></div>
+          </div>
+          <div class="quick-v" aria-label="Valores rápidos">
+            <button type="button" id="p1" data-v="1000">1.000</button>
+            <button type="button" id="p2" data-v="5000">5.000</button>
+            <button type="button" id="p3" data-v="20000">20.000</button>
+            <button type="button" id="p4" data-v="100000">100.000</button>
+          </div>
+          <div class="out">
+            <div><span>Diamantes para ti</span><strong id="o-d">10.000</strong></div>
+            <div class="big"><span>En dólares</span><strong id="o-u">$50,00</strong></div>
+          </div>
+          <p class="how"><b>Cómo se calcula:</b> recibes cerca del 50 % de las monedas como diamantes, y cada diamante vale unos $0,005. Son valores aproximados: TikTok no publica una tasa oficial.</p>
+        </section>
+        <section class="prose" style="margin-top:40px">
+          <h2 style="margin-top:0">Preguntas frecuentes</h2>
+          <p><b>¿Cuánto son 1.000 diamantes?</b> Unos $5, según lo que reportan los creadores en 2026.</p>
+          <p><b>¿Por qué recibo menos de lo que gastó mi público?</b> TikTok se queda con cerca de la mitad del valor del regalo.</p>
+        </section>
+      </div>
+      <aside><div class="ad-l">Publicidad</div><div class="ad ad-box"><div><b>Anuncio 300×250</b>al lado, nunca encima de los botones</div></div></aside>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div><a class="logo" href="#" data-go="home">novedades<b>593</b></a><p>Guías de juegos y trucos para creadores. Hecho en Ecuador para toda Latinoamérica.</p></div>
+    <div><h4>Explora</h4><ul><li>Juegos</li><li>Para creadores</li><li>Noticias</li><li>Virales</li><li>Herramientas</li></ul></div>
+    <div><h4>El sitio</h4><ul><li>Quiénes somos</li><li>Cómo probamos</li><li>Anuncia con nosotros</li></ul></div>
+    <div><h4>Legal</h4><ul><li>Privacidad y cookies</li><li>Términos</li><li>Contacto</li></ul></div>
+  </div>
+</footer>
+
+<nav class="tabbar" aria-label="Navegación">
+  <a href="#" data-go="home" data-tab="home" aria-current="page"><svg aria-hidden="true"><use href="#i-home"/></svg>Inicio</a>
+  <a href="#" data-go="game" data-tab="game"><svg aria-hidden="true"><use href="#i-pad"/></svg>Juegos</a>
+  <a href="#" data-go="guide" data-tab="guide"><svg aria-hidden="true"><use href="#i-mic"/></svg>Creadores</a>
+  <a href="#" data-go="tool" data-tab="tool"><svg aria-hidden="true"><use href="#i-tool"/></svg>Herramientas</a>
+  <a href="#" data-go="search" data-tab="search"><svg aria-hidden="true"><use href="#i-search"/></svg>Buscar</a>
+</nav>
+
+</div>
+</div>
+
+<script>
+(function () {
+  var views = { home: 'view-home', game: 'view-game', guide: 'view-guide', tool: 'view-tool' };
+  var navMap = { game: 'Juegos', guide: 'Para creadores', tool: 'Herramientas' };
+  function show(v) {
+    if (v === 'search') { show('home'); setTimeout(function () { document.getElementById('q').focus(); }, 50); return; }
+    if (!views[v]) return;
+    Object.keys(views).forEach(function (k) { document.getElementById(views[k]).hidden = k !== v; });
+    document.querySelectorAll('[data-view]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.view === v)); });
+    document.querySelectorAll('.tabbar a').forEach(function (a) { a.toggleAttribute('aria-current', a.dataset.tab === v); if (a.dataset.tab === v) a.setAttribute('aria-current', 'page'); });
+    document.querySelectorAll('.nav a').forEach(function (a) { if (a.textContent === navMap[v]) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll('[data-view]').forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.view); }); });
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('[data-go]');
+    if (a) { e.preventDefault(); show(a.dataset.go); }
+  });
+  document.getElementById('top-search').addEventListener('click', function () { show('search'); });
+  var h = location.hash.slice(1); if (views[h]) show(h);
+
+  var stage = document.getElementById('stage');
+  document.querySelectorAll('[data-dev]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      stage.classList.toggle('phone', b.dataset.dev === 'phone');
+      document.querySelectorAll('[data-dev]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+    });
+  });
+
+  // Buscador con sugerencias
+  var items = [
+    ['Códigos de Roblox activos hoy', 'Roblox', 'guide'], ['Cómo encontrar diamantes en Minecraft', 'Minecraft', 'guide'],
+    ['Requisitos de PC para GTA VI', 'GTA VI', 'guide'], ['Cuándo sale GTA VI y cuánto cuesta', 'GTA VI', 'guide'],
+    ['Calculadora de diamantes de TikTok LIVE', 'Herramienta', 'tool'], ['Cómo hacer LIVE en TikTok', 'Para creadores', 'guide'],
+    ['Cómo ganar batallas en TikTok', 'Para creadores', 'guide'], ['Configurar OBS para TikTok', 'Para creadores', 'guide'],
+    ['Nombres para Free Fire con letras especiales', 'Free Fire', 'tool'], ['La mejor sensibilidad para Free Fire', 'Free Fire', 'guide'],
+    ['Granja de hierro fácil', 'Minecraft', 'guide'], ['Blox Fruits: subir de nivel rápido', 'Roblox', 'guide'],
+    ['Misiones de la semana de Fortnite', 'Fortnite', 'guide'], ['Minecraft: todas las guías', 'Juego', 'game']
+  ];
+  var q = document.getElementById('q'), box = document.getElementById('suggest');
+  function norm(s) { return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+  function render() {
+    var t = norm(q.value.trim());
+    if (!t) { box.hidden = true; return; }
+    var hits = items.filter(function (i) { return norm(i[0] + ' ' + i[1]).indexOf(t) > -1; }).slice(0, 6);
+    box.innerHTML = '';
+    if (!hits.length) { var d = document.createElement('a'); d.href = '#'; d.textContent = 'Sin resultados para "' + q.value + '". Prueba con el nombre del juego.'; box.appendChild(d); box.hidden = false; return; }
+    hits.forEach(function (i) { var a = document.createElement('a'); a.href = '#'; a.dataset.go = i[2]; a.setAttribute('role', 'option'); var s = document.createElement('span'); s.textContent = i[0]; var m = document.createElement('small'); m.textContent = i[1]; a.appendChild(s); a.appendChild(m); box.appendChild(a); });
+    box.hidden = false;
+  }
+  q.addEventListener('input', render);
+  q.addEventListener('focus', render);
+  document.getElementById('q-go').addEventListener('click', function () { if (!q.value) { q.value = 'roblox'; } render(); q.focus(); });
+  document.addEventListener('click', function (e) { if (!e.target.closest('#search')) box.hidden = true; });
+
+  // Cuenta regresiva a GTA VI (19 nov 2026, hora de Ecuador)
+  var target = new Date('2026-11-19T00:00:00-05:00').getTime();
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function tick() {
+    var ms = Math.max(0, target - Date.now());
+    document.getElementById('cd-d').textContent = Math.floor(ms / 864e5);
+    document.getElementById('cd-h').textContent = pad(Math.floor(ms / 36e5) % 24);
+    document.getElementById('cd-m').textContent = pad(Math.floor(ms / 6e4) % 60);
+  }
+  tick(); setInterval(tick, 30000);
+
+  // Filtros del juego
+  document.querySelectorAll('[data-f]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('[data-f]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      document.querySelectorAll('#hub-list .row').forEach(function (r) { r.hidden = b.dataset.f !== 'all' && r.dataset.k !== b.dataset.f; });
+    });
+  });
+
+  // Calculadora
+  var nf = new Intl.NumberFormat('es-EC'), usd = new Intl.NumberFormat('es-EC', { style: 'currency', currency: 'USD' });
+  var coins = document.getElementById('coins');
+  function calc() {
+    var c = Math.max(0, Number(coins.value) || 0), d = Math.floor(c * 0.5);
+    document.getElementById('o-d').textContent = nf.format(d);
+    document.getElementById('o-u').textContent = usd.format(d * 0.005);
+  }
+  coins.addEventListener('input', calc);
+  document.querySelectorAll('[data-v]').forEach(function (b) { b.addEventListener('click', function () { coins.value = b.dataset.v; calc(); }); });
+  calc();
+
+  ['fb-y', 'fb-n'].forEach(function (id) { document.getElementById(id).addEventListener('click', function () { this.parentNode.innerHTML = '<span class="meta">Gracias. Lo usamos para mejorar la guía.</span>'; }); });
+})();
+</script>
