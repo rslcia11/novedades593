@@ -34,8 +34,7 @@ h1, h2, h3 { text-wrap: balance; letter-spacing: -0.02em; }
 img { max-width: 100%; }
 :focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
 .mark { background: var(--yellow); padding: 0 .12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-.wrap { max-width: 1200px; margin: 0 auto; padding-inline: 32px; }
-@media (max-width: 700px) { .wrap { padding-inline: 16px; } }
+.wrap { max-width: 1320px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px); }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* Aviso de vista previa */
@@ -162,11 +161,45 @@ main { min-height: 60vh; }
 .top5 small { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
 
 /* Inicio */
-.intro { padding-top: 56px; display: grid; gap: 20px; max-width: 860px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: clamp(32px, 5vw, 72px); align-items: center; padding-block: 56px 8px; }
+@media (max-width: 1099px) { .hero { grid-template-columns: minmax(0, 1fr); padding-top: 36px; } }
+@media (min-width: 701px) and (max-width: 1099px) { .hero .today { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr); } .hero .t-main { grid-column: auto; } .hero .t-main h3 { font-size: 22px; } .hero .t-main .clock { width: 100%; } .hero .t-main .clock div { min-width: 0; flex: 1; } .hero .t-main .clock strong { font-size: 28px; } }
+@media (max-width: 700px) { .hero { padding-top: 24px; gap: 28px; } }
+.intro { display: grid; gap: 22px; }
 .intro > * { min-width: 0; }
-.intro h1 { font-size: clamp(36px, 6vw, 68px); font-weight: 900; line-height: 1.1; letter-spacing: -0.04em; }
+.intro h1 { font-size: clamp(38px, 5.4vw, 76px); font-weight: 900; line-height: 1.1; letter-spacing: -0.04em; }
 .intro p { font-size: 19px; color: var(--ink-2); max-width: 56ch; }
-@media (max-width: 700px) { .intro { padding-top: 32px; } .intro p { font-size: 17px; } }
+.intro p { font-size: 17px; }
+@media (min-width: 701px) { .intro p { font-size: 19px; } }
+/* Panel "Hoy" de la portada */
+.today { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.today-h { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; color: var(--muted); }
+.today-h b { color: var(--ink); font-size: 15px; }
+.t-card { border-radius: 10px; padding: 20px; display: grid; gap: 10px; align-content: space-between; min-width: 0; }
+.t-card small { font-size: 13px; font-weight: 700; }
+.t-card h3 { font-size: 20px; font-weight: 900; line-height: 1.15; }
+.t-main { grid-column: 1 / -1; background: var(--ink); color: #fff; padding: 24px; }
+.t-main small { color: var(--yellow); }
+.t-main h3 { font-size: clamp(24px, 2.6vw, 32px); }
+.t-main .row2 { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.t-main .clock div { min-width: 76px; padding: 10px 8px; }
+.t-main .clock strong { font-size: 36px; }
+.t-y { background: var(--yellow); }
+.t-o { border: 1.5px solid var(--ink); }
+.t-card .code-line { display: flex; align-items: center; justify-content: space-between; gap: 8px; background: rgba(255,255,255,.55); border-radius: 6px; padding: 6px 6px 6px 12px; font-weight: 800; letter-spacing: .02em; min-width: 0; }
+.t-card .code-line span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 15px; }
+.t-card .code-line .copy { min-height: 34px; padding: 0 10px; font-size: 13px; flex: none; }
+.t-card .big { font-size: 34px; font-weight: 900; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.t-card .go { font-weight: 700; font-size: 14px; border-bottom: 1.5px solid currentColor; justify-self: start; }
+@media (max-width: 460px) { .today { grid-template-columns: minmax(0, 1fr); } .t-main .clock { width: 100%; } }
+/* Franja de confianza */
+.trust { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-block: 1px solid var(--line); margin-top: 48px; }
+.trust div { display: flex; gap: 12px; align-items: center; padding: 18px 16px; font-size: 14px; color: var(--ink-2); line-height: 1.35; }
+.trust div + div { border-left: 1px solid var(--line); }
+.trust svg { width: 28px; height: 28px; flex: none; }
+.trust b { display: block; color: var(--ink); font-size: 15px; }
+@media (max-width: 900px) { .trust { grid-template-columns: repeat(2, minmax(0, 1fr)); } .trust div:nth-child(3) { border-left: 0; } .trust div:nth-child(n+3) { border-top: 1px solid var(--line); } }
+@media (max-width: 460px) { .trust div { flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px 12px; font-size: 13px; } .trust svg { width: 24px; height: 24px; } }
 .search { position: relative; max-width: 720px; }
 .search-box { display: flex; align-items: center; gap: 10px; height: 60px; border: 2px solid var(--ink); border-radius: 8px; padding: 0 8px 0 18px; background: var(--paper); }
 .search-box input { flex: 1; min-width: 0; border: 0; outline: none; background: transparent; font-size: 17px; }
@@ -836,12 +869,12 @@ function pHome() {
   var news = inSec('noticias'), vir = inSec('virales');
   var latest = ['gta-6-pc', 'diamantes-minecraft', 'hacer-live-tiktok', 'celulares-free-fire', 'blox-fruits-subir-nivel'].map(function (k) { return byId[k]; });
   return '<div class="wrap">' +
-    '<section class="intro"><h1>Guías de juegos y <span class="mark">trucos para creadores</span>.</h1><p>Minecraft, Roblox, GTA VI, Free Fire y TikTok LIVE, explicado fácil por alguien que juega y hace lives todos los días.</p>' + searchBox('q-home') +
-    '<div class="popular"><span>Lo que más buscan:</span><a href="#/a/codigos-roblox">códigos de Roblox</a><a href="#/a/diamantes-minecraft">diamantes en Minecraft</a><a href="#/a/gta-6-pc">GTA VI en PC</a><a href="#/herramientas/diamantes">cuánto paga TikTok LIVE</a></div></section>' +
+    '<div class="hero"><section class="intro"><h1>Guías de juegos y <span class="mark">trucos para creadores</span>.</h1><p>Minecraft, Roblox, GTA VI, Free Fire y TikTok LIVE, explicado fácil por ' + esc(CREATOR.name) + ', que juega y hace lives todos los días.</p>' + searchBox('q-home') +
+    '<div class="popular"><span>Lo que más buscan:</span><a href="#/a/codigos-roblox">códigos de Roblox</a><a href="#/a/diamantes-minecraft">diamantes en Minecraft</a><a href="#/a/gta-6-pc">GTA VI en PC</a><a href="#/herramientas/diamantes">cuánto paga TikTok LIVE</a></div></section>' + todayHTML() + '</div>' +
+    '<div class="trust">' + [['i-mic', 'Probado en lives', 'por ' + esc(CREATOR.name)], ['i-tool', 'Actualizado a diario', 'códigos y guías con fecha'], ['i-phone', 'Hecho para celular', 'rápido en gama media'], ['i-grid', 'Gratis y sin registro', 'guías y herramientas']].map(function (t) { return '<div><svg aria-hidden="true"><use href="#' + t[0] + '"/></svg><span><b>' + t[1] + '</b>' + t[2] + '</span></div>'; }).join('') + '</div>' +
     '<section class="sec"><div class="sec-h"><h2>Elige tu juego</h2><a class="more" href="#/juegos">Todos los juegos</a></div>' + gamesGrid() + '</section>' +
     '<div class="sec">' + ad('970×250', 'ad-bill', 'en el borde de la primera pantalla · 320×100 en celular') + '</div>' +
     '<section class="sec split"><div><div class="sec-h"><h2>Lo nuevo</h2><a class="more" href="#/juegos">Ver todo</a></div><div class="list">' + latest.map(row).join('') + '</div></div><aside class="side">' + topList('Lo más leído hoy', popular().slice(0, 5)) + ad('300×250', 'ad-box') + '</aside></section>' +
-    '<section class="sec">' + countdownHTML() + '</section>' +
     '<section class="sec"><div class="sec-h"><div><h2>Equipo</h2><p>Celulares para jugar, audífonos y equipo para stream. Lo que usamos y probamos.</p></div><a class="more" href="#/equipo">Ver todo</a></div><div class="grid">' + inSec('equipo').slice(0, 3).map(card).join('') + '</div></section>' +
     '<section class="sec"><div class="sec-h"><div><h2>Para creadores</h2><p>Lives, batallas, OBS y equipo. Lo que aprendimos haciendo stream todos los días.</p></div><a class="more" href="#/creadores">Ver todo</a></div><div class="creators">' + host() + '<div class="c-grid">' + inSec('creadores').slice(0, 4).map(card).join('') + '</div></div></section>' +
     '<section class="sec"><div class="sec-h"><div><h2>Herramientas gratis</h2><p>Sin registrarte, desde el celular.</p></div><a class="more" href="#/herramientas">Ver todas</a></div>' + toolsGrid(3) + '</section>' +
@@ -853,6 +886,13 @@ function pHome() {
 function communityHTML() {
   return '<div class="join"><div><h2>Únete a la comunidad.</h2><p>Códigos nuevos, avisos de lives y guías importantes, antes que nadie.</p></div><div class="btns">' + COMMUNITY.map(function (c, i) { return '<button class="btn' + (i === 0 ? ' y' : ' o') + '" type="button" data-toast="En el sitio real, este botón abre el ' + (c === 'Discord' ? 'servidor' : 'canal') + ' de ' + c + '">' + c + '</button>'; }).join('') + '</div></div>' +
     '<div class="follow"><div><b>Síguenos en Google</b><p>Márcanos como fuente preferida y Google te mostrará nuestras guías primero cuando busques algo de juegos.</p></div><button class="btn o" type="button" data-toast="En el sitio real, este es el botón oficial de Google para agregarnos como fuente preferida">Seguir en Google</button></div>';
+}
+function todayHTML() {
+  var code = byId['codigos-roblox'].blocks.filter(function (b) { return b[0] === 'codes'; })[0][1][0][0];
+  return '<aside class="today" aria-label="Hoy en entretenimiento593"><div class="today-h"><b>Hoy en entretenimiento593</b><span>Actualizado 9:00</span></div>' +
+    '<a class="t-card t-main" href="#/a/gta-6-todo-lo-que-sabemos"><small>GTA VI · 19 de noviembre</small><div class="row2"><h3>Faltan pocos días para GTA VI.</h3><div class="clock" aria-label="Cuenta regresiva"><div><strong data-cd="d">—</strong><span>días</span></div><div><strong data-cd="h">—</strong><span>horas</span></div><div><strong data-cd="m">—</strong><span>min</span></div></div></div><span class="go">Todo lo que sabemos</span></a>' +
+    '<div class="t-card t-y"><small>Códigos de Roblox</small><h3>5 activos hoy</h3><div class="code-line"><span>' + esc(code) + '</span><button class="copy" type="button" data-copy="' + esc(code) + '">Copiar</button></div><a class="go" href="#/a/codigos-roblox">Ver todos</a></div>' +
+    '<a class="t-card t-o" href="#/herramientas/diamantes"><small>TikTok LIVE</small><span><span class="big">$5</span><br>por cada 1.000 diamantes</span><span class="go">Calcular los míos</span></a></aside>';
 }
 function searchBox(id) {
   return '<form class="search" data-search role="search"><label class="sr" for="' + id + '">Buscar en entretenimiento593</label><div class="search-box"><svg width="20" height="20" aria-hidden="true"><use href="#i-search"/></svg><input id="' + id + '" type="search" autocomplete="off" placeholder="Busca un juego o una duda…" data-q aria-autocomplete="list"><button class="clear" type="button" data-clear aria-label="Borrar búsqueda" hidden><svg width="14" height="14" aria-hidden="true"><use href="#i-x"/></svg></button><button class="btn" type="submit"><svg width="16" height="16" aria-hidden="true"><use href="#i-search"/></svg><span>Buscar</span></button></div><div class="suggest" hidden></div></form>';
