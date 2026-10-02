@@ -44,7 +44,7 @@ img { max-width: 100%; }
 
 /* Cabecera */
 .top { position: sticky; top: 0; z-index: 40; background: var(--paper); border-bottom: 1px solid var(--line); }
-.top-in { display: flex; align-items: center; gap: 28px; min-height: var(--top); }
+.top-in { display: flex; align-items: center; gap: 28px; min-height: 64px; }
 .logo { display: inline-flex; align-items: center; font-weight: 800; font-size: 20px; letter-spacing: -0.035em; white-space: nowrap; }
 .logo b { background: var(--yellow); padding: 1px 6px 2px; margin-left: 3px; border-radius: 3px; font-weight: 900; }
 .nav { display: flex; gap: 22px; font-weight: 600; font-size: 15px; }
@@ -53,9 +53,45 @@ img { max-width: 100%; }
 .top-r { margin-left: auto; display: flex; gap: 8px; align-items: center; }
 .icon-btn { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); background: var(--paper); flex: none; }
 .icon-btn:hover { border-color: var(--ink); }
-.menu-btn { display: none; }
-@media (max-width: 1040px) { .nav { display: none; } .menu-btn { display: grid; } }
-@media (max-width: 700px) { .menu-btn { display: none; } .logo { font-size: 18px; } }
+.nav a[aria-current="page"] { border-color: var(--ink); }
+/* Navegación siempre visible: en tablet pasa a una segunda fila; en celular, a la barra inferior */
+@media (max-width: 1099px) {
+  :root { --top: 112px; }
+  .top-in { flex-wrap: wrap; column-gap: 16px; row-gap: 0; }
+  .top-in > .logo { min-height: 64px; display: inline-flex; align-items: center; }
+  .nav { order: 3; width: 100%; overflow-x: auto; gap: 6px; scrollbar-width: none; border-top: 1px solid var(--line); padding: 4px 0; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a { padding: 10px 10px; border-bottom: 0; border-radius: 6px; }
+  .nav a:hover { background: var(--soft); }
+  .nav a[aria-current="page"] { background: var(--yellow); }
+}
+@media (max-width: 700px) { :root { --top: 64px; } .nav { display: none; } .logo { font-size: 18px; } }
+.skip { position: absolute; left: 16px; top: -60px; z-index: 100; background: var(--yellow); color: var(--ink); font-weight: 700; padding: 10px 14px; border-radius: 6px; border: 0; }
+.skip:focus { top: 8px; }
+main:focus { outline: none; }
+.progress { position: absolute; left: 0; bottom: -1px; height: 3px; width: 100%; pointer-events: none; }
+.progress i { display: block; height: 100%; width: 0; background: var(--ink); }
+/* Respuesta al tocar (Norman: feedback) */
+@media (prefers-reduced-motion: no-preference) {
+  .btn, .copy, .chips button, .filters button, .game, .tool-t, .card, .row, .clip { transition: transform .12s ease, background-color .15s ease; }
+  .btn:active, .copy:active, .chips button:active, .filters button:active, .game:active, .tool-t:active, .card:active, .row:active, .clip:active { transform: scale(.98); }
+  html { scroll-behavior: smooth; }
+}
+/* Fitts: objetivos táctiles de 44 px como mínimo */
+@media (pointer: coarse) {
+  .chips button, .filters button, .copy, .btn.sm { min-height: 44px; }
+  .foot ul a, .crumbs a, .popular a { display: inline-block; padding-block: 8px; }
+  .icon-btn { width: 44px; height: 44px; }
+}
+mark { background: var(--yellow); color: inherit; padding: 0 1px; }
+.clear { width: 36px; height: 36px; border-radius: 50%; border: 0; background: var(--soft); display: grid; place-items: center; flex: none; }
+.clear:hover { background: var(--line); }
+.suggest a.on { background: var(--yellow); }
+.share { display: flex; flex-wrap: wrap; gap: 8px; }
+.follow { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; background: var(--soft); border-radius: 10px; padding: 20px 24px; margin-top: 16px; }
+.follow p { color: var(--ink-2); font-size: 15px; margin-top: 4px; }
+@media (max-width: 760px) { .follow { grid-template-columns: minmax(0, 1fr); } }
+.prose a:not(.btn):not(.row):not(.card) { text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
 
 /* Comunes */
 main { min-height: 60vh; }
@@ -181,7 +217,7 @@ main { min-height: 60vh; }
 .tool-t p { color: var(--ink-2); font-size: 15px; }
 .tool-t .go { font-weight: 700; font-size: 15px; margin-top: 4px; }
 @media (max-width: 800px) { .tools { grid-template-columns: minmax(0, 1fr); } }
-.clips { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(170px, 1fr); gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; }
+.clips { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(170px, 1fr); scroll-padding-left: 0; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; }
 .clip { scroll-snap-align: start; display: grid; gap: 8px; align-content: start; }
 .clip .v { aspect-ratio: 9/14; border-radius: 8px; background: var(--ink); color: #fff; position: relative; display: grid; place-items: center; }
 .clip .v.y { background: var(--yellow); color: var(--ink); }
@@ -189,6 +225,7 @@ main { min-height: 60vh; }
 .clip .v svg { width: 44px; height: 44px; }
 .clip .v small { position: absolute; left: 10px; bottom: 10px; font-size: 12px; font-weight: 700; }
 .clip h3 { font-size: 15px; font-weight: 700; line-height: 1.3; }
+@media (max-width: 700px) { .clips { grid-auto-columns: 42%; } }
 .clips.wrapgrid { grid-auto-flow: row; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; }
 @media (max-width: 900px) { .clips.wrapgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .news { display: grid; }
@@ -400,6 +437,7 @@ footer { margin-top: 96px; background: var(--soft); padding-block: 44px; }
 </style>
 </head>
 <body>
+<button class="skip" type="button" data-skip>Ir al contenido</button>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 4l9 7v9h-6v-6H9v6H3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
@@ -437,9 +475,9 @@ footer { margin-top: 96px; background: var(--soft); padding-block: 44px; }
     </nav>
     <div class="top-r">
       <a class="icon-btn" href="#/buscar" aria-label="Buscar"><svg width="18" height="18"><use href="#i-search"/></svg></a>
-      <button class="icon-btn menu-btn" type="button" data-menu aria-label="Abrir menú"><svg width="20" height="20"><use href="#i-menu"/></svg></button>
     </div>
   </div>
+  <div class="progress" aria-hidden="true" hidden><i></i></div>
 </header>
 
 <main id="app" tabindex="-1"></main>
@@ -488,6 +526,8 @@ footer { margin-top: 96px; background: var(--soft); padding-block: 44px; }
 <script>
 /* ===================== Datos editables ===================== */
 var CREATOR = { name: '[Creador]', initials: 'CR', years: '4 años', battles: '+300' };
+/* Canales de la comunidad: deja solo los que use el creador (WhatsApp, Discord, Telegram…) */
+var COMMUNITY = ['WhatsApp', 'Discord', 'Telegram'];
 var GTA_DATE = new Date('2026-11-19T00:00:00-05:00');
 
 var SECTIONS = {
@@ -807,11 +847,15 @@ function pHome() {
     '<section class="sec"><div class="sec-h"><div><h2>Herramientas gratis</h2><p>Sin registrarte, desde el celular.</p></div><a class="more" href="#/herramientas">Ver todas</a></div>' + toolsGrid(3) + '</section>' +
     '<section class="sec split"><div><div class="sec-h"><h2>Noticias de hoy</h2><a class="more" href="#/noticias">Todas</a></div><div class="news">' + news.map(newsItem).join('') + '</div></div><aside class="side">' + ad('300×250', 'ad-box') + '</aside></section>' +
     '<section class="sec"><div class="sec-h"><div><h2>Virales de la semana</h2><p>Lo más gracioso de los lives.</p></div><a class="more" href="#/virales">Ver todo</a></div><div class="clips" role="list">' + vir.map(clip).join('') + '</div></section>' +
-    '<section class="sec join"><div><h2>Recibe los códigos antes que nadie.</h2><p>Únete al canal de WhatsApp. Un mensaje cuando hay códigos nuevos o una guía importante.</p></div><div class="btns"><button class="btn y" type="button" data-toast="En el sitio real, este botón abre el canal de WhatsApp">Unirme al canal</button><button class="btn o" type="button" data-toast="En el sitio real, este botón agrega el sitio como fuente preferida en Google">Agregar como fuente en Google</button></div></section>' +
+    '<section class="sec">' + communityHTML() + '</section>' +
     '</div>';
 }
+function communityHTML() {
+  return '<div class="join"><div><h2>Únete a la comunidad.</h2><p>Códigos nuevos, avisos de lives y guías importantes, antes que nadie.</p></div><div class="btns">' + COMMUNITY.map(function (c, i) { return '<button class="btn' + (i === 0 ? ' y' : ' o') + '" type="button" data-toast="En el sitio real, este botón abre el ' + (c === 'Discord' ? 'servidor' : 'canal') + ' de ' + c + '">' + c + '</button>'; }).join('') + '</div></div>' +
+    '<div class="follow"><div><b>Síguenos en Google</b><p>Márcanos como fuente preferida y Google te mostrará nuestras guías primero cuando busques algo de juegos.</p></div><button class="btn o" type="button" data-toast="En el sitio real, este es el botón oficial de Google para agregarnos como fuente preferida">Seguir en Google</button></div>';
+}
 function searchBox(id) {
-  return '<form class="search" data-search role="search"><label class="sr" for="' + id + '">Buscar en entretenimiento593</label><div class="search-box"><svg width="20" height="20" aria-hidden="true"><use href="#i-search"/></svg><input id="' + id + '" type="search" autocomplete="off" placeholder="Busca un juego o una duda…" data-q><button class="btn" type="submit"><svg width="16" height="16" aria-hidden="true"><use href="#i-search"/></svg><span>Buscar</span></button></div><div class="suggest" hidden></div></form>';
+  return '<form class="search" data-search role="search"><label class="sr" for="' + id + '">Buscar en entretenimiento593</label><div class="search-box"><svg width="20" height="20" aria-hidden="true"><use href="#i-search"/></svg><input id="' + id + '" type="search" autocomplete="off" placeholder="Busca un juego o una duda…" data-q aria-autocomplete="list"><button class="clear" type="button" data-clear aria-label="Borrar búsqueda" hidden><svg width="14" height="14" aria-hidden="true"><use href="#i-x"/></svg></button><button class="btn" type="submit"><svg width="16" height="16" aria-hidden="true"><use href="#i-search"/></svg><span>Buscar</span></button></div><div class="suggest" hidden></div></form>';
 }
 function gamesGrid() {
   return '<div class="games">' + Object.keys(GAMES).map(function (k) { var g = GAMES[k]; return '<a class="game" href="#/juegos/' + k + '"><svg aria-hidden="true"><use href="#' + g.icon + '"/></svg><div><strong>' + g.name + '</strong><small>' + inGame(k).length + ' artículos</small></div></a>'; }).join('') +
@@ -892,7 +936,7 @@ function pArticle(id) {
   body += '<p class="sources">' + (a.type === 'noticia' ? 'Fuente: comunicado oficial (enlace en el sitio real).' : a.type === 'comparativa' ? 'Pruebas propias del equipo de entretenimiento593.' : a.byCreator ? 'Fuentes: centro de ayuda oficial y experiencia propia del creador.' : 'Fuentes: wiki y notas oficiales del juego, y pruebas propias.') + '</p>';
   var rel = relatedOf(a);
   var toc = heads.length > 1 ? '<nav class="toc" aria-label="En esta guía"><b>En esta guía</b><ol>' + heads.map(function (h) { return '<li><button type="button" data-jump="' + slug(h[1]) + '">' + esc(h[1]) + '</button></li>'; }).join('') + '</ol></nav>' : '';
-  return '<div class="wrap"><header class="a-head"><div class="crumbs">' + crumbs + '</div><h1>' + esc(a.title) + '</h1><p class="dek">' + esc(a.dek) + '</p>' + author + '</header>' +
+  return '<div class="wrap"><header class="a-head"><div class="crumbs">' + crumbs + '</div><h1>' + esc(a.title) + '</h1><p class="dek">' + esc(a.dek) + '</p>' + author + '<div class="share"><a class="btn o sm" href="https://wa.me/?text=' + encodeURIComponent(a.title + ' ' + location.href) + '" target="_blank" rel="noopener">Compartir por WhatsApp</a><button class="btn o sm" type="button" data-copy="' + esc(location.href) + '">Copiar enlace</button></div></header>' +
     '<div class="a-cover">' + cover(a) + '<p class="caption">' + (a.type === 'comparativa' ? 'Foto propia de las pruebas.' : 'Captura propia del juego o del stream.') + '</p></div>' +
     '<div class="a-grid"><article class="prose">' + body + '</article><aside class="a-side"><div class="sticky">' + toc + ad('300×600', 'ad-tall', 'solo en computadora') + '</div></aside></div>' +
     '<section class="related"><div class="sec-h"><h2>Sigue con</h2></div><div class="grid">' + rel.map(card).join('') + '</div></section></div>';
@@ -968,12 +1012,14 @@ function pPage(k) {
   return '<div class="wrap"><header class="a-head"><div class="crumbs"><a href="#/">Inicio</a> / ' + p[0] + '</div><h1>' + p[0] + '</h1></header><div class="prose page" style="margin-top:28px">' + p[1] + '</div></div>';
 }
 function pNotFound() {
-  return '<div class="wrap"><header class="a-head"><h1>No encontramos esa página</h1><p class="dek">Puede que el enlace esté mal escrito. Prueba con el buscador o vuelve al inicio.</p><div><a class="btn" href="#/">Ir al inicio</a></div></header></div>';
+  return '<div class="wrap"><header class="a-head"><h1>No encontramos esa página</h1><p class="dek">Puede que el enlace esté mal escrito o que la guía haya cambiado de lugar. Búscala o elige tu juego.</p>' + searchBox('q-404') + '<div><a class="btn" href="#/">Ir al inicio</a></div></header><section class="sec">' + gamesGrid() + '</section></div>';
 }
 
 /* ===================== Router ===================== */
 var app = document.getElementById('app');
-function route() {
+var positions = {};
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+function route(restore) {
   var h = location.hash.replace(/^#\/?/, '');
   var p = h.split('/').map(function (x) { return decodeURIComponent(x || ''); });
   var html, sec = '', tab = '', title = 'entretenimiento593 · Guías de juegos y trucos para creadores';
@@ -987,23 +1033,47 @@ function route() {
   else html = pNotFound();
   app.innerHTML = html;
   document.title = title;
-  document.querySelectorAll('.nav a').forEach(function (x) { x.classList.toggle('on', x.dataset.sec === sec); });
+  document.querySelectorAll('.nav a').forEach(function (x) { if (x.dataset.sec === sec) x.setAttribute('aria-current', 'page'); else x.removeAttribute('aria-current'); });
   document.querySelectorAll('.tabbar [data-tab]').forEach(function (x) { x.classList.toggle('on', x.dataset.tab === tab); });
   closeSheet();
-  window.scrollTo(0, 0);
+  var key = location.hash || '#/';
+  var y = restore && positions[key] ? positions[key] : 0;
+  window.scrollTo({ top: y, behavior: 'instant' });
+  if (y) requestAnimationFrame(function () { window.scrollTo({ top: y, behavior: 'instant' }); });
+  if (restore !== 'first') app.focus({ preventScroll: true });
+  progress.hidden = p[0] !== 'a';
   mount();
 }
-window.addEventListener('hashchange', route);
+var progress = document.querySelector('.progress');
+window.addEventListener('scroll', function () {
+  if (progress.hidden) return;
+  var max = document.documentElement.scrollHeight - innerHeight;
+  progress.firstChild.style.width = (max > 0 ? Math.min(100, scrollY / max * 100) : 0) + '%';
+}, { passive: true });
+function go(href) {
+  positions[location.hash || '#/'] = scrollY;
+  try { history.pushState(null, '', href); route(false); } catch (err) { location.hash = href; }
+}
+window.addEventListener('popstate', function () { route(true); });
+document.addEventListener('click', function (e) {
+  var a = e.target.closest('a[href^="#/"]');
+  if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
+  if (a.getAttribute('href') === location.hash) { window.scrollTo(0, 0); closeSheet(); return; }
+  go(a.getAttribute('href'));
+});
 
 /* ===================== Interacción ===================== */
 var sheet = document.getElementById('sheet');
 function closeSheet() { sheet.hidden = true; }
 document.addEventListener('click', function (e) {
   var t = e.target;
+  if (t.closest('[data-skip]')) { app.focus(); return; }
+  var clr = t.closest('[data-clear]'); if (clr) { var inp = clr.parentNode.querySelector('[data-q]'); inp.value = ''; inp.dispatchEvent(new Event('input')); inp.focus(); return; }
   if (t.closest('[data-menu]')) { sheet.hidden = false; document.getElementById('sheet-x').focus(); return; }
   if (t.closest('#sheet-x') || t === sheet) { closeSheet(); return; }
   var copy = t.closest('[data-copy]');
-  if (copy) { var txt = copy.dataset.copy, done = function () { copy.textContent = 'Copiado'; copy.classList.add('done'); setTimeout(function () { copy.textContent = 'Copiar'; copy.classList.remove('done'); }, 1400); }; try { navigator.clipboard.writeText(txt).then(done, done); } catch (err) { done(); } return; }
+  if (copy) { var txt = copy.dataset.copy, label = copy.dataset.label || (copy.dataset.label = copy.textContent), done = function () { copy.textContent = 'Copiado ✓'; copy.classList.add('done'); setTimeout(function () { copy.textContent = label; copy.classList.remove('done'); }, 1400); }; try { navigator.clipboard.writeText(txt).then(done, done); } catch (err) { done(); } return; }
   var toast = t.closest('[data-toast]'); if (toast) { showToast(toast.dataset.toast); return; }
   var fb = t.closest('[data-fb]'); if (fb) { fb.parentNode.innerHTML = '<span class="meta">Gracias. Lo usamos para mejorar la guía.</span>'; return; }
   var jump = t.closest('[data-jump]'); if (jump) { var el = document.getElementById(jump.dataset.jump); if (el) el.scrollIntoView({ behavior: 'smooth' }); return; }
@@ -1017,7 +1087,9 @@ document.addEventListener('click', function (e) {
   }
   if (!t.closest('[data-search]')) document.querySelectorAll('.suggest').forEach(function (s) { s.hidden = true; });
 });
-document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeSheet(); document.querySelectorAll('.suggest').forEach(function (s) { s.hidden = true; }); } });
+document.addEventListener('keydown', function (e) {
+  if (e.key === '/' && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { var q = document.querySelector('[data-q]'); e.preventDefault(); if (q) q.focus(); else go('#/buscar'); return; }
+  if (e.key === 'Escape') { closeSheet(); document.querySelectorAll('.suggest').forEach(function (s) { s.hidden = true; }); } });
 var toastT;
 function showToast(msg) { var el = document.querySelector('.toast') || document.body.appendChild(Object.assign(document.createElement('div'), { className: 'toast', role: 'status' })); el.textContent = msg; el.hidden = false; clearTimeout(toastT); toastT = setTimeout(function () { el.hidden = true; }, 2600); }
 
@@ -1025,16 +1097,27 @@ var cdTimer;
 function mount() {
   // Buscador
   document.querySelectorAll('[data-search]').forEach(function (form) {
-    var input = form.querySelector('[data-q]'), box = form.querySelector('.suggest');
+    var input = form.querySelector('[data-q]'), box = form.querySelector('.suggest'), clear = form.querySelector('[data-clear]'), active = -1;
     var cur = (location.hash.match(/^#\/buscar\/(.+)$/) || [])[1]; if (cur && form.querySelector('#q-page')) input.value = decodeURIComponent(cur);
     function render() {
-      var res = find(input.value).slice(0, 6);
-      if (!input.value.trim()) { box.hidden = true; return; }
-      box.innerHTML = res.length ? res.map(function (a) { return '<a href="#/a/' + a.id + '"><span>' + esc(a.title) + '</span><small>' + esc(where(a)) + '</small></a>'; }).join('') : '<a href="#/buscar/' + encodeURIComponent(input.value) + '"><span>Sin resultados para "' + esc(input.value) + '"</span><small>Ver búsqueda</small></a>';
+      var res = find(input.value).slice(0, 6), q = input.value.trim(); active = -1;
+      clear.hidden = !input.value;
+      if (!q) { box.hidden = true; return; }
+      var rx = new RegExp('(' + q.split(/\s+/).map(function (w) { return w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }).join('|') + ')', 'ig');
+      box.innerHTML = res.length ? res.map(function (a) { return '<a href="#/a/' + a.id + '" role="option"><span>' + esc(a.title).replace(rx, '<mark>$1</mark>') + '</span><small>' + esc(where(a)) + '</small></a>'; }).join('') : '<a href="#/buscar/' + encodeURIComponent(input.value) + '"><span>Sin resultados para "' + esc(input.value) + '"</span><small>Ver búsqueda</small></a>';
       box.hidden = false;
     }
     input.addEventListener('input', render);
-    form.addEventListener('submit', function (e) { e.preventDefault(); location.hash = '#/buscar/' + encodeURIComponent(input.value.trim()); });
+    if (input.value) clear.hidden = false;
+    input.addEventListener('keydown', function (e) {
+      var items = box.hidden ? [] : box.querySelectorAll('a');
+      if (!items.length || (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'Enter')) return;
+      if (e.key === 'Enter') { if (active > -1) { e.preventDefault(); go(items[active].getAttribute('href')); } return; }
+      e.preventDefault();
+      active = (active + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
+      items.forEach(function (x, i) { x.classList.toggle('on', i === active); });
+    });
+    form.addEventListener('submit', function (e) { e.preventDefault(); go('#/buscar/' + encodeURIComponent(input.value.trim())); });
   });
   // Cuenta regresiva
   clearInterval(cdTimer);
@@ -1104,7 +1187,7 @@ var STYLES = [
   ['Ancha', function (s) { return mapAlpha(s, 0xFF21, 0xFF41, 0xFF10); }]
 ];
 
-route();
+route('first');
 </script>
 </body>
 </html>
