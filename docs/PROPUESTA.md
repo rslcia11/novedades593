@@ -2,6 +2,8 @@
 
 > Versión 1 · 2 de octubre de 2026 · Estado: **propuesta, sin desarrollo todavía**
 > Base: lo aprendido en `rslcia11/monetizacion-web` (Kriterio) + investigación de mercado de septiembre/octubre 2026.
+>
+> **Actualización:** las secciones y la estrategia de RPM se ajustaron al público real del creador en [`ESTRATEGIA-AUDIENCIA.md`](ESTRATEGIA-AUDIENCIA.md). Donde los dos documentos difieran, manda ese.
 
 ---
 
