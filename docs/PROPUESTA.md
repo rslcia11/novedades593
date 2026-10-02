@@ -4,6 +4,8 @@
 > Base: lo aprendido en `rslcia11/monetizacion-web` (Kriterio) + investigación de mercado de septiembre/octubre 2026.
 >
 > **Actualización:** las secciones y la estrategia de RPM se ajustaron al público real del creador en [`ESTRATEGIA-AUDIENCIA.md`](ESTRATEGIA-AUDIENCIA.md). Donde los dos documentos difieran, manda ese.
+>
+> **Versión para compartir:** [`Novedades593-Propuesta.pdf`](Novedades593-Propuesta.pdf) (resumen con fuentes) y la maqueta interactiva [`mockups/maqueta-v2.html`](../mockups/maqueta-v2.html).
 
 ---
 

@@ -1,0 +1,895 @@
+<title>Novedades593 Lobby</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,400..900&family=Onest:wght@400;500;600;700&family=Martian+Mono:wght@400;600&display=swap">
+<style>
+/* Layout "lobby": cabecera tipo HUD, portada en bento (tarjetas de distinto tamaño),
+   un color por sección, guía de 700px + barra de 300px. Todo responde al ancho del
+   contenedor (.site), así el botón "Vista móvil" muestra el diseño real de teléfono. */
+:root {
+  --bg: #120F22; --bg-2: #1B1733; --bg-3: #261F47; --line: #352D5F;
+  --fg: #F4F1FF; --fg-2: #CEC8EA; --muted: #9A93C2;
+  --guias: #5C9DFF; --creadores: #FF5C9D; --noticias: #FF9A3D; --virales: #FFD60A; --tools: #3DDCB4;
+  --live: #FF2E4D; --ad-bg: #1E1939; --ad-line: #51488C; --ad-fg: #B3ACDB;
+  --chip-ink: #15112B;
+  --shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 18px 40px -24px rgba(0,0,0,.7);
+  --display: "Anybody", "Arial Black", Impact, system-ui, sans-serif;
+  --body: "Onest", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Martian Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #F3F2F9; --bg-2: #FFFFFF; --bg-3: #EAE7F7; --line: #DAD5EF;
+    --fg: #15112B; --fg-2: #3A3462; --muted: #676092;
+    --guias: #1F5FD6; --creadores: #C8115F; --noticias: #B85000; --virales: #8A6A00; --tools: #00876A;
+    --live: #E0112F; --ad-bg: #F7F6FC; --ad-line: #BDB5E0; --ad-fg: #5D5688;
+    --shadow: 0 18px 40px -28px rgba(30,20,80,.35);
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #F3F2F9; --bg-2: #FFFFFF; --bg-3: #EAE7F7; --line: #DAD5EF;
+  --fg: #15112B; --fg-2: #3A3462; --muted: #676092;
+  --guias: #1F5FD6; --creadores: #C8115F; --noticias: #B85000; --virales: #8A6A00; --tools: #00876A;
+  --live: #E0112F; --ad-bg: #F7F6FC; --ad-line: #BDB5E0; --ad-fg: #5D5688;
+  --shadow: 0 18px 40px -28px rgba(30,20,80,.35);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { background: var(--bg); color: var(--fg); }
+body { font: 16px/1.5 var(--body); }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--virales); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+p { margin: 0; }
+
+/* ---------- Barra de demo ---------- */
+.demo { background: #08060F; color: #EDEAFF; font: 500 13px var(--body); border-bottom: 1px solid #2A2448; }
+.demo-in { max-width: 1240px; margin: 0 auto; padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; justify-content: space-between; }
+.demo b { font: 800 13px var(--display); font-stretch: 120%; letter-spacing: .02em; }
+.seg { display: inline-flex; background: #1B1733; border: 1px solid #352D5F; border-radius: 999px; padding: 3px; gap: 2px; }
+.seg button { border: 0; background: transparent; padding: 6px 12px; border-radius: 999px; cursor: pointer; color: #CEC8EA; font-weight: 600; font-size: 13px; }
+.seg button[aria-pressed="true"] { background: #FFD60A; color: #15112B; }
+.demo-ctrls { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ---------- Escenario + contenedor del sitio ---------- */
+.stage { padding: 0; transition: padding .3s; }
+.site { container: site / inline-size; margin: 0 auto; background: var(--bg); min-height: 60vh; }
+.stage.phone { padding: 28px 16px 48px; background:
+  radial-gradient(1200px 500px at 50% -10%, color-mix(in srgb, var(--guias) 22%, transparent), transparent), var(--bg); }
+.stage.phone .site { max-width: 400px; border: 10px solid #08060F; border-radius: 44px; overflow: hidden; box-shadow: 0 40px 80px -30px rgba(0,0,0,.6); }
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: 24px; }
+@container site (max-width: 640px) { .wrap { padding-inline: 16px; } }
+
+/* ---------- Cabecera HUD ---------- */
+.hud { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.hud-in { display: flex; align-items: center; gap: 20px; min-height: 64px; }
+.logo { display: inline-flex; align-items: baseline; gap: 2px; font: 900 24px/1 var(--display); font-stretch: 125%; letter-spacing: -.02em; white-space: nowrap; }
+.logo .n { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--virales); color: var(--chip-ink); font-size: 17px; margin-right: 8px; transform: rotate(-6deg); font-stretch: 100%; align-self: center; }
+.logo em { font-style: normal; color: var(--virales); }
+.menu { display: flex; gap: 4px; }
+.menu a { font: 700 14px var(--body); padding: 8px 12px; border-radius: 999px; color: var(--fg-2); white-space: nowrap; }
+.menu a:hover { background: var(--bg-3); color: var(--fg); }
+.menu a .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; background: var(--c); }
+.hud-r { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+.live { display: inline-flex; align-items: center; gap: 8px; font: 700 13px var(--body); padding: 7px 12px 7px 10px; border-radius: 999px; background: color-mix(in srgb, var(--live) 16%, transparent); color: var(--fg); border: 1px solid color-mix(in srgb, var(--live) 50%, transparent); white-space: nowrap; }
+.live i { width: 9px; height: 9px; border-radius: 50%; background: var(--live); box-shadow: 0 0 0 0 var(--live); }
+@media (prefers-reduced-motion: no-preference) { .live i { animation: pulse 1.6s infinite; } }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--live) 70%, transparent); } 70% { box-shadow: 0 0 0 9px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+.icon-btn { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); background: var(--bg-2); cursor: pointer; }
+.chips { display: none; }
+@container site (max-width: 900px) {
+  .menu { display: none; }
+  .chips { display: flex; gap: 8px; overflow-x: auto; padding: 0 16px 12px; scrollbar-width: none; }
+  .chips a { flex: none; font: 700 13px var(--body); padding: 7px 12px; border-radius: 999px; background: var(--bg-2); border: 1px solid var(--line); }
+  .chips a .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; background: var(--c); }
+}
+@container site (max-width: 520px) { .live span { display: none; } .live { padding: 9px; } .logo { font-size: 20px; } }
+
+/* ---------- Piezas comunes ---------- */
+.chip { display: inline-flex; align-items: center; gap: 6px; font: 800 11px/1 var(--mono); text-transform: uppercase; letter-spacing: .06em; padding: 6px 9px; border-radius: 6px; background: var(--c); color: var(--chip-ink); width: max-content; }
+.meta { font: 500 13px var(--body); color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; }
+.meta .fresh { color: var(--tools); font-weight: 700; }
+.c-guias { --c: var(--guias); } .c-creadores { --c: var(--creadores); } .c-noticias { --c: var(--noticias); } .c-virales { --c: var(--virales); } .c-tools { --c: var(--tools); }
+.card { background: var(--bg-2); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; min-width: 0; }
+.card-body { padding: 18px 20px 20px; display: grid; gap: 10px; align-content: start; }
+.card h3 { font: 800 21px/1.15 var(--display); font-stretch: 112%; letter-spacing: -.01em; }
+a.card { transition: transform .2s ease, border-color .2s ease; }
+a.card:hover { border-color: var(--c, var(--line)); }
+@media (prefers-reduced-motion: no-preference) { a.card:hover { transform: translateY(-3px); } }
+.sec-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin: 64px 0 20px; }
+.sec-head h2 { font: 900 clamp(28px, 4.2cqi, 46px)/1 var(--display); font-stretch: 140%; letter-spacing: -.02em; }
+.sec-head h2 .u { color: var(--c); }
+.sec-head p { color: var(--muted); font-size: 15px; max-width: 40ch; }
+.more { font: 700 14px var(--body); white-space: nowrap; padding: 9px 14px; border-radius: 999px; border: 1px solid var(--line); }
+.more:hover { border-color: var(--c); }
+@container site (max-width: 640px) { .sec-head { flex-direction: column; align-items: start; margin-top: 48px; } }
+
+/* Portadas (arte generado; en el sitio real son imágenes propias 16:9 de 1200px+) */
+.cover { position: relative; aspect-ratio: 16/9; max-width: 100%; overflow: hidden; display: grid; place-items: center; isolation: isolate; }
+.cover .glyph { font: 900 clamp(40px, 9cqi, 120px)/.9 var(--display); font-stretch: 150%; letter-spacing: -.04em; color: #fff; mix-blend-mode: overlay; opacity: .9; }
+.cover .tag { position: absolute; left: 12px; bottom: 10px; font: 600 10px var(--mono); color: rgba(255,255,255,.8); letter-spacing: .04em; }
+.cv-gta { background:
+  radial-gradient(circle at 70% 78%, #FFE26B 0 9%, transparent 9.5%),
+  repeating-linear-gradient(180deg, transparent 0 14px, rgba(255,255,255,.08) 14px 16px),
+  linear-gradient(180deg, #2B0F4A 0%, #A3277A 42%, #FF6A3D 70%, #FFB347 100%); }
+.cv-gta::after { content: ""; position: absolute; inset: auto 0 0 0; height: 22%; background: #1A0B2E; clip-path: polygon(0 60%, 8% 40%, 9% 0, 10% 40%, 22% 55%, 40% 35%, 41% 5%, 42% 35%, 60% 60%, 78% 30%, 79% 0, 80% 30%, 100% 50%, 100% 100%, 0 100%); z-index: -1; }
+.cv-roblox { background:
+  linear-gradient(45deg, rgba(255,255,255,.12) 25%, transparent 25% 75%, rgba(255,255,255,.12) 75%) 0 0/40px 40px,
+  linear-gradient(135deg, #E2231A, #7A0E2C); }
+.cv-mine { background:
+  conic-gradient(from 90deg at 50% 50%, #5B8C32 25%, #6FA83C 0 50%, #4E7A2B 0 75%, #79B547 0) 0 0/28px 28px; }
+.cv-mine::after { content: ""; position: absolute; inset: 55% 0 0; background: conic-gradient(from 90deg at 50% 50%, #7A5230 25%, #8B5E36 0 50%, #6B4729 0 75%, #966A3F 0) 0 0/28px 28px; z-index: -1; }
+.cv-tiktok { background: radial-gradient(circle at 30% 30%, #25F4EE55, transparent 45%), radial-gradient(circle at 75% 70%, #FE2C5555, transparent 45%), #0B0B12; }
+.cv-tiktok .glyph { mix-blend-mode: normal; text-shadow: -4px -2px 0 #25F4EE, 4px 2px 0 #FE2C55; }
+.cv-obs { background: repeating-radial-gradient(circle at 50% 50%, #2A2E3A 0 10px, #1C1F28 10px 20px); }
+.cv-obs .glyph { mix-blend-mode: normal; color: #E8EAF2; }
+.cv-gear { background: linear-gradient(120deg, #0F2A5C, #1F5FD6 55%, #5C9DFF); }
+.cv-news { background: linear-gradient(135deg, #3A1C00, #B85000 60%, #FF9A3D); }
+.cv-fn { background: linear-gradient(160deg, #1C2C9C, #7B2FF7 60%, #F3B4FF); }
+.cv-ff { background: linear-gradient(160deg, #401400, #E2541A 55%, #FFC14D); }
+
+/* ---------- Anuncios ---------- */
+.ad { display: grid; place-items: center; text-align: center; background:
+  repeating-linear-gradient(-45deg, transparent 0 10px, color-mix(in srgb, var(--ad-line) 14%, transparent) 10px 11px), var(--ad-bg);
+  border: 1px dashed var(--ad-line); border-radius: 16px; color: var(--ad-fg); padding: 12px; }
+.ad b { display: block; font: 600 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.ad small { display: block; font-size: 12px; margin-top: 4px; }
+.ad-lab { font: 600 10px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); text-align: center; margin-bottom: 6px; }
+.ad-bill { min-height: 250px; margin-top: 28px; }
+@container site (max-width: 640px) { .ad-bill { min-height: 100px; } }
+.ad-mpu { min-height: 250px; }
+.ad-tall { min-height: 600px; }
+.ad-in { min-height: 280px; }
+
+/* ---------- Hero bento ---------- */
+.hero { display: grid; gap: 18px; grid-template-columns: 1.55fr 1fr; grid-template-rows: auto auto; margin-top: 28px; }
+.hero-main { grid-row: span 2; }
+.hero-main .cover { aspect-ratio: auto; min-height: 340px; flex: 1; place-items: end start; padding: 28px; }
+.hero-main .glyph { position: absolute; right: -2%; top: 4%; font-size: clamp(120px, 22cqi, 300px); opacity: .35; mix-blend-mode: normal; color: #fff; }
+.hero-copy { position: relative; display: grid; gap: 14px; max-width: 640px; }
+.hero-copy h1 { font: 900 clamp(30px, 4cqi, 52px)/1 var(--display); font-stretch: 112%; letter-spacing: -.025em; color: #fff; text-shadow: 0 2px 24px rgba(20,0,40,.35); }
+.hero-copy p { color: #FFEFF8; font-size: 17px; max-width: 52ch; }
+.count { display: flex; gap: 10px; flex-wrap: wrap; }
+.count div { background: rgba(14,6,30,.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.22); border-radius: 14px; padding: 10px 14px; min-width: 84px; color: #fff; }
+.count strong { display: block; font: 900 34px/1 var(--display); font-stretch: 110%; font-variant-numeric: tabular-nums; }
+.count span { font: 600 10px var(--mono); text-transform: uppercase; letter-spacing: .08em; opacity: .85; }
+.side-card .card-body { gap: 12px; }
+.codes { display: grid; gap: 8px; }
+.code { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--bg-3); border-radius: 12px; padding: 9px 10px 9px 14px; font: 600 13px var(--mono); min-width: 0; }
+.code span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.code small { display: block; font: 500 12px var(--body); color: var(--muted); }
+.copy { flex: none; border: 0; background: var(--c); color: var(--chip-ink); font: 700 12px var(--body); padding: 7px 11px; border-radius: 9px; cursor: pointer; }
+.mini-calc { display: grid; gap: 10px; }
+.mini-calc .row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; font-variant-numeric: tabular-nums; }
+.mini-calc .big { font: 900 32px/1 var(--display); font-stretch: 115%; color: var(--tools); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: 700 14px var(--body); padding: 11px 16px; border-radius: 12px; background: var(--c, var(--virales)); color: var(--chip-ink); border: 0; cursor: pointer; width: max-content; }
+.btn.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line); }
+@container site (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-main { grid-row: auto; }
+  .hero-main .cover { min-height: 420px; padding: 20px; }
+}
+
+/* ---------- Bento de guías ---------- */
+.bento { display: grid; gap: 18px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.bento .wide { grid-column: span 2; }
+.bento .tall { grid-row: span 2; }
+.rank { list-style: none; margin: 0; padding: 0; display: grid; }
+.rank li { display: grid; grid-template-columns: 44px 1fr; gap: 10px; align-items: start; padding: 12px 0; border-top: 1px solid var(--line); }
+.rank li:first-child { border-top: 0; padding-top: 0; }
+.rank .n { font: 900 30px/1 var(--display); font-stretch: 140%; color: var(--c); font-variant-numeric: tabular-nums; }
+.rank a { font: 700 15px/1.3 var(--body); }
+.rank small { display: block; color: var(--muted); font-size: 12px; margin-top: 3px; }
+@container site (max-width: 1000px) { .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@container site (max-width: 1000px) { .bento .tall { grid-row: auto; } }
+@container site (max-width: 600px) { .bento { grid-template-columns: 1fr; } .bento .wide { grid-column: auto; } }
+
+/* ---------- Creadores ---------- */
+.creator-row { display: grid; gap: 18px; grid-template-columns: 1.1fr 1fr 1fr; }
+.creator-row .voice { grid-row: span 2; }
+.voice { background: linear-gradient(150deg, color-mix(in srgb, var(--creadores) 30%, var(--bg-2)), var(--bg-2) 60%); border-color: color-mix(in srgb, var(--creadores) 45%, var(--line)); }
+.voice .card-body { padding: 28px; gap: 20px; height: 100%; align-content: space-between; }
+.voice .quote { font-size: clamp(22px, 2.4cqi, 30px); }
+.avatar { width: 56px; height: 56px; border-radius: 18px; display: grid; place-items: center; background: var(--creadores); color: var(--chip-ink); font: 900 20px var(--display); transform: rotate(-4deg); flex: none; }
+.who { display: flex; align-items: center; gap: 14px; }
+.who b { display: block; font: 800 17px var(--display); font-stretch: 115%; }
+.quote { font: 700 22px/1.3 var(--display); font-stretch: 105%; letter-spacing: -.01em; }
+.play { position: absolute; width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,.92); display: grid; place-items: center; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+.play::before { content: ""; border-left: 18px solid #15112B; border-top: 11px solid transparent; border-bottom: 11px solid transparent; margin-left: 5px; }
+.dur { position: absolute; right: 10px; bottom: 10px; background: rgba(0,0,0,.7); color: #fff; font: 600 11px var(--mono); padding: 4px 7px; border-radius: 6px; }
+@container site (max-width: 1000px) { .creator-row { grid-template-columns: 1fr 1fr; } .creator-row .voice { grid-column: span 2; grid-row: auto; } }
+@container site (max-width: 600px) { .creator-row { grid-template-columns: 1fr; } .voice { grid-column: auto; } }
+
+/* ---------- Noticias (línea de tiempo) + anuncio ---------- */
+.news-wrap { display: grid; gap: 24px; grid-template-columns: minmax(0, 1fr) 300px; align-items: start; }
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; }
+.timeline li { display: grid; grid-template-columns: 70px 1fr 140px; gap: 18px; padding: 18px 0; border-top: 1px solid var(--line); align-items: center; }
+.timeline time { font: 600 13px var(--mono); color: var(--noticias); font-variant-numeric: tabular-nums; }
+.timeline h3 { font: 800 19px/1.2 var(--display); font-stretch: 108%; }
+.timeline p { color: var(--muted); font-size: 14px; margin-top: 4px; }
+.timeline .cover { border-radius: 12px; }
+.timeline .cover .glyph { font-size: 34px; }
+.sticky-ad { position: sticky; top: 84px; }
+@container site (max-width: 900px) { .news-wrap { grid-template-columns: 1fr; } .news-wrap > aside { display: none; } }
+@container site (max-width: 600px) { .timeline li { grid-template-columns: 54px 1fr; } .timeline .cover { display: none; } }
+
+/* ---------- Virales (formato vertical) ---------- */
+.reels { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(200px, 1fr); gap: 16px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+.reel { scroll-snap-align: start; border-radius: 22px; overflow: hidden; position: relative; aspect-ratio: 9/14; display: flex; flex-direction: column; justify-content: end; padding: 16px; color: #fff; isolation: isolate; border: 1px solid var(--line); }
+.reel::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, transparent 35%, rgba(10,4,24,.9)); }
+.reel h3 { font: 800 18px/1.15 var(--display); font-stretch: 110%; }
+.reel .views { font: 600 11px var(--mono); opacity: .85; margin-top: 8px; }
+.reel .chip { position: absolute; top: 14px; left: 14px; }
+.r1 { background: linear-gradient(160deg, #FF5C9D, #7B2FF7); } .r2 { background: linear-gradient(160deg, #FFD60A, #FF6A3D); } .r3 { background: linear-gradient(160deg, #3DDCB4, #1F5FD6); } .r4 { background: linear-gradient(160deg, #FF9A3D, #C8115F); } .r5 { background: linear-gradient(160deg, #5C9DFF, #241A5C); }
+
+/* ---------- Offerwall / comunidad ---------- */
+.duo { display: grid; gap: 18px; grid-template-columns: 1fr 1fr; margin-top: 64px; }
+.unlock { display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding: 22px; align-items: center; }
+.pack { aspect-ratio: 3/4; border-radius: 16px; position: relative; background: linear-gradient(160deg, #A3277A, #FF6A3D); box-shadow: 10px 10px 0 -2px color-mix(in srgb, var(--virales) 80%, transparent); display: grid; place-items: center; }
+.pack::after { content: "🔒"; font-size: 30px; }
+.unlock h3 { font: 900 24px/1.1 var(--display); font-stretch: 120%; }
+.unlock p { color: var(--fg-2); font-size: 15px; margin: 8px 0 14px; }
+.community { padding: 22px; display: grid; gap: 14px; align-content: start; }
+.community h3 { font: 900 24px/1.1 var(--display); font-stretch: 120%; }
+.community p { color: var(--fg-2); font-size: 15px; }
+.community .btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.wa { --c: #25D366; }
+@container site (max-width: 800px) { .duo { grid-template-columns: 1fr; } }
+@container site (max-width: 460px) { .unlock { grid-template-columns: 1fr; } .pack { max-width: 140px; } }
+
+/* ---------- Footer ---------- */
+footer { margin-top: 80px; border-top: 1px solid var(--line); padding-block: 40px 56px; }
+.foot { display: grid; gap: 28px; grid-template-columns: 1.4fr repeat(3, 1fr); }
+.foot h4 { font: 600 11px var(--mono); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin: 0 0 12px; }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 15px; }
+.foot p { color: var(--muted); font-size: 14px; margin-top: 12px; max-width: 36ch; }
+@container site (max-width: 800px) { .foot { grid-template-columns: 1fr 1fr; } }
+
+/* ---------- Guía (plantilla de artículo) ---------- */
+.progress { position: sticky; top: 64px; z-index: 19; height: 4px; background: transparent; }
+.progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--creadores), var(--virales)); }
+.g-head { display: grid; gap: 18px; padding-top: 32px; max-width: 900px; }
+.crumbs { font: 600 12px var(--mono); color: var(--muted); letter-spacing: .02em; }
+.g-head h1 { font: 900 clamp(30px, 4.2cqi, 54px)/1.04 var(--display); font-stretch: 108%; letter-spacing: -.025em; }
+.g-head .dek { font-size: 20px; color: var(--fg-2); max-width: 60ch; }
+.stats { display: flex; flex-wrap: wrap; gap: 10px; }
+.stat { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 8px 12px; font: 600 13px var(--body); display: flex; gap: 8px; align-items: center; }
+.stat b { font: 600 11px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.author { display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 18px; background: var(--bg-2); border: 1px solid var(--line); max-width: 640px; }
+.author p { color: var(--muted); font-size: 14px; }
+.g-cover { margin-top: 28px; border-radius: 24px; overflow: hidden; }
+.g-cover .cover { aspect-ratio: 21/9; }
+.g-cap { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.g-grid { display: grid; grid-template-columns: minmax(0, 700px) 300px; justify-content: space-between; gap: 48px; margin-top: 36px; }
+@container site (max-width: 1060px) { .g-grid { grid-template-columns: minmax(0, 1fr); } .g-side { display: none !important; } }
+.toc { background: var(--bg-2); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; margin-bottom: 32px; }
+.toc h2 { font: 600 11px var(--mono); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 10px; }
+.toc ol { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-weight: 600; }
+.toc a:hover { color: var(--creadores); }
+.prose { font: 18px/1.72 var(--body); color: var(--fg); }
+.prose > * + * { margin-top: 1.1em; }
+.prose h2 { font: 900 30px/1.1 var(--display); font-stretch: 115%; letter-spacing: -.015em; margin-top: 2em; scroll-margin-top: 90px; }
+.answer { border-radius: 18px; padding: 18px 20px; background: color-mix(in srgb, var(--tools) 12%, var(--bg-2)); border: 1px solid color-mix(in srgb, var(--tools) 40%, var(--line)); font-size: 17px; }
+.answer b { display: block; font: 600 11px var(--mono); text-transform: uppercase; letter-spacing: .1em; color: var(--tools); margin-bottom: 6px; }
+.reqs { display: grid; gap: 10px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.req { background: var(--bg-2); border: 1px solid var(--line); border-radius: 16px; padding: 14px; }
+.req strong { display: block; font: 900 28px/1 var(--display); font-stretch: 120%; color: var(--creadores); }
+.req span { font-size: 14px; line-height: 1.4; color: var(--fg-2); display: block; margin-top: 6px; }
+.prose .toc h2 { font: 600 11px var(--mono); font-stretch: 100%; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin: 0 0 10px; }
+.prose .toc ol { line-height: 1.5; }
+@container site (max-width: 600px) { .reqs { grid-template-columns: 1fr; } }
+.steps { list-style: none; padding: 0; margin: 0; counter-reset: s; display: grid; gap: 14px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 46px 1fr; gap: 14px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 16px; padding: 16px; font-size: 16px; line-height: 1.55; }
+.steps li::before { content: counter(s); display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: var(--creadores); color: var(--chip-ink); font: 900 22px var(--display); }
+.steps b { display: block; font-size: 17px; margin-bottom: 2px; }
+.warn { border-radius: 18px; padding: 18px 20px; background: color-mix(in srgb, var(--live) 12%, var(--bg-2)); border: 1px solid color-mix(in srgb, var(--live) 40%, var(--line)); }
+.warn b { display: block; font: 600 11px var(--mono); text-transform: uppercase; letter-spacing: .1em; color: var(--live); margin-bottom: 6px; }
+.warn ul { margin: 0; padding-left: 20px; font-size: 16px; }
+.inline-unlock { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between; border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px; background: var(--bg-2); }
+.inline-unlock b { font: 800 17px var(--display); font-stretch: 112%; }
+.inline-unlock p { font-size: 14px; color: var(--muted); }
+.feedback { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 20px; }
+.feedback .btns { display: flex; gap: 8px; }
+.sources { font-size: 14px; color: var(--muted); }
+.g-side { display: grid; gap: 24px; align-content: start; }
+.mini-toc { position: sticky; top: 90px; display: grid; gap: 24px; }
+.rel { display: grid; gap: 12px; }
+.rel a { display: grid; grid-template-columns: 84px 1fr; gap: 12px; align-items: center; font: 700 14px/1.3 var(--body); }
+.rel .cover { border-radius: 10px; }
+.rel .cover .glyph { font-size: 22px; }
+
+/* ---------- Herramienta ---------- */
+.tool { display: grid; gap: 22px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); margin-top: 28px; }
+.calc { padding: 24px; display: grid; gap: 18px; align-content: start; }
+.calc label { font: 600 12px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.field { display: flex; align-items: center; gap: 10px; background: var(--bg-3); border: 1px solid var(--line); border-radius: 14px; padding: 6px 6px 6px 16px; }
+.field input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--fg); font: 800 28px var(--display); font-stretch: 110%; font-variant-numeric: tabular-nums; outline: none; }
+.field:focus-within { border-color: var(--tools); }
+.field span { font: 600 12px var(--mono); color: var(--muted); padding-right: 10px; }
+.presets { display: flex; flex-wrap: wrap; gap: 8px; }
+.presets button { border: 1px solid var(--line); background: var(--bg-2); padding: 7px 11px; border-radius: 999px; font: 600 13px var(--body); cursor: pointer; }
+.presets button:hover { border-color: var(--tools); }
+.result { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+.result div { background: var(--bg-3); border-radius: 16px; padding: 16px; }
+.result span { font: 600 11px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.result strong { display: block; font: 900 clamp(28px, 4cqi, 44px)/1.05 var(--display); font-stretch: 115%; font-variant-numeric: tabular-nums; margin-top: 6px; }
+.result .usd strong { color: var(--tools); }
+.flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font: 600 13px var(--mono); color: var(--fg-2); }
+.flow i { font-style: normal; color: var(--muted); }
+.note { font-size: 13px; color: var(--muted); }
+.battle { padding: 24px; display: grid; gap: 16px; align-content: start; }
+.bar { height: 22px; border-radius: 999px; overflow: hidden; display: flex; background: var(--bg-3); }
+.bar i { display: block; height: 100%; }
+.bar .a { background: var(--creadores); } .bar .b { background: var(--guias); }
+.vs { display: flex; justify-content: space-between; font: 800 15px var(--display); font-stretch: 110%; font-variant-numeric: tabular-nums; }
+@container site (max-width: 860px) { .tool { grid-template-columns: 1fr; } }
+@container site (max-width: 420px) { .result { grid-template-columns: 1fr; } }
+
+/* ---------- Notas de la maqueta ---------- */
+.notes { margin-top: 56px; border: 1px dashed var(--line); border-radius: 20px; padding: 20px 22px; }
+.notes h2 { font: 600 11px var(--mono); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 12px; }
+.notes ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: var(--fg-2); font-size: 15px; }
+
+/* ---------- Modal Offerwall ---------- */
+.modal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 16px; background: rgba(8,6,15,.7); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.modal-box { width: min(440px, 100%); background: var(--bg-2); border: 1px solid var(--line); border-radius: 24px; padding: 24px; display: grid; gap: 14px; box-shadow: 0 40px 80px -30px rgba(0,0,0,.7); }
+.modal-box h3 { font: 900 24px/1.1 var(--display); font-stretch: 118%; }
+.modal-box p { color: var(--fg-2); font-size: 15px; }
+.modal-box .ad { min-height: 180px; }
+.modal-box .row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .enter { animation: rise .6s cubic-bezier(.2,.7,.2,1) both; }
+  .enter:nth-child(2) { animation-delay: .06s; } .enter:nth-child(3) { animation-delay: .12s; }
+  @keyframes rise { from { transform: translateY(12px); } to { transform: none; } }
+}
+</style>
+
+<div class="demo">
+  <div class="demo-in">
+    <span><b>MAQUETA v2</b> · contenido de ejemplo · los recuadros rayados son espacios de anuncio</span>
+    <div class="demo-ctrls">
+      <div class="seg" role="group" aria-label="Página">
+        <button id="v-home" type="button" data-view="home" aria-pressed="true">Portada</button>
+        <button id="v-guide" type="button" data-view="guide" aria-pressed="false">Guía</button>
+        <button id="v-tool" type="button" data-view="tool" aria-pressed="false">Herramienta</button>
+      </div>
+      <div class="seg" role="group" aria-label="Dispositivo">
+        <button id="d-desk" type="button" data-dev="desk" aria-pressed="true">Escritorio</button>
+        <button id="d-phone" type="button" data-dev="phone" aria-pressed="false">Celular</button>
+      </div>
+      <div class="seg" role="group" aria-label="Tema">
+        <button id="t-dark" type="button" data-theme-set="dark" aria-pressed="false">Oscuro</button>
+        <button id="t-light" type="button" data-theme-set="light" aria-pressed="false">Claro</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="stage" id="stage">
+<div class="site">
+
+<header class="hud">
+  <div class="wrap hud-in">
+    <a class="logo" href="#" data-go="home"><span class="n">N</span>Novedades<em>593</em></a>
+    <nav class="menu" aria-label="Secciones">
+      <a class="c-guias" href="#" data-go="guide"><span class="dot"></span>Guías</a>
+      <a class="c-creadores" href="#" data-go="guide"><span class="dot"></span>Creadores</a>
+      <a class="c-noticias" href="#" data-go="home"><span class="dot"></span>Noticias</a>
+      <a class="c-virales" href="#" data-go="home"><span class="dot"></span>Virales</a>
+      <a class="c-tools" href="#" data-go="tool"><span class="dot"></span>Herramientas</a>
+    </nav>
+    <div class="hud-r">
+      <a class="live" href="#" data-go="home"><i></i><span>En vivo ahora</span></a>
+      <button class="icon-btn" type="button" id="search-btn" aria-label="Buscar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="chips" aria-label="Secciones (móvil)">
+    <a class="c-guias" href="#" data-go="guide"><span class="dot"></span>Guías</a>
+    <a class="c-creadores" href="#" data-go="guide"><span class="dot"></span>Creadores</a>
+    <a class="c-noticias" href="#" data-go="home"><span class="dot"></span>Noticias</a>
+    <a class="c-virales" href="#" data-go="home"><span class="dot"></span>Virales</a>
+    <a class="c-tools" href="#" data-go="tool"><span class="dot"></span>Herramientas</a>
+  </nav>
+</header>
+
+<!-- =================== PORTADA =================== -->
+<main id="view-home">
+  <div class="wrap">
+    <section class="hero" aria-label="Destacados">
+      <a class="card hero-main c-noticias enter" href="#" data-go="guide">
+        <div class="cover cv-gta">
+          <span class="glyph" aria-hidden="true">VI</span>
+          <div class="hero-copy">
+            <span class="chip">GTA VI · Especial</span>
+            <h1>GTA VI llega el 19 de noviembre: todo lo que sabemos hasta hoy</h1>
+            <p>Precio, plataformas, mapa, protagonistas y qué pasa con la versión de PC. Lo actualizamos cada vez que Rockstar suelta algo nuevo.</p>
+            <div class="count" aria-label="Cuenta regresiva">
+              <div><strong id="cd-d">48</strong><span>días</span></div>
+              <div><strong id="cd-h">00</strong><span>horas</span></div>
+              <div><strong id="cd-m">00</strong><span>min</span></div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <article class="card side-card c-guias enter">
+        <div class="card-body">
+          <span class="chip">Códigos activos · Roblox</span>
+          <h3>Códigos de Roblox de hoy</h3>
+          <div class="codes">
+            <div class="code"><div><span>EJEMPLO2026</span><small>Accesorio de cabeza</small></div><button class="copy" type="button" id="copy-a">Copiar</button></div>
+            <div class="code"><div><span>LOBBY593</span><small>Mochila temporal</small></div><button class="copy" type="button" id="copy-b">Copiar</button></div>
+            <div class="code"><div><span>VICECITY26</span><small>Emote de baile</small></div><button class="copy" type="button" id="copy-c">Copiar</button></div>
+          </div>
+          <div class="meta"><span class="fresh">● Verificados hace 2 h</span><a href="#" data-go="guide">Ver los 14 códigos →</a></div>
+        </div>
+      </article>
+
+      <article class="card side-card c-tools enter">
+        <div class="card-body">
+          <span class="chip">Herramienta · TikTok LIVE</span>
+          <h3>¿Cuánto vale tu batalla?</h3>
+          <div class="mini-calc">
+            <div class="row"><span class="meta">10.000 diamantes</span><span class="big">≈ $50</span></div>
+            <div class="row"><span class="meta">Batalla 12.400 vs 9.800</span><span class="meta">vas ganando por $6,50</span></div>
+            <a class="btn" href="#" data-go="tool">Abrir la calculadora</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <div class="ad-lab" style="margin-top:28px">Publicidad</div>
+    <div class="ad ad-bill" style="margin-top:0"><div><b>billboard · 970×250</b><small>justo en el borde de la primera pantalla, donde más se ve · móvil 320×100</small></div></div>
+
+    <!-- Guías -->
+    <div class="sec-head c-guias">
+      <div><h2>Guías que <span class="u">sí sirven</span></h2></div>
+      <p>Paso a paso, probadas y con fecha de actualización. Lo que la gente busca en Google cada día.</p>
+    </div>
+    <div class="bento">
+      <a class="card wide c-guias" href="#" data-go="guide">
+        <div class="cover cv-mine"><span class="glyph" aria-hidden="true">MC</span><span class="tag">imagen propia 16:9</span></div>
+        <div class="card-body">
+          <span class="chip">Minecraft</span>
+          <h3>Cómo encontrar diamantes en Minecraft: la capa exacta y 3 métodos que funcionan</h3>
+          <div class="meta"><span>Fácil · 6 min</span><span class="fresh">Actualizado ayer</span></div>
+        </div>
+      </a>
+      <a class="card c-guias" href="#" data-go="guide">
+        <div class="cover cv-ff"><span class="glyph" aria-hidden="true">FF</span></div>
+        <div class="card-body">
+          <span class="chip">Free Fire</span>
+          <h3>La mejor sensibilidad para Free Fire según tu celular</h3>
+          <div class="meta"><span>Herramienta incluida</span></div>
+        </div>
+      </a>
+      <article class="card tall c-guias">
+        <div class="card-body">
+          <span class="chip">Lo más buscado</span>
+          <ol class="rank">
+            <li><span class="n">1</span><div><a href="#" data-go="guide">Requisitos de PC para GTA VI (lo que se sabe)</a><small>GTA VI</small></div></li>
+            <li><span class="n">2</span><div><a href="#" data-go="guide">Cómo conseguir Robux gratis sin estafas</a><small>Roblox</small></div></li>
+            <li><span class="n">3</span><div><a href="#" data-go="guide">Semillas de Minecraft para principiantes</a><small>Minecraft</small></div></li>
+            <li><span class="n">4</span><div><a href="#" data-go="guide">Nombres para Free Fire con letras especiales</a><small>Free Fire</small></div></li>
+          </ol>
+        </div>
+      </article>
+      <a class="card c-guias" href="#" data-go="guide">
+        <div class="cover cv-roblox"><span class="glyph" aria-hidden="true">RB</span></div>
+        <div class="card-body">
+          <span class="chip">Roblox</span>
+          <h3>Blox Fruits: ruta para subir de nivel rápido</h3>
+          <div class="meta"><span>Intermedio · 9 min</span></div>
+        </div>
+      </a>
+      <a class="card c-guias" href="#" data-go="guide">
+        <div class="cover cv-fn"><span class="glyph" aria-hidden="true">FN</span></div>
+        <div class="card-body">
+          <span class="chip">Fortnite</span>
+          <h3>Misiones de la semana: cómo completarlas todas</h3>
+          <div class="meta"><span class="fresh">Actualizado hoy</span></div>
+        </div>
+      </a>
+      <div>
+        <div class="ad-lab">Publicidad</div>
+        <div class="ad ad-mpu"><div><b>in-feed · 300×250</b><small>cada 6 tarjetas</small></div></div>
+      </div>
+    </div>
+
+    <!-- Creadores -->
+    <div class="sec-head c-creadores">
+      <div><h2>Creadores <span class="u">&amp; streamers</span></h2></div>
+      <p>Lo que aprendimos haciendo lives todos los días: equipo, batallas, OBS y cómo no perder la cuenta.</p>
+    </div>
+    <div class="creator-row">
+      <article class="card voice c-creadores">
+        <div class="card-body">
+          <div class="who"><div class="avatar" aria-hidden="true">CR</div><div><b>Desde el live</b><span class="meta">La columna del creador</span></div></div>
+          <p class="quote">"Perdí el LIVE una semana por música con copyright. Esto es lo que hago ahora antes de cada transmisión."</p>
+          <a class="btn" href="#" data-go="guide">Leer la columna</a>
+        </div>
+      </article>
+      <a class="card c-creadores" href="#" data-go="guide">
+        <div class="cover cv-tiktok"><span class="glyph" aria-hidden="true">LIVE</span></div>
+        <div class="card-body">
+          <span class="chip">TikTok LIVE</span>
+          <h3>Cómo hacer LIVE en TikTok en 2026: requisitos y configuración</h3>
+          <div class="meta"><span>Por el creador · 8 min</span></div>
+        </div>
+      </a>
+      <a class="card c-creadores" href="#" data-go="guide">
+        <div class="cover cv-obs"><span class="play" aria-hidden="true"></span><span class="dur">12:40</span></div>
+        <div class="card-body">
+          <span class="chip">Video · OBS</span>
+          <h3>Configurar OBS para stream en celular y PC: la guía en video</h3>
+          <div class="meta"><span>Clip del stream</span></div>
+        </div>
+      </a>
+      <a class="card c-creadores" href="#" data-go="guide">
+        <div class="cover cv-gear"><span class="glyph" aria-hidden="true">MIC</span></div>
+        <div class="card-body">
+          <span class="chip">Equipo</span>
+          <h3>Equipo para stream por menos de $150: micrófono, luz y soporte</h3>
+          <div class="meta"><span>Probado en lives</span></div>
+        </div>
+      </a>
+      <a class="card c-creadores" href="#" data-go="guide">
+        <div class="cover cv-tiktok"><span class="glyph" aria-hidden="true">VS</span></div>
+        <div class="card-body">
+          <span class="chip">Batallas</span>
+          <h3>Cómo ganar batallas en TikTok sin quemar a tu comunidad</h3>
+          <div class="meta"><span>Estrategia · 7 min</span></div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Noticias -->
+    <div class="sec-head c-noticias">
+      <div><h2>Lo que <span class="u">pasó hoy</span></h2></div>
+      <a class="more" href="#" data-go="home">Todas las noticias →</a>
+    </div>
+    <div class="news-wrap">
+      <ol class="timeline">
+        <li class="c-noticias"><time>11:40</time><div><h3><a href="#" data-go="guide">Rockstar confirma la fecha de precarga digital de GTA VI</a></h3><p>Qué significa y cuánto espacio necesitas en tu consola.</p></div><div class="cover cv-gta"><span class="glyph" aria-hidden="true">VI</span></div></li>
+        <li class="c-noticias"><time>10:15</time><div><h3><a href="#" data-go="guide">Roblox cambia la verificación de edad: lo que cambia para tu cuenta</a></h3><p>Explicado en 2 minutos.</p></div><div class="cover cv-roblox"><span class="glyph" aria-hidden="true">RB</span></div></li>
+        <li class="c-noticias"><time>09:02</time><div><h3><a href="#" data-go="guide">Kick sigue creciendo en Latinoamérica: los streamers que se mudaron</a></h3><p>Con cifras de audiencia.</p></div><div class="cover cv-news"><span class="glyph" aria-hidden="true">K</span></div></li>
+        <li class="c-noticias"><time>08:30</time><div><h3><a href="#" data-go="guide">Se filtra el próximo evento de Free Fire para Latinoamérica</a></h3><p>Fechas probables y recompensas.</p></div><div class="cover cv-ff"><span class="glyph" aria-hidden="true">FF</span></div></li>
+      </ol>
+      <aside>
+        <div class="sticky-ad">
+          <div class="ad-lab">Publicidad</div>
+          <div class="ad ad-tall"><div><b>sidebar sticky · 300×600</b><small>solo escritorio</small></div></div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Virales -->
+    <div class="sec-head c-virales">
+      <div><h2>Virales <span class="u">de la semana</span></h2></div>
+      <p>Los momentos más graciosos de los lives, en formato vertical como en TikTok.</p>
+    </div>
+    <div class="reels" role="list">
+      <a class="reel r1" role="listitem" href="#" data-go="home"><span class="chip c-virales">Clip</span><h3>La batalla que se ganó en el último segundo</h3><span class="views">▶ 1,2 M vistas en TikTok</span></a>
+      <a class="reel r2" role="listitem" href="#" data-go="home"><span class="chip c-virales">Meme</span><h3>Los mejores memes del tráiler de GTA VI</h3><span class="views">Galería · 24 memes</span></a>
+      <a class="reel r3" role="listitem" href="#" data-go="home"><span class="chip c-virales">Clip</span><h3>Cuando el lag te gana la partida en Free Fire</h3><span class="views">▶ 840 K vistas</span></a>
+      <a class="reel r4" role="listitem" href="#" data-go="home"><span class="chip c-virales">Encuesta</span><h3>¿Quién gana la batalla del viernes? Vota aquí</h3><span class="views">12.300 votos</span></a>
+      <a class="reel r5" role="listitem" href="#" data-go="home"><span class="chip c-virales">Clip</span><h3>Minecraft pero el chat decide todo</h3><span class="views">▶ 530 K vistas</span></a>
+    </div>
+
+    <!-- Offerwall + comunidad -->
+    <section class="duo">
+      <article class="card unlock c-virales">
+        <div class="pack" aria-hidden="true"></div>
+        <div>
+          <span class="chip">Exclusivo</span>
+          <h3 style="margin-top:10px">Pack de fondos de pantalla GTA VI en 4K</h3>
+          <p>12 fondos hechos por el equipo. Para desbloquearlo, mira un anuncio corto.</p>
+          <button class="btn" type="button" id="open-ow">Desbloquear gratis</button>
+        </div>
+      </article>
+      <article class="card community c-creadores">
+        <span class="chip">Comunidad</span>
+        <h3>Entérate primero de los códigos y los lives</h3>
+        <p>Únete al canal de WhatsApp y agréganos como fuente preferida en Google para ver nuestras guías primero.</p>
+        <div class="btns">
+          <span class="btn wa">Canal de WhatsApp</span>
+          <span class="btn ghost">★ Fuente preferida en Google</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="notes" aria-label="Notas de la maqueta">
+      <h2>Por qué está hecho así</h2>
+      <ul>
+        <li>Lo primero que se ve es lo más buscado de la temporada (GTA VI) y las dos utilidades que hacen volver: códigos y calculadora.</li>
+        <li>El anuncio grande va justo en el borde de la primera pantalla: según un estudio de Google, es la posición que más se ve.</li>
+        <li>Un color por sección: azul guías, rosado creadores, naranja noticias, amarillo virales, verde herramientas.</li>
+        <li>Máximo 3–4 anuncios por página, con alto reservado para que nada salte mientras carga.</li>
+        <li>Las portadas aquí son arte generado; en el sitio real son imágenes propias de 1200 px o más para Google Discover.</li>
+      </ul>
+    </section>
+  </div>
+</main>
+
+<!-- =================== GUÍA =================== -->
+<main id="view-guide" hidden>
+  <div class="progress" aria-hidden="true"><i id="prog"></i></div>
+  <div class="wrap c-creadores">
+    <header class="g-head">
+      <div class="crumbs">Inicio / Creadores / TikTok LIVE</div>
+      <span class="chip">Guía · TikTok LIVE</span>
+      <h1>Cómo hacer LIVE en TikTok en 2026: requisitos, configuración y errores que te bloquean</h1>
+      <p class="dek">Lo que necesitas para salir en vivo, cómo configurarlo en el celular o con OBS, y las reglas que más cuentas han perdido este año.</p>
+      <div class="stats">
+        <span class="stat"><b>Nivel</b>Principiante</span>
+        <span class="stat"><b>Lectura</b>8 min</span>
+        <span class="stat"><b>Actualizado</b>2 oct 2026</span>
+        <span class="stat"><b>Probado</b>en 300+ lives</span>
+      </div>
+      <div class="author">
+        <div class="avatar" aria-hidden="true">CR</div>
+        <div><b>Nombre del creador</b><p>Hace lives y batallas en TikTok desde 2022. Streamea Minecraft, Roblox y Free Fire.</p></div>
+      </div>
+    </header>
+    <div class="g-cover"><div class="cover cv-tiktok"><span class="glyph" aria-hidden="true">LIVE</span></div></div>
+    <p class="g-cap">Captura propia del panel de LIVE (en el sitio real, siempre con crédito).</p>
+
+    <div class="g-grid">
+      <article class="prose">
+        <div class="answer"><b>Respuesta rápida</b>Para hacer LIVE con regalos necesitas ser mayor de 18 años y cumplir el mínimo de seguidores de tu país. Para batallas, además, 1.000 seguidores y la cuenta sin advertencias.</div>
+
+        <nav class="toc" aria-label="En esta guía">
+          <h2>En esta guía</h2>
+          <ol>
+            <li><a href="#req">Requisitos</a></li>
+            <li><a href="#pasos">Paso a paso</a></li>
+            <li><a href="#errores">Errores que te bloquean</a></li>
+            <li><a href="#obs">Con OBS o LIVE Studio</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="req">Requisitos para salir en vivo</h2>
+        <div class="reqs">
+          <div class="req"><strong>18+</strong><span>para recibir regalos y hacer batallas</span></div>
+          <div class="req"><strong>1.000</strong><span>seguidores para batallas (LIVE Match)</span></div>
+          <div class="req"><strong>0</strong><span>advertencias activas en la cuenta</span></div>
+        </div>
+        <p>Los requisitos cambian según el país y TikTok los ajusta seguido. Por eso esta guía tiene fecha de actualización arriba y la revisamos cada mes.</p>
+        <p>Segundo párrafo de ejemplo con contexto propio: qué pasó cuando el creador empezó, cuánto tardó en llegar a los requisitos y qué haría distinto hoy.</p>
+
+        <div class="ad-lab">Publicidad</div>
+        <div class="ad ad-in"><div><b>in-article · 336×280</b><small>después del tercer párrafo, con aire arriba y abajo</small></div></div>
+
+        <h2 id="pasos">Paso a paso desde el celular</h2>
+        <ol class="steps">
+          <li><div><b>Abre el botón "+" y desliza hasta LIVE</b>Si no aparece, todavía no cumples los requisitos de tu país.</div></li>
+          <li><div><b>Escribe un título que diga qué vas a hacer</b>"Batalla vs @rival a las 9 pm" funciona mejor que "LIVE 🔥".</div></li>
+          <li><div><b>Elige el tema y activa los filtros de comentarios</b>Te ahorra problemas con palabras prohibidas en el chat.</div></li>
+          <li><div><b>Revisa el audio antes de empezar</b>Nada de música con derechos de fondo: es la causa más común de cortes.</div></li>
+        </ol>
+
+        <div class="inline-unlock c-virales">
+          <div><b>Plantilla de escenas OBS para TikTok</b><p>Descarga gratis viendo un anuncio corto.</p></div>
+          <button class="btn" type="button" id="open-ow-2">Desbloquear</button>
+        </div>
+
+        <h2 id="errores">Errores que te bloquean el LIVE</h2>
+        <div class="warn"><b>Evítalo siempre</b>
+          <ul>
+            <li>Música con copyright de fondo, aunque sea bajita.</li>
+            <li>Apuestas, casinos o sorteos por dinero.</li>
+            <li>Quedarte en silencio o quieto mucho tiempo: el sistema lo marca como sospechoso.</li>
+            <li>Mandar a la gente a otras webs en ciertos formatos de LIVE.</li>
+          </ul>
+        </div>
+        <p>Cada advertencia dura 90 días en tu historial. Si juntas varias de la misma regla, TikTok te quita el LIVE primero por un tiempo y después para siempre.</p>
+
+        <h2 id="obs">Con OBS o LIVE Studio</h2>
+        <p>Párrafo de ejemplo sobre cuándo conviene la PC: juegos, varias cámaras, alertas en pantalla. Enlaza a la guía completa de OBS.</p>
+
+        <div class="feedback">
+          <b>¿Te funcionó esta guía?</b>
+          <div class="btns"><button class="btn ghost" type="button" id="fb-yes">Sí</button><button class="btn ghost" type="button" id="fb-no">No</button></div>
+        </div>
+        <p class="sources"><b>Fuentes:</b> Normas de la comunidad de TikTok, Centro de ayuda de TikTok LIVE, experiencia propia del creador.</p>
+      </article>
+
+      <aside class="g-side">
+        <div class="mini-toc">
+          <div>
+            <div class="ad-lab">Publicidad</div>
+            <div class="ad ad-tall"><div><b>sidebar sticky · 300×600</b><small>solo escritorio</small></div></div>
+          </div>
+          <div class="rel">
+            <div class="ad-lab" style="text-align:left">Sigue con</div>
+            <a href="#" data-go="guide"><div class="cover cv-obs"><span class="glyph" aria-hidden="true">OBS</span></div>Configurar OBS para TikTok paso a paso</a>
+            <a href="#" data-go="tool"><div class="cover cv-tiktok"><span class="glyph" aria-hidden="true">$</span></div>Calculadora de diamantes</a>
+            <a href="#" data-go="guide"><div class="cover cv-gear"><span class="glyph" aria-hidden="true">MIC</span></div>Equipo para stream por menos de $150</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<!-- =================== HERRAMIENTA =================== -->
+<main id="view-tool" hidden>
+  <div class="wrap c-tools">
+    <header class="g-head">
+      <div class="crumbs">Inicio / Herramientas</div>
+      <span class="chip">Herramienta gratis</span>
+      <h1>Calculadora de diamantes de TikTok LIVE</h1>
+      <p class="dek">Escribe cuántas monedas te regalaron o cuántos diamantes tienes y mira cuánto es en dólares. También sirve para ver cómo va una batalla.</p>
+    </header>
+
+    <div class="tool">
+      <section class="card calc" aria-label="Calculadora">
+        <div>
+          <label for="coins">Monedas regaladas</label>
+          <div class="field" style="margin-top:8px"><input id="coins" type="number" inputmode="numeric" min="0" value="20000"><span>monedas</span></div>
+        </div>
+        <div class="presets" aria-label="Valores rápidos">
+          <button type="button" id="p1" data-v="1000">1.000</button>
+          <button type="button" id="p2" data-v="5000">5.000</button>
+          <button type="button" id="p3" data-v="20000">20.000</button>
+          <button type="button" id="p4" data-v="100000">100.000</button>
+        </div>
+        <div class="result">
+          <div><span>Diamantes para ti</span><strong id="out-d">10.000</strong></div>
+          <div class="usd"><span>En dólares (aprox.)</span><strong id="out-u">$50,00</strong></div>
+        </div>
+        <div class="flow"><span>monedas</span><i>× 50 %</i><span>diamantes</span><i>× $0,005</i><span>dólares</span></div>
+        <p class="note">Valores aproximados. TikTok no publica una tasa oficial fija y puede variar por país. Lo que gastó tu público: <b id="out-spent">$210,00</b> (a ~$0,0105 por moneda).</p>
+      </section>
+
+      <section class="card battle c-creadores" aria-label="Batalla">
+        <span class="chip">Modo batalla</span>
+        <h3 style="font:900 26px/1.1 var(--display);font-stretch:118%">¿Quién va ganando?</h3>
+        <div class="vs"><span>Tú <span id="b-a">12.400</span></span><span><span id="b-b">9.800</span> Rival</span></div>
+        <div class="bar" aria-hidden="true"><i class="a" id="bar-a" style="width:56%"></i><i class="b" id="bar-b" style="width:44%"></i></div>
+        <div class="presets">
+          <button type="button" id="ba" data-side="a">+1.000 para ti</button>
+          <button type="button" id="bb" data-side="b">+1.000 al rival</button>
+        </div>
+        <p class="note">Los puntos de una batalla son las monedas de los regalos. Diferencia actual en dólares para el creador: <b id="b-usd">$6,50</b>.</p>
+        <div class="ad-lab">Publicidad</div>
+        <div class="ad ad-mpu" style="min-height:250px"><div><b>300×250</b><small>junto a la herramienta, nunca encima de los botones</small></div></div>
+      </section>
+    </div>
+
+    <section class="prose" style="max-width:700px;margin-top:48px">
+      <h2 style="margin-top:0">Cómo se calcula</h2>
+      <p>Texto propio que explica la fórmula, de dónde salen los valores y en qué casos cambia. Google no acepta anuncios en páginas que son solo una herramienta sin contenido, por eso cada herramienta lleva su explicación.</p>
+      <h2>Preguntas frecuentes</h2>
+      <p><b>¿Cuántos dólares son 1.000 diamantes?</b> Unos $5, según las tasas que reportan los creadores en 2026.</p>
+      <p><b>¿Por qué recibo menos de lo que gastó mi público?</b> TikTok se queda con cerca de la mitad del valor del regalo.</p>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div><a class="logo" href="#" data-go="home"><span class="n">N</span>Novedades<em>593</em></a><p>Guías de juegos, creadores, noticias gamer y virales. Hecho en Ecuador para toda Latinoamérica.</p></div>
+    <div><h4>Secciones</h4><ul><li>Guías</li><li>Creadores</li><li>Noticias</li><li>Virales</li><li>Herramientas</li></ul></div>
+    <div><h4>El sitio</h4><ul><li>Quiénes somos</li><li>Equipo editorial</li><li>Cómo probamos</li><li>Anuncia con nosotros</li></ul></div>
+    <div><h4>Legal</h4><ul><li>Privacidad y cookies</li><li>Términos</li><li>Contacto</li></ul></div>
+  </div>
+</footer>
+
+</div>
+</div>
+
+<div class="modal" id="ow" hidden role="dialog" aria-modal="true" aria-labelledby="ow-t">
+  <div class="modal-box">
+    <span class="chip c-virales">Offerwall de Google</span>
+    <h3 id="ow-t">Mira un anuncio corto y desbloquéalo</h3>
+    <p>Así se ve el Offerwall: Google muestra un anuncio con recompensa y, al terminar, se abre el contenido. No hay que programar nada: se activa en la cuenta de AdSense.</p>
+    <div class="ad"><div><b>anuncio recompensado</b><small>lo sirve Google</small></div></div>
+    <div class="row"><button class="btn" type="button" id="ow-ok">Ver anuncio</button><button class="btn ghost" type="button" id="ow-close">Ahora no</button></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var views = { home: document.getElementById('view-home'), guide: document.getElementById('view-guide'), tool: document.getElementById('view-tool') };
+  var viewBtns = document.querySelectorAll('[data-view]');
+  function show(v) {
+    if (!views[v]) return;
+    Object.keys(views).forEach(function (k) { views[k].hidden = k !== v; });
+    viewBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.view === v)); });
+    window.scrollTo(0, 0);
+  }
+  viewBtns.forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.view); }); });
+  document.querySelectorAll('[data-go]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); show(a.dataset.go); }); });
+  if (['guide', 'tool'].indexOf(location.hash.slice(1)) > -1) show(location.hash.slice(1));
+
+  var stage = document.getElementById('stage');
+  document.querySelectorAll('[data-dev]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      stage.classList.toggle('phone', b.dataset.dev === 'phone');
+      document.querySelectorAll('[data-dev]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+    });
+  });
+
+  var themeBtns = document.querySelectorAll('[data-theme-set]');
+  function markTheme() {
+    var t = root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    themeBtns.forEach(function (x) { x.setAttribute('aria-pressed', String(x.dataset.themeSet === t)); });
+  }
+  themeBtns.forEach(function (b) { b.addEventListener('click', function () { root.setAttribute('data-theme', b.dataset.themeSet); markTheme(); }); });
+  markTheme();
+
+  // Cuenta regresiva a GTA VI (19 nov 2026, 00:00 hora de Ecuador)
+  var target = new Date('2026-11-19T00:00:00-05:00').getTime();
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function tick() {
+    var ms = Math.max(0, target - Date.now());
+    document.getElementById('cd-d').textContent = Math.floor(ms / 864e5);
+    document.getElementById('cd-h').textContent = pad(Math.floor(ms / 36e5) % 24);
+    document.getElementById('cd-m').textContent = pad(Math.floor(ms / 6e4) % 60);
+  }
+  tick(); setInterval(tick, 30000);
+
+  document.querySelectorAll('.copy').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var txt = b.previousElementSibling.querySelector('span').textContent;
+      var done = function () { b.textContent = 'Copiado'; setTimeout(function () { b.textContent = 'Copiar'; }, 1400); };
+      try { navigator.clipboard.writeText(txt).then(done, done); } catch (e) { done(); }
+    });
+  });
+
+  // Calculadora
+  var nf = new Intl.NumberFormat('es-EC');
+  var usd = new Intl.NumberFormat('es-EC', { style: 'currency', currency: 'USD' });
+  var coins = document.getElementById('coins');
+  function calc() {
+    var c = Math.max(0, Number(coins.value) || 0);
+    var d = Math.floor(c * 0.5);
+    document.getElementById('out-d').textContent = nf.format(d);
+    document.getElementById('out-u').textContent = usd.format(d * 0.005);
+    document.getElementById('out-spent').textContent = usd.format(c * 0.0105);
+  }
+  coins.addEventListener('input', calc);
+  document.querySelectorAll('[data-v]').forEach(function (b) { b.addEventListener('click', function () { coins.value = b.dataset.v; calc(); }); });
+  calc();
+
+  var A = 12400, B = 9800;
+  function battle() {
+    var t = A + B || 1;
+    document.getElementById('b-a').textContent = nf.format(A);
+    document.getElementById('b-b').textContent = nf.format(B);
+    document.getElementById('bar-a').style.width = (A / t * 100) + '%';
+    document.getElementById('bar-b').style.width = (B / t * 100) + '%';
+    document.getElementById('b-usd').textContent = usd.format(Math.abs(A - B) * 0.5 * 0.005);
+  }
+  document.querySelectorAll('[data-side]').forEach(function (b) { b.addEventListener('click', function () { if (b.dataset.side === 'a') A += 1000; else B += 1000; battle(); }); });
+  battle();
+
+  // Offerwall
+  var ow = document.getElementById('ow');
+  ['open-ow', 'open-ow-2'].forEach(function (id) { document.getElementById(id).addEventListener('click', function () { ow.hidden = false; document.getElementById('ow-ok').focus(); }); });
+  document.getElementById('ow-close').addEventListener('click', function () { ow.hidden = true; });
+  document.getElementById('ow-ok').addEventListener('click', function () { this.textContent = 'Desbloqueado ✓'; setTimeout(function () { ow.hidden = true; document.getElementById('ow-ok').textContent = 'Ver anuncio'; }, 1200); });
+  ow.addEventListener('click', function (e) { if (e.target === ow) ow.hidden = true; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') ow.hidden = true; });
+
+  ['fb-yes', 'fb-no'].forEach(function (id) { document.getElementById(id).addEventListener('click', function () { this.parentNode.innerHTML = '<span class="meta">Gracias, lo usamos para mejorar la guía.</span>'; }); });
+
+  // Barra de progreso de lectura
+  var prog = document.getElementById('prog');
+  window.addEventListener('scroll', function () {
+    if (views.guide.hidden) return;
+    var h = document.documentElement.scrollHeight - innerHeight;
+    prog.style.width = (h > 0 ? scrollY / h * 100 : 0) + '%';
+  }, { passive: true });
+})();
+</script>
