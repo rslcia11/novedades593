@@ -1,0 +1,1110 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>entretenimiento593 · Guías de juegos y trucos para creadores</title>
+<meta name="description" content="Vista previa de entretenimiento593: guías de juegos, equipo, trucos para creadores, noticias gamer y virales para Latinoamérica.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFD100">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23FFD100'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='900' font-size='26' text-anchor='middle' fill='%23111'%3E593%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&display=swap">
+<style>
+/* entretenimiento593 · maqueta navegable.
+   Identidad: blanco, negro y el amarillo de la bandera de Ecuador. Sin degradados ni sombras.
+   Una sola tipografía. Un solo tema a propósito: el amarillo sobre blanco y negro es la marca. */
+:root {
+  --ink: #111111; --ink-2: #3A3A3A; --muted: #6B6B6B;
+  --paper: #FFFFFF; --soft: #F3F4F5; --line: #E3E3E3; --yellow: #FFD100;
+  --font: "Schibsted Grotesk", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --top: 64px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; background: var(--paper); color: var(--ink); }
+body { font: 400 16px/1.5 var(--font); -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
+a { color: inherit; text-decoration: none; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+h1, h2, h3, h4, p { margin: 0; }
+h1, h2, h3 { text-wrap: balance; letter-spacing: -0.02em; }
+img { max-width: 100%; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.mark { background: var(--yellow); padding: 0 .12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.wrap { max-width: 1200px; margin: 0 auto; padding-inline: 32px; }
+@media (max-width: 700px) { .wrap { padding-inline: 16px; } }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Aviso de vista previa */
+.preview { background: var(--ink); color: #E8E8E8; font-size: 13px; text-align: center; padding: 7px 16px; }
+.preview b { color: var(--yellow); font-weight: 700; }
+
+/* Cabecera */
+.top { position: sticky; top: 0; z-index: 40; background: var(--paper); border-bottom: 1px solid var(--line); }
+.top-in { display: flex; align-items: center; gap: 28px; min-height: var(--top); }
+.logo { display: inline-flex; align-items: center; font-weight: 800; font-size: 20px; letter-spacing: -0.035em; white-space: nowrap; }
+.logo b { background: var(--yellow); padding: 1px 6px 2px; margin-left: 3px; border-radius: 3px; font-weight: 900; }
+.nav { display: flex; gap: 22px; font-weight: 600; font-size: 15px; }
+.nav a { padding: 6px 0; border-bottom: 2px solid transparent; white-space: nowrap; }
+.nav a:hover, .nav a.on { border-color: var(--ink); }
+.top-r { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+.icon-btn { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); background: var(--paper); flex: none; }
+.icon-btn:hover { border-color: var(--ink); }
+.menu-btn { display: none; }
+@media (max-width: 1040px) { .nav { display: none; } .menu-btn { display: grid; } }
+@media (max-width: 700px) { .menu-btn { display: none; } .logo { font-size: 18px; } }
+
+/* Comunes */
+main { min-height: 60vh; }
+.sec { margin-top: 72px; }
+@media (max-width: 700px) { .sec { margin-top: 52px; } }
+.sec-h { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+.sec-h h2 { font-size: clamp(24px, 3vw, 32px); font-weight: 800; line-height: 1.1; }
+.sec-h p { color: var(--muted); font-size: 15px; margin-top: 6px; }
+.sec-h .more { font-weight: 600; font-size: 15px; white-space: nowrap; border-bottom: 1.5px solid var(--ink); }
+.meta { font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 10px; }
+.meta .new { color: var(--ink); font-weight: 700; }
+.tag { font-size: 13px; font-weight: 700; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 0 18px; border-radius: 6px; border: 1.5px solid var(--ink); background: var(--ink); color: #fff; font-weight: 700; font-size: 15px; white-space: nowrap; }
+.btn.y { background: var(--yellow); color: var(--ink); }
+.btn.o { background: var(--paper); color: var(--ink); }
+.btn.sm { min-height: 36px; padding: 0 12px; font-size: 14px; }
+.crumbs { font-size: 14px; color: var(--muted); margin-bottom: 14px; }
+.crumbs a:hover { color: var(--ink); text-decoration: underline; }
+.lede { font-size: 18px; color: var(--ink-2); max-width: 60ch; }
+
+/* Portadas tipográficas (en el sitio real: capturas propias 16:9 de 1200 px o más) */
+.cover { container-type: inline-size; aspect-ratio: 16/9; width: 100%; border-radius: 6px; position: relative; overflow: hidden; display: flex; align-items: flex-end; padding: 6% 7%; background: var(--soft); }
+.cover span { font-weight: 900; font-size: 15cqi; line-height: .92; letter-spacing: -0.04em; overflow-wrap: anywhere; }
+.cover::after { content: "593"; position: absolute; top: 8px; right: 10px; font-size: 11px; font-weight: 800; padding: 1px 5px; border-radius: 3px; background: var(--yellow); color: var(--ink); }
+.cover.k { background: var(--ink); color: #fff; }
+.cover.y { background: var(--yellow); }
+.cover.y::after { background: var(--ink); color: var(--yellow); }
+.cover.px { background-color: var(--soft); background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 16px 16px; }
+.cover .play { position: absolute; inset: 0; display: grid; place-items: center; }
+.cover .play svg { width: 18cqi; height: 18cqi; max-width: 64px; max-height: 64px; }
+
+/* Anuncios */
+.ad { background: var(--soft); border-radius: 6px; display: grid; place-items: center; text-align: center; color: var(--muted); font-size: 12px; padding: 10px; }
+.ad b { display: block; font-size: 12px; font-weight: 600; color: var(--ink-2); }
+.ad-l { font-size: 11px; color: var(--muted); text-align: center; margin-bottom: 6px; letter-spacing: .02em; }
+.ad-bill { min-height: 250px; }
+@media (max-width: 700px) { .ad-bill { min-height: 100px; } }
+.ad-box { min-height: 250px; }
+.ad-tall { min-height: 600px; }
+.ad-in { min-height: 280px; }
+.ad-slot { margin-block: 40px; }
+
+/* Listas de artículos */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 48px; align-items: start; }
+@media (max-width: 960px) { .split { grid-template-columns: minmax(0, 1fr); } }
+.list { display: grid; }
+.row { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 20px; padding: 18px 0; border-top: 1px solid var(--line); align-items: center; }
+.row:first-child { border-top: 0; padding-top: 0; }
+.row h3 { font-size: 20px; font-weight: 800; line-height: 1.2; margin: 4px 0 6px; }
+.row:hover h3 { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.row p { color: var(--ink-2); font-size: 15px; }
+@media (max-width: 600px) { .row { grid-template-columns: 112px minmax(0, 1fr); gap: 14px; } .row h3 { font-size: 16px; } .row p { display: none; } }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 20px; }
+.grid.g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 960px) { .grid, .grid.g4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .grid, .grid.g4 { grid-template-columns: minmax(0, 1fr); } }
+.card { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.card h3 { font-size: 18px; font-weight: 800; line-height: 1.22; }
+.card:hover h3 { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.side { display: grid; gap: 28px; align-content: start; }
+.top5 h2 { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+.top5 ol { list-style: none; margin: 0; padding: 0; counter-reset: n; }
+.top5 li { counter-increment: n; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 8px; padding: 12px 0; border-top: 1px solid var(--line); }
+.top5 li::before { content: counter(n); font-weight: 900; font-size: 22px; line-height: 1.1; }
+.top5 li:first-child::before { background: var(--yellow); width: 28px; text-align: center; border-radius: 3px; }
+.top5 a { font-weight: 600; line-height: 1.35; }
+.top5 a:hover { text-decoration: underline; }
+.top5 small { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+
+/* Inicio */
+.intro { padding-top: 56px; display: grid; gap: 20px; max-width: 860px; }
+.intro > * { min-width: 0; }
+.intro h1 { font-size: clamp(36px, 6vw, 68px); font-weight: 900; line-height: 1.1; letter-spacing: -0.04em; }
+.intro p { font-size: 19px; color: var(--ink-2); max-width: 56ch; }
+@media (max-width: 700px) { .intro { padding-top: 32px; } .intro p { font-size: 17px; } }
+.search { position: relative; max-width: 720px; }
+.search-box { display: flex; align-items: center; gap: 10px; height: 60px; border: 2px solid var(--ink); border-radius: 8px; padding: 0 8px 0 18px; background: var(--paper); }
+.search-box input { flex: 1; min-width: 0; border: 0; outline: none; background: transparent; font-size: 17px; }
+.search-box .btn { min-height: 44px; }
+@media (max-width: 520px) { .search-box .btn span { display: none; } .search-box .btn { width: 44px; padding: 0; } }
+.suggest { position: absolute; left: 0; right: 0; top: 66px; z-index: 30; background: var(--paper); border: 2px solid var(--ink); border-radius: 8px; padding: 6px; display: grid; }
+.suggest a { padding: 10px 12px; border-radius: 4px; display: flex; justify-content: space-between; gap: 12px; }
+.suggest a:hover { background: var(--yellow); }
+.suggest small { color: var(--muted); white-space: nowrap; }
+.popular { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; color: var(--muted); align-items: baseline; }
+.popular a { color: var(--ink); font-weight: 600; border-bottom: 1px solid var(--line); }
+.popular a:hover { border-color: var(--ink); }
+.games { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+.game { border: 1.5px solid var(--ink); border-radius: 8px; padding: 14px; aspect-ratio: 1; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; transition: background .15s; }
+.game:hover { background: var(--yellow); }
+.game strong { font-size: clamp(18px, 1.9vw, 24px); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; display: block; }
+.game small { display: block; font-size: 13px; color: var(--ink-2); margin-top: 4px; }
+.game svg { width: 34px; height: 34px; }
+.game.all { background: var(--ink); color: #fff; }
+.game.all small { color: #ccc; }
+.game.all:hover { background: var(--yellow); color: var(--ink); }
+@media (max-width: 900px) { .games { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .games { grid-template-columns: repeat(2, minmax(0, 1fr)); } .game { aspect-ratio: auto; min-height: 112px; gap: 14px; } }
+.band { background: var(--ink); color: #fff; border-radius: 10px; padding: 36px 40px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 28px; align-items: center; }
+.band h2 { font-size: clamp(26px, 3.4vw, 40px); font-weight: 900; line-height: 1.05; }
+.band p { color: #cfcfcf; margin-top: 10px; max-width: 46ch; }
+.band .btn { margin-top: 20px; }
+.clock { display: flex; gap: 10px; }
+.clock div { min-width: 92px; text-align: center; border: 1.5px solid #444; border-radius: 8px; padding: 12px 10px; }
+.clock strong { display: block; font-size: 44px; font-weight: 900; line-height: 1; color: var(--yellow); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
+.clock span { font-size: 13px; color: #cfcfcf; }
+@media (max-width: 760px) { .band { grid-template-columns: minmax(0, 1fr); padding: 24px 20px; } .clock div { min-width: 0; flex: 1; } .clock strong { font-size: 34px; } }
+.creators { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 2fr); gap: 24px; }
+.host { background: var(--yellow); border-radius: 10px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; }
+.face { width: 72px; height: 72px; border-radius: 50%; background: var(--ink); color: var(--yellow); display: grid; place-items: center; font-weight: 900; font-size: 24px; flex: none; }
+.host h3 { font-size: 26px; font-weight: 900; line-height: 1.1; }
+.host p { font-size: 16px; color: var(--ink-2); margin-top: 8px; }
+.host .stats { display: flex; gap: 22px; font-size: 13px; }
+.host .stats strong { display: block; font-size: 22px; font-weight: 900; }
+.c-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 20px; }
+@media (max-width: 900px) { .creators { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 520px) { .c-grid { grid-template-columns: minmax(0, 1fr); } }
+.tools { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.tool-t { border: 1.5px solid var(--ink); border-radius: 10px; padding: 22px; display: grid; gap: 10px; align-content: start; transition: background .15s; }
+.tool-t:hover { background: var(--yellow); }
+.tool-t svg { width: 40px; height: 40px; }
+.tool-t h3 { font-size: 20px; font-weight: 800; line-height: 1.15; }
+.tool-t p { color: var(--ink-2); font-size: 15px; }
+.tool-t .go { font-weight: 700; font-size: 15px; margin-top: 4px; }
+@media (max-width: 800px) { .tools { grid-template-columns: minmax(0, 1fr); } }
+.clips { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(170px, 1fr); gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; }
+.clip { scroll-snap-align: start; display: grid; gap: 8px; align-content: start; }
+.clip .v { aspect-ratio: 9/14; border-radius: 8px; background: var(--ink); color: #fff; position: relative; display: grid; place-items: center; }
+.clip .v.y { background: var(--yellow); color: var(--ink); }
+.clip .v.s { background: var(--soft); color: var(--ink); }
+.clip .v svg { width: 44px; height: 44px; }
+.clip .v small { position: absolute; left: 10px; bottom: 10px; font-size: 12px; font-weight: 700; }
+.clip h3 { font-size: 15px; font-weight: 700; line-height: 1.3; }
+.clips.wrapgrid { grid-auto-flow: row; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; }
+@media (max-width: 900px) { .clips.wrapgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.news { display: grid; }
+.news a { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); }
+.news a:first-child { border-top: 0; }
+.news time { font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.news h3 { font-size: 18px; font-weight: 800; line-height: 1.25; }
+.news p { color: var(--muted); font-size: 14px; margin-top: 4px; }
+.news a:hover h3 { text-decoration: underline; }
+.join { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: center; border-top: 2px solid var(--ink); padding-top: 28px; }
+.join h2 { font-size: clamp(22px, 2.6vw, 28px); font-weight: 800; }
+.join p { color: var(--ink-2); margin-top: 6px; }
+.join .btns { display: flex; flex-wrap: wrap; gap: 10px; }
+@media (max-width: 760px) { .join { grid-template-columns: minmax(0, 1fr); } }
+
+/* Cabecera de sección o juego */
+.hub-h { padding-top: 40px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: end; border-bottom: 2px solid var(--ink); padding-bottom: 28px; }
+.hub-h h1 { font-size: clamp(44px, 7.5vw, 96px); font-weight: 900; line-height: .92; letter-spacing: -0.05em; overflow-wrap: anywhere; }
+.hub-h p { font-size: 18px; color: var(--ink-2); margin-top: 14px; max-width: 56ch; }
+.facts-h { display: flex; gap: 28px; font-size: 13px; color: var(--muted); }
+.facts-h strong { display: block; font-size: 28px; font-weight: 900; color: var(--ink); font-variant-numeric: tabular-nums; }
+@media (max-width: 700px) { .hub-h { grid-template-columns: minmax(0, 1fr); padding-top: 28px; } .facts-h { flex-wrap: wrap; gap: 12px 24px; } .facts-h strong { font-size: 20px; } }
+input[type=search]::-webkit-search-cancel-button { -webkit-appearance: none; }
+.filters { display: flex; gap: 8px; overflow-x: auto; padding: 20px 0; scrollbar-width: none; }
+.filters button { flex: none; height: 40px; padding: 0 16px; border-radius: 6px; border: 1.5px solid var(--ink); background: var(--paper); font-weight: 600; font-size: 14px; }
+.filters button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.start { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 40px; }
+.start a { background: var(--soft); border-radius: 8px; padding: 18px; display: grid; gap: 6px; align-content: start; }
+.start a:hover { background: var(--yellow); }
+.start small { font-size: 13px; color: var(--muted); font-weight: 600; }
+.start strong { font-size: 18px; font-weight: 800; line-height: 1.2; }
+@media (max-width: 760px) { .start { grid-template-columns: minmax(0, 1fr); } }
+.empty { padding: 32px 0; color: var(--muted); }
+
+/* Artículo */
+.a-head { padding-top: 32px; max-width: 820px; display: grid; gap: 16px; }
+.a-head > * { min-width: 0; }
+.a-head h1 { font-size: clamp(30px, 4.6vw, 52px); font-weight: 900; line-height: 1.05; letter-spacing: -0.035em; }
+.a-head .dek { font-size: 19px; color: var(--ink-2); }
+@media (max-width: 700px) { .a-head { padding-top: 20px; } .a-head .dek { font-size: 17px; } }
+.byline { display: flex; align-items: center; gap: 12px; font-size: 14px; }
+.byline .face { width: 44px; height: 44px; font-size: 15px; }
+.byline b { display: block; font-size: 15px; }
+.byline span { color: var(--muted); }
+.a-cover { margin-top: 28px; }
+.a-cover .cover { aspect-ratio: 21/9; border-radius: 10px; }
+.a-cover .cover span { font-size: 9cqi; }
+@media (max-width: 700px) { .a-cover .cover { aspect-ratio: 16/9; } .a-cover .cover span { font-size: 13cqi; } }
+.caption { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.a-grid { display: grid; grid-template-columns: minmax(0, 700px) 300px; justify-content: space-between; gap: 48px; margin-top: 36px; }
+@media (max-width: 1060px) { .a-grid { grid-template-columns: minmax(0, 1fr); } .a-side { display: none !important; } }
+.prose { font-size: 18px; line-height: 1.7; min-width: 0; }
+.prose > * + * { margin-top: 1.1em; }
+.prose h2 { font-size: 28px; font-weight: 900; line-height: 1.15; margin-top: 1.9em; scroll-margin-top: calc(var(--top) + 20px); }
+@media (max-width: 700px) { .prose { font-size: 17px; } .prose h2 { font-size: 24px; } }
+.prose .ad-slot { margin-block: 36px; }
+.quick { background: var(--yellow); border-radius: 8px; padding: 20px 22px; font-size: 17px; line-height: 1.55; }
+.quick b { display: block; font-size: 14px; margin-bottom: 4px; }
+.facts3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.facts3 div { border: 1.5px solid var(--ink); border-radius: 8px; padding: 14px 16px; }
+.facts3 strong { display: block; font-size: 30px; font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.facts3 span { display: block; font-size: 14px; line-height: 1.4; color: var(--ink-2); margin-top: 4px; }
+@media (max-width: 560px) { .facts3 { grid-template-columns: minmax(0, 1fr); } }
+.steps { list-style: none; margin: 0; padding: 0; counter-reset: s; display: grid; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px; padding: 16px 0; border-top: 1px solid var(--line); font-size: 17px; line-height: 1.55; }
+.steps li::before { content: counter(s); width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--ink); display: grid; place-items: center; font-weight: 900; font-size: 18px; }
+.steps b { display: block; }
+.box { border: 2px solid var(--ink); border-radius: 8px; padding: 18px 22px; }
+.box b { display: block; font-size: 15px; margin-bottom: 6px; }
+.box ul { margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.6; }
+.tip { background: var(--soft); border-radius: 8px; padding: 16px 20px; font-size: 16px; }
+.tip b { margin-right: 4px; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
+th { text-align: left; font-size: 13px; color: var(--muted); font-weight: 600; padding: 8px 10px; border-bottom: 2px solid var(--ink); white-space: nowrap; }
+td { padding: 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.useful { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; border-top: 2px solid var(--ink); padding-top: 20px; }
+.useful b { font-size: 17px; }
+.useful .btns { display: flex; gap: 8px; }
+.sources { font-size: 14px; color: var(--muted); }
+.disclosure { font-size: 14px; color: var(--ink-2); background: var(--soft); border-radius: 6px; padding: 10px 14px; }
+.a-side { display: grid; align-content: start; }
+.sticky { position: sticky; top: calc(var(--top) + 24px); display: grid; gap: 28px; }
+.toc b { display: block; font-size: 14px; margin-bottom: 8px; }
+.toc ol { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 15px; }
+.toc button { background: none; border: 0; padding: 0; text-align: left; font-size: 15px; }
+.toc button:hover { text-decoration: underline; }
+.toc-m { display: none; border: 1.5px solid var(--ink); border-radius: 8px; padding: 14px 18px; }
+.toc-m summary { font-weight: 700; cursor: pointer; }
+.toc-m ol { margin: 10px 0 0; padding-left: 18px; display: grid; gap: 6px; }
+.toc-m button { background: none; border: 0; padding: 0; text-align: left; font-size: 16px; }
+@media (max-width: 1060px) { .toc-m { display: block; } }
+.related { margin-top: 64px; }
+
+/* Códigos */
+.codes { display: grid; border-top: 2px solid var(--ink); }
+.code { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.code strong { font-size: 17px; font-weight: 800; letter-spacing: .02em; overflow-wrap: anywhere; }
+.code span { display: block; font-size: 14px; color: var(--ink-2); }
+.code.off strong { text-decoration: line-through; color: var(--muted); }
+.copy { min-height: 38px; padding: 0 14px; border-radius: 6px; border: 1.5px solid var(--ink); background: var(--paper); font-weight: 700; font-size: 14px; }
+.copy.done { background: var(--yellow); }
+
+/* Comparativa de equipo */
+.picks { display: grid; gap: 16px; }
+.pick { border: 2px solid var(--ink); border-radius: 10px; padding: 22px; display: grid; gap: 14px; }
+.pick-h { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; }
+.pick-h small { font-size: 13px; font-weight: 700; background: var(--yellow); padding: 2px 8px; border-radius: 3px; }
+.pick h3 { font-size: 22px; font-weight: 900; line-height: 1.15; width: 100%; }
+.pick .price { font-size: 15px; color: var(--ink-2); }
+.pick .price strong { font-size: 22px; color: var(--ink); font-weight: 900; }
+.pc { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; font-size: 15px; line-height: 1.5; }
+.pc ul { margin: 6px 0 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.pc li::before { content: "+ "; font-weight: 900; }
+.pc .con li::before { content: "– "; }
+.pc b { font-size: 14px; }
+@media (max-width: 560px) { .pc { grid-template-columns: minmax(0, 1fr); } }
+.pick .btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.specs { display: flex; flex-wrap: wrap; gap: 6px; }
+.specs span { font-size: 13px; border: 1px solid var(--line); border-radius: 4px; padding: 2px 8px; }
+
+/* Viral */
+.viral { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 40px; margin-top: 28px; align-items: start; }
+.viral .v { aspect-ratio: 9/16; border-radius: 12px; background: var(--ink); color: #fff; display: grid; place-items: center; position: relative; }
+.viral .v svg { width: 72px; height: 72px; }
+.viral .v small { position: absolute; bottom: 14px; left: 14px; right: 14px; font-size: 13px; color: #ccc; }
+.viral .row { grid-template-columns: 112px minmax(0, 1fr); gap: 14px; }
+.viral .row h3 { font-size: 16px; }
+.viral .row p { display: none; }
+@media (max-width: 1000px) { .viral { grid-template-columns: minmax(0, 1fr); } .viral .v { max-height: 70vh; margin-inline: auto; width: 100%; max-width: 360px; } }
+
+/* Herramientas */
+.tool-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; margin-top: 32px; align-items: start; }
+@media (max-width: 960px) { .tool-wrap { grid-template-columns: minmax(0, 1fr); } .tool-wrap > aside { display: none; } }
+.panel { border: 2px solid var(--ink); border-radius: 10px; padding: 28px; display: grid; gap: 22px; min-width: 0; }
+@media (max-width: 520px) { .panel { padding: 18px; } }
+.panel label, .panel .lbl { font-weight: 700; font-size: 15px; display: block; }
+.field { display: flex; align-items: center; min-height: 64px; border: 1.5px solid var(--ink); border-radius: 8px; padding: 0 16px; gap: 10px; margin-top: 8px; min-width: 0; }
+.field input { flex: 1; min-width: 0; width: 100%; border: 0; outline: none; font-size: 28px; font-weight: 800; font-variant-numeric: tabular-nums; background: transparent; }
+.field input.txt { font-size: 22px; font-weight: 700; }
+.field span { color: var(--muted); font-weight: 600; flex: none; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips button { min-height: 38px; padding: 0 14px; border-radius: 6px; border: 1px solid var(--line); background: var(--paper); font-weight: 600; font-size: 14px; font-variant-numeric: tabular-nums; }
+.chips button:hover { border-color: var(--ink); }
+.chips button[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+.out { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.out div { background: var(--soft); border-radius: 8px; padding: 18px; min-width: 0; }
+.out div.big { background: var(--yellow); }
+.out span { font-size: 14px; font-weight: 600; color: var(--ink-2); }
+.out strong { display: block; font-size: clamp(28px, 4.4vw, 48px); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; margin-top: 6px; overflow-wrap: anywhere; }
+@media (max-width: 460px) { .out { grid-template-columns: minmax(0, 1fr); } }
+.how { font-size: 14px; color: var(--muted); }
+.how b { color: var(--ink); }
+.names { display: grid; border-top: 1px solid var(--line); }
+.name-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.name-row strong { font-size: 22px; font-weight: 500; overflow-wrap: anywhere; line-height: 1.3; }
+.name-row small { display: block; font-size: 12px; color: var(--muted); }
+.reco { background: var(--yellow); border-radius: 8px; padding: 20px; display: grid; gap: 8px; }
+.reco h3 { font-size: 22px; font-weight: 900; }
+.reco p { color: var(--ink-2); }
+.vs { display: flex; justify-content: space-between; font-weight: 800; font-variant-numeric: tabular-nums; }
+.bar { height: 18px; border-radius: 4px; overflow: hidden; display: flex; background: var(--soft); }
+.bar i { display: block; height: 100%; }
+.bar .a { background: var(--ink); } .bar .b { background: var(--yellow); }
+
+/* Páginas del sitio */
+.page { max-width: 760px; }
+.formats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.formats div { border: 1.5px solid var(--ink); border-radius: 8px; padding: 18px; }
+.formats h3 { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+.formats p { font-size: 15px; color: var(--ink-2); line-height: 1.5; }
+@media (max-width: 600px) { .formats { grid-template-columns: minmax(0, 1fr); } }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.kpis div { background: var(--soft); border-radius: 8px; padding: 16px; }
+.kpis strong { display: block; font-size: 28px; font-weight: 900; letter-spacing: -0.03em; }
+.kpis span { font-size: 13px; color: var(--ink-2); }
+@media (max-width: 700px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Pie */
+footer { margin-top: 96px; background: var(--soft); padding-block: 44px; }
+.foot { display: grid; grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr)); gap: 28px; font-size: 15px; }
+.foot h4 { font-size: 13px; color: var(--muted); font-weight: 600; margin: 0 0 10px; }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.foot a:hover { text-decoration: underline; }
+.foot p { color: var(--ink-2); margin-top: 10px; max-width: 34ch; }
+.foot-b { margin-top: 32px; font-size: 13px; color: var(--muted); }
+@media (max-width: 760px) { .foot { grid-template-columns: repeat(2, minmax(0, 1fr)); } .foot > div:first-child { grid-column: 1 / -1; } }
+
+/* Barra inferior (celular) y menú */
+.tabbar { display: none; }
+@media (max-width: 700px) {
+  body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
+  .tabbar { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); position: fixed; left: 0; right: 0; bottom: 0; z-index: 45; background: var(--paper); border-top: 1px solid var(--line); padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px)); }
+  .tabbar a, .tabbar button { display: grid; justify-items: center; gap: 2px; font-size: 11px; font-weight: 600; padding: 4px 0; color: var(--muted); background: none; border: 0; }
+  .tabbar .on { color: var(--ink); }
+  .tabbar .on svg { background: var(--yellow); border-radius: 6px; }
+  .tabbar svg { width: 36px; height: 26px; padding: 2px 7px; }
+}
+.sheet { position: fixed; inset: 0; z-index: 60; background: rgba(17,17,17,.45); display: flex; align-items: flex-end; justify-content: center; }
+.sheet-in { background: var(--paper); width: 100%; max-width: 560px; border-radius: 16px 16px 0 0; padding: 20px 20px calc(24px + env(safe-area-inset-bottom, 0px)); max-height: 88vh; overflow-y: auto; }
+@media (min-width: 701px) { .sheet { align-items: flex-start; justify-content: flex-end; } .sheet-in { border-radius: 0; max-width: 380px; height: 100%; max-height: none; } }
+.sheet-h { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.sheet-h b { font-size: 18px; }
+.sheet nav { display: grid; }
+.sheet nav a { padding: 14px 4px; border-bottom: 1px solid var(--line); font-size: 18px; font-weight: 700; display: flex; justify-content: space-between; }
+.sheet nav a small { font-weight: 500; color: var(--muted); font-size: 14px; }
+.sheet h4 { font-size: 13px; color: var(--muted); margin: 22px 0 6px; font-weight: 600; }
+.toast { position: fixed; left: 50%; bottom: 88px; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 6px; font-size: 14px; font-weight: 600; z-index: 70; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 4l9 7v9h-6v-6H9v6H3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-pad" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 11v3M5.5 12.5h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="11.5" r="1.2" fill="currentColor"/><circle cx="18" cy="14" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10.5 18.5h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-tool" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="m20 20-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 8v8l6-4z" fill="currentColor"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-text" viewBox="0 0 24 24"><path d="M4 6V4h16v2M12 4v16M9 20h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-block" viewBox="0 0 24 24"><path d="M12 2 21 7v10l-9 5-9-5V7z M3 7l9 5 9-5 M12 12v10" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-cube" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="9" y="9" width="6" height="6" fill="currentColor" transform="rotate(15 12 12)"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M3 15v-3l2-5h14l2 5v3zM3 15v3h3v-3M18 15v3h3v-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7.5" cy="12.5" r="1" fill="currentColor"/><circle cx="16.5" cy="12.5" r="1" fill="currentColor"/></symbol>
+  <symbol id="i-fire" viewBox="0 0 24 24"><path d="M12 22c4 0 7-3 7-7 0-5-5-7-5-12-3 2-4 5-4 7-1-1-2-2-2-4-2 2-3 5-3 9 0 4 3 7 7 7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bus" viewBox="0 0 24 24"><path d="M4 20 12 3l8 17-8-4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" fill="none" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="7" height="7" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+</svg>
+
+<div class="preview">Vista previa de <b>entretenimiento593</b> · contenido de ejemplo · los recuadros grises son espacios de anuncio</div>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="#/" aria-label="entretenimiento593, inicio">entretenimiento<b>593</b></a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#/juegos" data-sec="juegos">Juegos</a>
+      <a href="#/equipo" data-sec="equipo">Equipo</a>
+      <a href="#/creadores" data-sec="creadores">Creadores</a>
+      <a href="#/noticias" data-sec="noticias">Noticias</a>
+      <a href="#/virales" data-sec="virales">Virales</a>
+      <a href="#/herramientas" data-sec="herramientas">Herramientas</a>
+    </nav>
+    <div class="top-r">
+      <a class="icon-btn" href="#/buscar" aria-label="Buscar"><svg width="18" height="18"><use href="#i-search"/></svg></a>
+      <button class="icon-btn menu-btn" type="button" data-menu aria-label="Abrir menú"><svg width="20" height="20"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main id="app" tabindex="-1"></main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><a class="logo" href="#/">entretenimiento<b>593</b></a><p>Guías de juegos y trucos para creadores. Hecho en Ecuador para toda Latinoamérica.</p></div>
+      <div><h4>Explora</h4><ul><li><a href="#/juegos">Juegos</a></li><li><a href="#/equipo">Equipo</a></li><li><a href="#/creadores">Creadores</a></li><li><a href="#/noticias">Noticias</a></li><li><a href="#/virales">Virales</a></li><li><a href="#/herramientas">Herramientas</a></li></ul></div>
+      <div><h4>El sitio</h4><ul><li><a href="#/p/quienes-somos">Quiénes somos</a></li><li><a href="#/p/como-probamos">Cómo probamos</a></li><li><a href="#/p/anuncia">Anuncia con nosotros</a></li><li><a href="#/p/contacto">Contacto</a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="#/p/privacidad">Privacidad y cookies</a></li><li><a href="#/p/terminos">Términos de uso</a></li></ul></div>
+    </div>
+    <p class="foot-b">© 2026 entretenimiento593 · Las marcas y nombres de juegos pertenecen a sus dueños y se usan solo para identificarlos.</p>
+  </div>
+</footer>
+
+<nav class="tabbar" aria-label="Navegación principal">
+  <a href="#/" data-tab="inicio"><svg aria-hidden="true"><use href="#i-home"/></svg>Inicio</a>
+  <a href="#/juegos" data-tab="juegos"><svg aria-hidden="true"><use href="#i-pad"/></svg>Juegos</a>
+  <a href="#/equipo" data-tab="equipo"><svg aria-hidden="true"><use href="#i-phone"/></svg>Equipo</a>
+  <a href="#/creadores" data-tab="creadores"><svg aria-hidden="true"><use href="#i-mic"/></svg>Creadores</a>
+  <button type="button" data-menu data-tab="menu"><svg aria-hidden="true"><use href="#i-menu"/></svg>Menú</button>
+</nav>
+
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet-in" role="dialog" aria-modal="true" aria-label="Menú">
+    <div class="sheet-h"><b>Menú</b><button class="icon-btn" type="button" id="sheet-x" aria-label="Cerrar menú"><svg width="18" height="18"><use href="#i-x"/></svg></button></div>
+    <nav aria-label="Todas las secciones">
+      <a href="#/juegos">Juegos <small>Guías por juego</small></a>
+      <a href="#/equipo">Equipo <small>Celulares, PC, stream</small></a>
+      <a href="#/creadores">Creadores <small>Lives y batallas</small></a>
+      <a href="#/noticias">Noticias <small>Lo que pasó hoy</small></a>
+      <a href="#/virales">Virales <small>Clips y memes</small></a>
+      <a href="#/herramientas">Herramientas <small>Gratis</small></a>
+      <a href="#/buscar">Buscar <small>Todo el sitio</small></a>
+    </nav>
+    <h4>El sitio</h4>
+    <nav aria-label="El sitio">
+      <a href="#/p/quienes-somos">Quiénes somos</a>
+      <a href="#/p/anuncia">Anuncia con nosotros</a>
+      <a href="#/p/contacto">Contacto</a>
+    </nav>
+  </div>
+</div>
+
+<script>
+/* ===================== Datos editables ===================== */
+var CREATOR = { name: '[Creador]', initials: 'CR', years: '4 años', battles: '+300' };
+var GTA_DATE = new Date('2026-11-19T00:00:00-05:00');
+
+var SECTIONS = {
+  juegos: { name: 'Juegos', desc: 'Guías paso a paso de los juegos que más se juegan en Latinoamérica.' },
+  equipo: { name: 'Equipo', desc: 'Celulares para jugar, PC, audífonos y equipo para stream. Lo que usamos y probamos.' },
+  creadores: { name: 'Creadores', desc: 'Lives, batallas, OBS y cómo crecer. Lo que aprendimos haciendo stream todos los días.' },
+  noticias: { name: 'Noticias', desc: 'Lo que pasó hoy en los juegos, en TikTok y en el streaming, explicado en corto.' },
+  virales: { name: 'Virales', desc: 'Lo más gracioso de los lives y de la comunidad gamer.' },
+  herramientas: { name: 'Herramientas', desc: 'Gratis, sin registrarte y desde el celular.' }
+};
+
+var GAMES = {
+  minecraft: { name: 'Minecraft', icon: 'i-block', desc: 'Guías para empezar, granjas, el Nether y cómo jugar con amigos. Probado en Java y Bedrock.', facts: [['1.21', 'versión'], ['Java y Bedrock', 'ediciones']], tags: ['Para empezar', 'Granjas', 'Exploración', 'Multijugador'] },
+  roblox: { name: 'Roblox', icon: 'i-cube', desc: 'Códigos, Blox Fruits y cómo cuidar tu cuenta. Revisamos los códigos todos los días.', facts: [['Diario', 'revisión de códigos'], ['+13', 'edad recomendada']], tags: ['Códigos', 'Blox Fruits', 'Seguridad'] },
+  gta6: { name: 'GTA VI', icon: 'i-car', desc: 'Fecha, plataformas, requisitos y todo lo confirmado. Lo actualizamos con cada anuncio de Rockstar.', facts: [['19 nov', 'lanzamiento'], ['PS5 y Xbox', 'plataformas']], tags: ['Lanzamiento', 'Equipo'] },
+  freefire: { name: 'Free Fire', icon: 'i-fire', desc: 'Sensibilidad, nombres con letras especiales y cómo bajar el lag en celulares de gama baja.', facts: [['Celular', 'plataforma'], ['FFWS', 'torneo LATAM']], tags: ['Configuración', 'Nombres', 'Rendimiento'] },
+  fortnite: { name: 'Fortnite', icon: 'i-bus', desc: 'Misiones de la semana y configuración para jugar fluido en equipos modestos.', facts: [['Semanal', 'misiones'], ['Gratis', 'para jugar']], tags: ['Misiones', 'Configuración'] }
+};
+
+/* Tipos: guia · codigos · comparativa · creador · noticia · viral
+   Bloques: ['p',txt] ['h',titulo] ['steps',[[t,d]]] ['facts',[[n,l]]] ['box',titulo,[items]] ['tip',txt] ['table',[cab],[[filas]]] ['codes',[[c,r,on]]] ['picks',[...]] ['calc'] ['countdown'] */
+var A = [
+  /* ---------- Minecraft ---------- */
+  { id: 'diamantes-minecraft', sec: 'juegos', game: 'minecraft', tag: 'Para empezar', type: 'guia', tone: 'y', label: 'Diamantes', mins: 6, date: 'Actualizado ayer', top: true,
+    title: 'Cómo encontrar diamantes en Minecraft: la capa exacta y 3 métodos que funcionan',
+    dek: 'Dónde aparecen desde la 1.18, a qué altura cavar y cómo no perderlos en la lava. Sirve para Java y Bedrock.',
+    quick: 'Cava a la altura Y -58 o Y -59 con un pico de hierro o mejor. Ahí es donde más diamantes aparecen desde la actualización 1.18.',
+    blocks: [
+      ['facts', [['Y -59', 'la capa con más diamantes'], ['Hierro', 'pico mínimo para picarlos'], ['3', 'métodos que explicamos']]],
+      ['p', 'Desde la actualización 1.18 los diamantes aparecen debajo de la capa Y 16 y son más comunes cuanto más bajas. Para ver tu altura, abre las coordenadas: F3 en PC o actívalas en las opciones del mundo en Bedrock.'],
+      ['h', 'Método 1: túneles en rama'],
+      ['steps', [['Baja hasta Y -58.', 'Haz una escalera, no caves en línea recta hacia abajo.'], ['Cava un túnel principal de 2 bloques de alto.', 'Es tu pasillo de regreso.'], ['Abre ramas cada 3 bloques a los lados.', 'Así ves todos los bloques sin picar de más.'], ['Lleva un cubo de agua.', 'Si encuentras lava, la conviertes en obsidiana.']]],
+      ['h', 'Método 2: cuevas profundas'],
+      ['p', 'Las cuevas grandes dejan muchos bloques a la vista. Es más rápido, pero hay más monstruos: lleva antorchas, comida y armadura.'],
+      ['h', 'Método 3: cofres'],
+      ['p', 'Barcos hundidos, templos y aldeas pueden tener diamantes en sus cofres. No es seguro, pero suma mientras exploras.'],
+      ['box', 'Errores comunes', ['Picar diamantes con pico de piedra: se pierden.', 'Cavar recto hacia abajo: puedes caer en lava.', 'Usar Fortuna sin saber: guárdalo para cuando tengas el encantamiento III.']]
+    ] },
+  { id: 'primera-noche-minecraft', sec: 'juegos', game: 'minecraft', tag: 'Para empezar', type: 'guia', tone: 'px', label: 'Noche 1', mins: 5, date: 'Hace 3 días',
+    title: 'Qué hacer en tu primera noche en Minecraft',
+    dek: 'Refugio, comida y herramientas en los primeros 10 minutos para no perder todo al anochecer.',
+    quick: 'Antes de que oscurezca: madera, una mesa de trabajo, herramientas de piedra y un refugio pequeño con una cama o una puerta.',
+    blocks: [['steps', [['Tala madera.', 'Con 10 a 15 troncos alcanza para empezar.'], ['Haz una mesa de trabajo y herramientas de madera.', 'Luego cámbialas por piedra.'], ['Busca comida.', 'Animales o frutos.'], ['Construye un refugio.', 'Una casa pequeña o un hueco en la montaña con puerta.'], ['Si encuentras ovejas, haz una cama.', 'Dormir salta la noche.']]]] },
+  { id: 'portal-nether', sec: 'juegos', game: 'minecraft', tag: 'Exploración', type: 'guia', tone: 'k', label: 'Nether', mins: 4, date: 'Hace 4 días',
+    title: 'Cómo hacer un portal al Nether paso a paso',
+    dek: 'Cuánta obsidiana necesitas, cómo encenderlo y qué llevar en tu primer viaje.',
+    quick: 'Necesitas 10 bloques de obsidiana para un marco de 4 de ancho por 5 de alto sin esquinas, y un encendedor (mechero de pedernal).',
+    blocks: [['steps', [['Consigue 10 de obsidiana.', 'Necesitas pico de diamante, o crea la obsidiana con agua sobre lava.'], ['Arma el marco de 4 × 5.', 'Las esquinas no hacen falta.'], ['Enciéndelo.', 'Usa el mechero de pedernal en la parte de abajo.'], ['Prepárate antes de cruzar.', 'Comida, bloques para construir y armadura.']]], ['tip', 'Antes de cruzar, anota las coordenadas de tu portal. Así vuelves aunque te pierdas.']] },
+  { id: 'granja-hierro-minecraft', sec: 'juegos', game: 'minecraft', tag: 'Granjas', type: 'guia', tone: 's', label: 'Hierro', mins: 11, date: 'Hace 5 días',
+    title: 'Granja de hierro fácil para la 1.21',
+    dek: 'Una granja chica para tener hierro sin minar. Materiales, cómo armarla y errores que la hacen fallar.',
+    quick: 'Necesitas 3 aldeanos con camas, un zombi que los asuste y una zona donde aparezcan los gólems. Los gólems caen y sueltan hierro.',
+    blocks: [['steps', [['Junta 3 aldeanos y 3 camas.', 'Deben poder ver las camas.'], ['Atrapa un zombi cerca.', 'Que los aldeanos lo vean, sin que los alcance.'], ['Arma la zona de aparición.', 'Los gólems caen en lava o en un pozo.'], ['Pon una tolva y un cofre debajo.', 'Ahí se junta el hierro.']]], ['box', 'Si no funciona', ['Revisa que los aldeanos hayan dormido.', 'El zombi debe estar a la vista de los aldeanos.', 'No pongas antorchas en la zona de aparición.']]] },
+  { id: 'jugar-minecraft-amigos', sec: 'juegos', game: 'minecraft', tag: 'Multijugador', type: 'guia', tone: 'y', label: 'Amigos', mins: 7, date: 'Hace 1 semana',
+    title: 'Cómo jugar Minecraft con amigos: todas las formas',
+    dek: 'Red local, mundos compartidos y servidores. Cuál conviene según tu edición y tu internet.',
+    quick: 'Si están en la misma casa, usen red local. Si están lejos, comparte tu mundo con amigos de tu cuenta o usa un servidor.',
+    blocks: [['table', ['Opción', 'Para quién', 'Costo'], [['Red local (LAN)', 'Misma casa o wifi', 'Gratis'], ['Mundo con amigos', 'Bedrock con amigos en tu cuenta', 'Gratis'], ['Realms', 'Grupo fijo que juega seguido', 'De pago'], ['Servidor propio', 'Comunidades grandes', 'Varía']]]] },
+
+  /* ---------- Roblox ---------- */
+  { id: 'codigos-roblox', sec: 'juegos', game: 'roblox', tag: 'Códigos', type: 'codigos', tone: 'y', label: 'Códigos', mins: 3, date: 'Actualizado hoy, 9:00', top: true,
+    title: 'Códigos de Roblox activos hoy',
+    dek: 'Todos los códigos que funcionan, con lo que dan y cómo canjearlos. Revisamos la lista todos los días.',
+    quick: 'Canjea los códigos en la página oficial de Roblox, en la sección de códigos promocionales, con tu sesión iniciada.',
+    blocks: [
+      ['p', 'Códigos de ejemplo para la maqueta. En el sitio real se revisan uno por uno cada mañana.'],
+      ['codes', [['EJEMPLO2026', 'Accesorio de cabeza', true], ['LOBBY593', 'Mochila temporal', true], ['VERANOGAMER', 'Gesto de baile', true], ['ECUADOR593', 'Camiseta exclusiva', true], ['NUEVOMUNDO', 'Mascota de hombro', true]]],
+      ['h', 'Cómo canjear un código'],
+      ['steps', [['Entra a la página oficial de códigos promocionales.', 'Desde el navegador, no desde la app.'], ['Inicia sesión con tu cuenta.', 'Nunca en páginas que no sean de Roblox.'], ['Pega el código y toca Canjear.', 'El objeto aparece en tu inventario.']]],
+      ['h', 'Códigos que ya no funcionan'],
+      ['codes', [['PRIMAVERA25', 'Expiró', false], ['HALLOWEEN25', 'Expiró', false]]],
+      ['box', 'Cuidado con las estafas', ['Ningún código da Robux gratis.', 'No pongas tu contraseña en páginas que prometen Robux.', 'Los códigos oficiales nunca piden datos de tu cuenta.']]
+    ] },
+  { id: 'blox-fruits-subir-nivel', sec: 'juegos', game: 'roblox', tag: 'Blox Fruits', type: 'guia', tone: 'k', label: 'Blox Fruits', mins: 9, date: 'Hace 2 días',
+    title: 'Blox Fruits: la ruta más rápida para subir de nivel',
+    dek: 'Qué misiones hacer en cada mar, cuándo cambiar de isla y qué fruta conviene para avanzar.',
+    quick: 'Haz siempre la misión de tu nivel en la isla correcta y cambia de isla apenas desbloquees la siguiente.',
+    blocks: [['steps', [['Elige tu estilo.', 'Espada, fruta o pistola; no subas todo a la vez.'], ['Toma la misión de tu nivel.', 'La que da más experiencia sin morir.'], ['Cambia de isla a tiempo.', 'Quedarte de más es perder tiempo.'], ['Aprovecha los códigos de experiencia doble.', 'Úsalos cuando vayas a jugar seguido.']]]] },
+  { id: 'robux-gratis-estafas', sec: 'juegos', game: 'roblox', tag: 'Seguridad', type: 'guia', tone: 's', label: 'Robux', mins: 5, date: 'Hace 3 días', top: true,
+    title: 'Robux gratis: cómo reconocer una estafa antes de caer',
+    dek: 'Los generadores no existen. Estas son las señales de una página falsa y las formas reales de conseguir Robux.',
+    quick: 'No existen los generadores de Robux. Las únicas formas reales son comprarlos, la membresía oficial o ganar con lo que creas dentro de Roblox.',
+    blocks: [['box', 'Señales de estafa', ['Te pide tu usuario y contraseña.', 'Te pide completar encuestas o descargar apps.', 'Promete Robux ilimitados.']], ['steps', [['Compra solo en la app o la web oficial.', 'O con tarjetas de regalo de tiendas confiables.'], ['Activa la verificación en dos pasos.', 'Así nadie entra aunque tenga tu contraseña.'], ['Si caíste, cambia la contraseña ya.', 'Y revisa los dispositivos conectados.']]]] },
+  { id: 'proteger-cuenta-roblox', sec: 'juegos', game: 'roblox', tag: 'Seguridad', type: 'guia', tone: 'y', label: 'Cuenta', mins: 4, date: 'Hace 1 semana',
+    title: 'Cómo proteger tu cuenta de Roblox en 5 minutos',
+    dek: 'Verificación en dos pasos, correo confirmado y qué hacer si te roban la cuenta.',
+    quick: 'Confirma tu correo, activa la verificación en dos pasos y nunca compartas tu contraseña ni archivos que te pidan pegar en el navegador.',
+    blocks: [['steps', [['Confirma tu correo.', 'Es lo que te permite recuperar la cuenta.'], ['Activa la verificación en dos pasos.', 'En la configuración de seguridad.'], ['Cierra sesión en otros dispositivos.', 'Si no reconoces alguno.']]]] },
+
+  /* ---------- GTA VI ---------- */
+  { id: 'gta-6-todo-lo-que-sabemos', sec: 'juegos', game: 'gta6', tag: 'Lanzamiento', type: 'guia', tone: 'k', label: 'GTA VI', mins: 7, date: 'Actualizado hoy', top: true,
+    title: 'GTA VI: fecha, plataformas y todo lo confirmado',
+    dek: 'Lo que Rockstar ya confirmó y lo que todavía es rumor. Lo actualizamos con cada anuncio.',
+    quick: 'GTA VI sale el 19 de noviembre de 2026 para PS5 y Xbox Series X|S. La versión de PC todavía no tiene fecha.',
+    blocks: [
+      ['countdown'],
+      ['table', ['Dato', 'Estado'], [['Fecha', '19 de noviembre de 2026 · confirmado'], ['PS5 y Xbox Series X|S', 'Confirmado'], ['PC', 'Sin anuncio'], ['Precio en Latinoamérica', 'Lo publicamos cuando abra la venta en cada país']]],
+      ['h', 'Lo que se sabe del juego'],
+      ['p', 'Párrafo de ejemplo con lo que mostraron los tráileres oficiales: la ciudad, los protagonistas y el estilo del juego, siempre citando la fuente oficial.'],
+      ['h', 'Lo que todavía es rumor'],
+      ['p', 'Separamos lo confirmado de lo que circula en redes. Si algo no viene de Rockstar, lo marcamos como rumor.'],
+      ['tip', 'Activa la notificación del canal de WhatsApp y te avisamos el día que cambie algo de esta lista.']
+    ] },
+  { id: 'gta-6-pc', sec: 'juegos', game: 'gta6', tag: 'Equipo', type: 'guia', tone: 'y', label: 'GTA VI PC', mins: 5, date: 'Ayer', top: true,
+    title: '¿GTA VI sale en PC? Lo que se sabe hasta hoy',
+    dek: 'Por qué sale primero en consolas, qué pasó con GTA V y qué PC te convendría tener lista.',
+    quick: 'Por ahora no. Rockstar solo confirmó PS5 y Xbox Series X|S. Con GTA V, la versión de PC salió más de un año después.',
+    blocks: [['p', 'Explicamos qué pasó con lanzamientos anteriores de Rockstar y qué significa para quienes juegan en PC.'], ['tip', 'Cuando Rockstar publique los requisitos oficiales, esta guía se actualiza con una tabla por presupuesto.']] },
+  { id: 'liberar-espacio-gta-6', sec: 'juegos', game: 'gta6', tag: 'Lanzamiento', type: 'guia', tone: 's', label: 'Espacio', mins: 4, date: 'Hace 3 días',
+    title: 'Cómo liberar espacio en PS5 y Xbox antes de GTA VI',
+    dek: 'Qué borrar, qué pasar a un disco externo y cómo ver cuánto espacio te queda.',
+    quick: 'Revisa el almacenamiento, borra capturas y juegos que no usas, y pasa a un disco externo los juegos que quieras conservar.',
+    blocks: [['steps', [['Abre Configuración y luego Almacenamiento.', 'Ahí ves qué ocupa más.'], ['Borra capturas y videos.', 'Ocupan más de lo que parece.'], ['Pasa juegos a un disco externo.', 'Puedes volver a traerlos después.']]]] },
+
+  /* ---------- Free Fire ---------- */
+  { id: 'sensibilidad-free-fire', sec: 'juegos', game: 'freefire', tag: 'Configuración', type: 'guia', tone: 'k', label: 'Sensibilidad', mins: 6, date: 'Hace 2 días',
+    title: 'Cómo ajustar la sensibilidad en Free Fire paso a paso',
+    dek: 'Un método para encontrar tu sensibilidad en 10 minutos, según tu celular y tu forma de jugar.',
+    quick: 'Empieza con la sensibilidad general alta, ajusta la de mira de punto con pruebas en la sala de entrenamiento y cambia un valor a la vez.',
+    blocks: [['steps', [['Entra a la sala de entrenamiento.', 'Ahí pruebas sin perder partidas.'], ['Ajusta primero la sensibilidad general.', 'Que puedas girar rápido sin pasarte.'], ['Luego la de mira de punto.', 'Prueba disparando a la cabeza de los muñecos.'], ['Cambia un valor a la vez.', 'Así sabes qué mejoró.']]]] },
+  { id: 'nombres-free-fire', sec: 'juegos', game: 'freefire', tag: 'Nombres', type: 'guia', tone: 'y', label: 'Nombres', mins: 3, date: 'Ayer', top: true,
+    title: 'Nombres para Free Fire con letras especiales',
+    dek: 'Ideas de nombres y una herramienta para escribir el tuyo con letras distintas y copiarlo en un toque.',
+    quick: 'Escribe tu nombre en nuestro generador, elige un estilo y cópialo. Prueba antes de pagar el cambio de nombre: no todos los símbolos funcionan.',
+    blocks: [['tool', 'nombres'], ['tip', 'Algunos juegos no aceptan ciertos símbolos. Pruébalo en el chat antes de cambiar tu nombre.']] },
+  { id: 'bajar-lag-free-fire', sec: 'juegos', game: 'freefire', tag: 'Rendimiento', type: 'guia', tone: 's', label: 'Lag', mins: 5, date: 'Hace 4 días',
+    title: 'Cómo bajar el lag y el ping en Free Fire',
+    dek: 'Ajustes del celular, del juego y del wifi que sí ayudan en equipos de gama baja.',
+    quick: 'Cierra las apps de fondo, juega con wifi de 5 GHz si tu celular lo tiene y baja los gráficos del juego.',
+    blocks: [['steps', [['Cierra las apps abiertas.', 'Liberan memoria.'], ['Usa wifi de 5 GHz cerca del router.', 'Menos interferencia que el de 2,4 GHz.'], ['Baja gráficos y sombras.', 'El juego corre más fluido.'], ['Desactiva descargas en segundo plano.', 'Actualizaciones de apps y fotos en la nube.']]]] },
+
+  /* ---------- Fortnite ---------- */
+  { id: 'misiones-fortnite', sec: 'juegos', game: 'fortnite', tag: 'Misiones', type: 'guia', tone: 'y', label: 'Misiones', mins: 5, date: 'Actualizado hoy',
+    title: 'Fortnite: cómo completar las misiones de la semana',
+    dek: 'Todas las misiones de esta semana, dónde se hacen y en qué orden conviene hacerlas.',
+    quick: 'Agrupa las misiones que se hacen en la misma zona y complétalas en pocas partidas.',
+    blocks: [['p', 'En el sitio real, esta guía se actualiza cada semana con la lista completa y un mapa.'], ['steps', [['Revisa la lista completa.', 'Marca las que se hacen juntas.'], ['Cae cerca de la zona de la misión.', 'Ahorra tiempo de viaje.'], ['Completa las fáciles primero.', 'Suben experiencia rápido.']]]] },
+  { id: 'configuracion-fortnite-gama-baja', sec: 'juegos', game: 'fortnite', tag: 'Configuración', type: 'guia', tone: 'k', label: 'FPS', mins: 6, date: 'Hace 1 semana',
+    title: 'La mejor configuración de Fortnite para equipos de gama baja',
+    dek: 'Qué opciones bajar para ganar fluidez sin dejar de ver a los rivales.',
+    quick: 'Usa el modo de rendimiento, baja la distancia de visión de objetos y desactiva las sombras.',
+    blocks: [['steps', [['Activa el modo de rendimiento.', 'Es la opción que más ayuda en PC modesta.'], ['Baja sombras y efectos.', 'Casi no afectan lo que necesitas ver.'], ['Limita los FPS a lo que tu pantalla muestra.', 'Evita calentar el equipo de más.']]]] },
+
+  /* ---------- Equipo ---------- */
+  { id: 'celulares-free-fire', sec: 'equipo', game: 'freefire', tag: 'Celulares', type: 'comparativa', tone: 'y', label: 'Celulares', mins: 10, date: 'Actualizado esta semana', top: true,
+    title: 'Mejores celulares para jugar Free Fire por menos de $300',
+    dek: 'Qué mirar antes de comprar y nuestras recomendaciones por presupuesto, probadas jugando partidas completas.',
+    quick: 'Para jugar fluido, busca al menos 6 GB de RAM, pantalla de 90 Hz o más y buena batería. Con eso Free Fire corre bien en gráficos medios.',
+    blocks: [
+      ['disclosure'],
+      ['h', 'Nuestras recomendaciones'],
+      ['picks', [
+        { badge: 'La mejor calidad-precio', name: 'Modelo por definir · gama media', price: '$220 – $280', specs: ['8 GB RAM', '120 Hz', '5.000 mAh'], pros: ['Fluido en gráficos altos', 'Batería para toda la tarde'], cons: ['Se calienta en partidas largas'] },
+        { badge: 'El más barato que vale la pena', name: 'Modelo por definir · gama de entrada', price: '$140 – $180', specs: ['6 GB RAM', '90 Hz', '5.000 mAh'], pros: ['Corre bien en gráficos medios', 'Precio bajo'], cons: ['Pantalla menos brillante al sol'] },
+        { badge: 'Para jugar y hacer lives', name: 'Modelo por definir · gama media alta', price: '$280 – $300', specs: ['8 GB RAM', '120 Hz', 'Cámara 4K'], pros: ['Sirve para transmitir', 'Buena cámara frontal'], cons: ['Al límite del presupuesto'] }
+      ]],
+      ['h', 'Qué mirar antes de comprar'],
+      ['table', ['Qué mirar', 'Mínimo', 'Ideal'], [['Memoria RAM', '4 GB', '8 GB'], ['Pantalla', '60 Hz', '120 Hz'], ['Batería', '4.000 mAh', '5.000 mAh'], ['Almacenamiento', '64 GB', '128 GB']]],
+      ['h', 'Cómo lo probamos'],
+      ['p', 'Jugamos partidas completas de Free Fire en cada celular, medimos la temperatura y cuánto dura la batería, y grabamos la pantalla. Los modelos y precios reales se publican después de las pruebas.']
+    ] },
+  { id: 'equipo-stream-100', sec: 'equipo', game: null, tag: 'Stream', type: 'comparativa', tone: 'k', label: 'Kit stream', mins: 8, date: 'Hace 2 días', top: true,
+    title: 'Equipo para empezar a hacer lives por menos de $100',
+    dek: 'Micrófono, luz y trípode: lo mínimo que cambia la calidad de tus transmisiones, con lo que usamos nosotros.',
+    quick: 'Si solo puedes comprar una cosa, que sea un micrófono. La gente aguanta mala imagen, pero no mal audio.',
+    blocks: [
+      ['disclosure'],
+      ['picks', [
+        { badge: 'Primero esto', name: 'Micrófono de solapa o USB', price: '$20 – $45', specs: ['USB o 3,5 mm', 'Para celular y PC'], pros: ['El cambio más notorio', 'Fácil de usar'], cons: ['Capta ruido si la casa es ruidosa'] },
+        { badge: 'Después', name: 'Aro de luz', price: '$15 – $35', specs: ['Con trípode', 'Luz regulable'], pros: ['Se ve mejor tu cara de noche'], cons: ['Puede reflejarse en lentes'] },
+        { badge: 'Para estabilidad', name: 'Trípode con soporte de celular', price: '$10 – $25', specs: ['Altura regulable'], pros: ['Imagen estable en batallas'], cons: ['Los muy baratos se mueven'] }
+      ]],
+      ['tip', 'En el sitio real cada producto lleva foto propia del creador usándolo y su opinión después de semanas de lives.']
+    ] },
+  { id: 'audifonos-gamer-baratos', sec: 'equipo', game: null, tag: 'Audio', type: 'guia', tone: 's', label: 'Audífonos', mins: 6, date: 'Hace 4 días',
+    title: 'Audífonos gamer baratos: qué mirar antes de comprar',
+    dek: 'Con cable o inalámbricos, micrófono y comodidad. Lo que importa y lo que es puro marketing.',
+    quick: 'Para jugar en celular, con cable es más barato y sin retraso. Si son inalámbricos, que tengan modo de juego o baja latencia.',
+    blocks: [['table', ['Tipo', 'A favor', 'En contra'], [['Con cable', 'Sin retraso, baratos', 'El cable estorba'], ['Bluetooth', 'Cómodos', 'Pueden tener retraso'], ['Inalámbricos con receptor', 'Sin retraso', 'Más caros']]]] },
+  { id: 'ps5-o-xbox-gta-6', sec: 'equipo', game: 'gta6', tag: 'Consolas', type: 'guia', tone: 'k', label: 'PS5 o Xbox', mins: 7, date: 'Ayer',
+    title: 'PS5 o Xbox Series para GTA VI: cuál conviene en Latinoamérica',
+    dek: 'Precio, disponibilidad en la región, almacenamiento y cuánto cuesta jugar en línea en cada una.',
+    quick: 'Las dos corren GTA VI. La decisión depende del precio en tu país, de qué consola tienen tus amigos y del costo de la suscripción en línea.',
+    blocks: [['table', ['Qué comparar', 'PS5', 'Xbox Series'], [['Precio en tu país', 'Lo actualizamos', 'Lo actualizamos'], ['Juego en línea', 'Requiere suscripción', 'Requiere suscripción'], ['Espacio libre', 'Revisa antes', 'Revisa antes']]]] },
+  { id: 'internet-para-jugar', sec: 'equipo', game: null, tag: 'Internet', type: 'guia', tone: 'y', label: 'Internet', mins: 5, date: 'Hace 1 semana',
+    title: 'Qué velocidad de internet necesitas para jugar y hacer lives',
+    dek: 'Para jugar importa el ping. Para transmitir importa la velocidad de subida. Te explicamos cómo medir las dos.',
+    quick: 'Para jugar, busca ping bajo y estable. Para hacer lives, necesitas buena velocidad de subida, no solo de bajada.',
+    blocks: [['steps', [['Mide tu conexión.', 'Con una prueba de velocidad, cerca de donde juegas.'], ['Mira el ping, no solo los megas.', 'El ping alto es el que da lag.'], ['Revisa la velocidad de subida.', 'Es la que usas al transmitir.']]]] },
+
+  /* ---------- Creadores ---------- */
+  { id: 'hacer-live-tiktok', sec: 'creadores', game: null, tag: 'TikTok LIVE', type: 'creador', tone: 'k', label: 'TikTok LIVE', mins: 8, date: 'Actualizado ayer', top: true, byCreator: true,
+    title: 'Cómo hacer LIVE en TikTok en 2026: requisitos, configuración y errores que te bloquean',
+    dek: 'Lo que necesitas para salir en vivo, cómo configurarlo y las reglas que más cuentas han perdido este año.',
+    quick: 'Para hacer LIVE con regalos necesitas ser mayor de 18 y cumplir el mínimo de seguidores de tu país. Para batallas, además, 1.000 seguidores y la cuenta sin advertencias.',
+    blocks: [
+      ['h', 'Requisitos'],
+      ['facts', [['18+', 'para recibir regalos y hacer batallas'], ['1.000', 'seguidores para batallas'], ['0', 'advertencias activas en tu cuenta']]],
+      ['p', 'Los requisitos cambian según el país y TikTok los ajusta seguido. Por eso esta guía tiene fecha de actualización arriba y la revisamos cada mes.'],
+      ['h', 'Paso a paso desde el celular'],
+      ['steps', [['Toca "+" y desliza hasta LIVE.', 'Si no aparece, todavía no cumples los requisitos de tu país.'], ['Escribe un título que diga qué vas a hacer.', '"Batalla a las 9 pm" funciona mejor que "LIVE".'], ['Activa el filtro de comentarios.', 'Te evita problemas con palabras prohibidas en el chat.'], ['Revisa el audio antes de empezar.', 'Nada de música con derechos de fondo.']]],
+      ['h', 'Errores que te bloquean el LIVE'],
+      ['box', 'Evita siempre', ['Música con derechos de autor de fondo, aunque sea bajita.', 'Apuestas, casinos o sorteos por dinero.', 'Quedarte en silencio o quieto mucho tiempo.']],
+      ['p', 'Cada advertencia dura 90 días. Si juntas varias de la misma regla, TikTok te quita el LIVE primero por un tiempo y después para siempre.']
+    ] },
+  { id: 'cuanto-paga-tiktok-live', sec: 'creadores', game: null, tag: 'Dinero', type: 'creador', tone: 'y', label: '$ LIVE', mins: 6, date: 'Actualizado hoy', top: true, byCreator: true,
+    title: 'Cuánto paga TikTok LIVE en 2026: diamantes, regalos y batallas',
+    dek: 'Cómo se convierten los regalos en dinero, cuánto se queda TikTok y una calculadora para hacer tus cuentas.',
+    quick: 'Recibes cerca del 50 % del valor de los regalos en diamantes, y cada diamante vale unos $0,005. 1.000 diamantes son unos $5.',
+    blocks: [
+      ['calc'],
+      ['h', 'Cómo funciona el dinero en TikTok LIVE'],
+      ['steps', [['Tu público compra monedas.', 'Cada moneda cuesta poco más de un centavo de dólar.'], ['Te envía regalos con esas monedas.', 'Cada regalo vale cierta cantidad de monedas.'], ['Tú recibes diamantes.', 'Cerca de la mitad del valor del regalo.'], ['Cambias los diamantes por dinero.', 'Desde la sección de ingresos de la app.']]],
+      ['p', 'Son valores aproximados. TikTok no publica una tasa oficial fija y puede cambiar por país.']
+    ] },
+  { id: 'ganar-batallas-tiktok', sec: 'creadores', game: null, tag: 'Batallas', type: 'creador', tone: 'y', label: 'VS', mins: 7, date: 'Hace 2 días', byCreator: true,
+    title: 'Cómo ganar batallas en TikTok sin quemar a tu comunidad',
+    dek: 'Cuándo hacer batallas, con quién y cómo pedir apoyo sin cansar a la gente que te sigue.',
+    quick: 'Elige rivales de tu tamaño, avisa la hora antes y no hagas batallas todos los días: tu comunidad también se cansa.',
+    blocks: [['steps', [['Anuncia la batalla antes.', 'En historias o un video corto.'], ['Busca rivales de tu tamaño.', 'Las batallas parejas son más divertidas de ver.'], ['Agradece por nombre.', 'La gente vuelve cuando se siente vista.'], ['Descansa entre batallas.', 'La calidad importa más que la cantidad.']]]] },
+  { id: 'obs-tiktok-live', sec: 'creadores', game: null, tag: 'OBS', type: 'creador', tone: 's', label: 'OBS', mins: 12, date: 'Hace 3 días', byCreator: true,
+    title: 'Configurar OBS para TikTok LIVE paso a paso',
+    dek: 'Escenas, resolución vertical y cómo transmitir desde la PC. Con la configuración que usamos en nuestros streams.',
+    quick: 'TikTok solo da clave de transmisión a algunas cuentas. Si no la tienes, usa TikTok LIVE Studio; si la tienes, configura OBS en vertical 1080 × 1920.',
+    blocks: [['steps', [['Configura el lienzo en vertical.', '1080 × 1920 en la configuración de video.'], ['Arma tus escenas.', 'Juego, cámara y alertas.'], ['Pega la clave de transmisión.', 'Si tu cuenta la tiene habilitada.'], ['Haz una prueba privada.', 'Revisa audio e imagen antes de salir.']]]] },
+  { id: 'restricciones-tiktok-live', sec: 'creadores', game: null, tag: 'TikTok LIVE', type: 'creador', tone: 'k', label: 'Strikes', mins: 5, date: 'Hace 5 días', byCreator: true,
+    title: 'Por qué TikTok te restringe el LIVE y cómo evitarlo',
+    dek: 'Las advertencias más comunes, cuánto duran y cómo apelar si crees que fue un error.',
+    quick: 'Las advertencias duran 90 días. Las más comunes son por música con derechos, contenido para adultos y apuestas.',
+    blocks: [['box', 'Lo que más restringe', ['Música con derechos de autor.', 'Contenido para adultos o ropa provocativa.', 'Apuestas o juegos por dinero.']], ['steps', [['Revisa tu estado de cuenta.', 'Ahí ves cada advertencia.'], ['Apela si fue un error.', 'Desde la misma notificación.'], ['Espera los 90 días.', 'Las advertencias se borran solas.']]]] },
+  { id: 'kick-twitch-tiktok', sec: 'creadores', game: null, tag: 'Plataformas', type: 'creador', tone: 'y', label: 'Kick', mins: 7, date: 'Hace 1 semana', byCreator: true,
+    title: 'Kick, Twitch o TikTok: dónde hacer stream en Latinoamérica',
+    dek: 'Cómo crece cada plataforma en español, cómo pagan y cuál conviene según el contenido que haces.',
+    quick: 'TikTok es la mejor para que te descubran. Kick creció mucho en español en 2026. Twitch sigue siendo fuerte para streams largos de juegos.',
+    blocks: [['table', ['Plataforma', 'Fuerte en', 'Para quién'], [['TikTok LIVE', 'Descubrimiento y regalos', 'Contenido corto y batallas'], ['Kick', 'Crecimiento en español', 'Streams largos'], ['Twitch', 'Comunidad gamer', 'Streams de juegos']]]] },
+
+  /* ---------- Noticias ---------- */
+  { id: 'gta-6-48-dias', sec: 'noticias', game: 'gta6', tag: 'GTA VI', type: 'noticia', tone: 'k', label: 'GTA VI', time: '11:40', mins: 2, date: 'Hoy',
+    title: 'GTA VI a 48 días: lo que hay que saber antes del lanzamiento',
+    dek: 'Fecha, plataformas y lo que conviene preparar desde ya.',
+    quick: 'GTA VI sale el 19 de noviembre para PS5 y Xbox Series X|S. No hay cambios en la fecha.',
+    blocks: [['p', 'Texto de ejemplo de una noticia corta: qué pasó, a quién afecta y de dónde sale el dato, con enlace a la fuente oficial.'], ['box', 'Qué significa para ti', ['Revisa el espacio libre de tu consola.', 'Si juegas en PC, todavía no hay fecha.']], ['related', ['gta-6-todo-lo-que-sabemos', 'liberar-espacio-gta-6', 'ps5-o-xbox-gta-6']]] },
+  { id: 'roblox-verificacion-edad', sec: 'noticias', game: 'roblox', tag: 'Roblox', type: 'noticia', tone: 'y', label: 'Roblox', time: '10:15', mins: 2, date: 'Hoy',
+    title: 'Roblox amplía la verificación de edad: qué cambia para tu cuenta',
+    dek: 'A quién le pide verificar, qué funciones se limitan y cómo hacerlo.',
+    quick: 'Roblox está pidiendo verificar la edad para usar algunas funciones, como el chat con otras personas.',
+    blocks: [['p', 'Texto de ejemplo con lo anunciado por Roblox y cómo afecta a quienes juegan en Latinoamérica.'], ['related', ['proteger-cuenta-roblox', 'codigos-roblox']]] },
+  { id: 'kick-crece-latam', sec: 'noticias', game: null, tag: 'Streaming', type: 'noticia', tone: 's', label: 'Kick', time: '09:02', mins: 3, date: 'Hoy',
+    title: 'Kick sigue creciendo en Latinoamérica: los números de 2026',
+    dek: 'Récord de horas vistas en junio y más streamers en español.',
+    quick: 'Kick registró en junio de 2026 su mayor cantidad de horas vistas del año, impulsado por streamers en español.',
+    blocks: [['p', 'Texto de ejemplo con los datos y la fuente (Streams Charts).'], ['related', ['kick-twitch-tiktok']]] },
+  { id: 'ffws-latam-2026', sec: 'noticias', game: 'freefire', tag: 'Free Fire', type: 'noticia', tone: 'y', label: 'FFWS', time: '08:30', mins: 2, date: 'Hoy',
+    title: 'Free Fire World Series Latinoamérica: cómo seguir el torneo',
+    dek: 'Fechas, equipos y dónde verlo en vivo.',
+    quick: 'La liga oficial de Free Fire en Latinoamérica se transmite en los canales oficiales del juego.',
+    blocks: [['p', 'Texto de ejemplo con el calendario y los equipos.'], ['related', ['sensibilidad-free-fire', 'celulares-free-fire']]] },
+
+  /* ---------- Virales ---------- */
+  { id: 'batalla-ultimo-segundo', sec: 'virales', type: 'viral', tone: 'k', label: '0:42', dur: '0:42', date: 'Hoy', title: 'La batalla que se ganó en el último segundo',
+    dek: 'Iba perdiendo por miles de puntos y la comunidad lo dio vuelta en los últimos segundos.', quick: '',
+    blocks: [['p', 'Contexto propio: contra quién era la batalla, cómo iba y qué pasó al final. Siempre con texto nuestro, nunca solo el video.'], ['related', ['ganar-batallas-tiktok', 'cuanto-paga-tiktok-live']]] },
+  { id: 'lag-free-fire-viral', sec: 'virales', type: 'viral', tone: 'y', label: '0:31', dur: '0:31', date: 'Ayer', title: 'Cuando el lag te gana la partida en Free Fire',
+    dek: 'El momento en que el personaje se quedó congelado frente al rival.', quick: '',
+    blocks: [['p', 'Contexto propio del clip y, como bonus, cómo evitar que te pase.'], ['related', ['bajar-lag-free-fire', 'celulares-free-fire']]] },
+  { id: 'minecraft-chat-decide', sec: 'virales', type: 'viral', tone: 's', label: '1:05', dur: '1:05', date: 'Hace 2 días', title: 'Minecraft, pero el chat decide todo',
+    dek: 'El chat votó cada decisión del stream. Así terminó.', quick: '',
+    blocks: [['p', 'Contexto propio del stream y los mejores momentos.'], ['related', ['diamantes-minecraft', 'primera-noche-minecraft']]] },
+  { id: 'memes-gta-6', sec: 'virales', type: 'viral', tone: 'k', label: '0:58', dur: '0:58', date: 'Hace 3 días', title: 'Los mejores memes de la espera de GTA VI',
+    dek: 'La comunidad lleva años esperando y los memes lo demuestran.', quick: '',
+    blocks: [['p', 'Selección comentada de memes, con crédito a cada autor.'], ['related', ['gta-6-todo-lo-que-sabemos']]] },
+  { id: 'susto-roblox', sec: 'virales', type: 'viral', tone: 'y', label: '0:27', dur: '0:27', date: 'Hace 4 días', title: 'El susto en Roblox que nadie esperaba',
+    dek: 'Un juego de terror de Roblox y una reacción que ya es meme.', quick: '',
+    blocks: [['p', 'Contexto propio del clip.'], ['related', ['codigos-roblox']]] }
+];
+
+var TOOLS = [
+  { id: 'diamantes', name: 'Calculadora de diamantes', icon: 'i-tool', desc: 'Cuánto valen tus diamantes y tus batallas de TikTok LIVE en dólares.', go: 'Calcular' },
+  { id: 'nombres', name: 'Nombres con letras especiales', icon: 'i-text', desc: 'Para Free Fire, TikTok y Roblox. Escribe tu nombre y copia.', go: 'Crear nombre' },
+  { id: 'celular', name: '¿Qué celular me alcanza?', icon: 'i-phone', desc: 'Elige tu juego y tu presupuesto y te decimos qué buscar.', go: 'Recomendarme' },
+  { id: 'codigos', name: 'Códigos de Roblox', icon: 'i-copy', desc: 'Los códigos activos de hoy, revisados, con botón para copiar.', go: 'Ver códigos', href: '#/a/codigos-roblox' }
+];
+
+/* ===================== Utilidades ===================== */
+var byId = {}; A.forEach(function (a) { byId[a.id] = a; });
+function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+function cover(a, extra) { return '<div class="cover ' + (a.tone || '') + '">' + (a.type === 'viral' ? '<span class="play"><svg aria-hidden="true"><use href="#i-play"/></svg></span>' : '<span>' + esc(a.label) + '</span>') + (extra || '') + '</div>'; }
+function where(a) { return a.game ? GAMES[a.game].name : SECTIONS[a.sec].name; }
+function metaLine(a) { var fresh = /hoy|Actualizado/.test(a.date); return '<div class="meta"><span' + (fresh ? ' class="new"' : '') + '>' + esc(a.date) + '</span>' + (a.mins ? '<span>' + a.mins + ' min</span>' : '') + '</div>'; }
+function row(a) { return '<a class="row" href="#/a/' + a.id + '">' + cover(a) + '<div><span class="tag">' + esc(where(a)) + '</span><h3>' + esc(a.title) + '</h3><p>' + esc(a.dek) + '</p>' + metaLine(a) + '</div></a>'; }
+function card(a) { return '<a class="card" href="#/a/' + a.id + '">' + cover(a) + '<span class="tag">' + esc(where(a)) + '</span><h3>' + esc(a.title) + '</h3>' + metaLine(a) + '</a>'; }
+function clip(a, i) { var t = ['', ' y', ' s'][i % 3]; return '<a class="clip" href="#/a/' + a.id + '"><div class="v' + t + '"><svg aria-hidden="true"><use href="#i-play"/></svg><small>' + esc(a.dur) + '</small></div><h3>' + esc(a.title) + '</h3></a>'; }
+function newsItem(a) { return '<a href="#/a/' + a.id + '"><time>' + esc(a.time || a.date) + '</time><div><h3>' + esc(a.title) + '</h3><p>' + esc(a.dek) + '</p></div></a>'; }
+function ad(size, cls, note) { return '<div class="ad-slot-w"><div class="ad-l">Publicidad</div><div class="ad ' + cls + '"><div><b>Anuncio ' + size + '</b>' + (note || '') + '</div></div></div>'; }
+function topList(title, items) { return '<div class="top5"><h2>' + title + '</h2><ol>' + items.map(function (a) { return '<li><div><a href="#/a/' + a.id + '">' + esc(a.title) + '</a><small>' + esc(where(a)) + '</small></div></li>'; }).join('') + '</ol></div>'; }
+function inSec(s) { return A.filter(function (a) { return a.sec === s; }); }
+function inGame(g) { return A.filter(function (a) { return a.game === g; }); }
+function popular() { return A.filter(function (a) { return a.top; }); }
+function host() {
+  return '<div class="host"><div class="face" aria-hidden="true">' + esc(CREATOR.initials) + '</div><div><h3>Aprende con ' + esc(CREATOR.name) + '</h3><p>Hace lives y batallas en TikTok y streamea Minecraft, Roblox y Free Fire. Aquí explica lo que le funcionó a él.</p></div><div class="stats"><div><strong>' + esc(CREATOR.years) + '</strong>haciendo lives</div><div><strong>' + esc(CREATOR.battles) + '</strong>batallas</div></div><a class="btn" href="#/creadores">Ver sus guías</a></div>';
+}
+function countdownHTML() { return '<div class="band"><div><h2>GTA VI sale el 19 de noviembre.</h2><p>Precio en Latinoamérica, plataformas y requisitos. Lo actualizamos cada vez que Rockstar confirma algo.</p><a class="btn y" href="#/a/gta-6-todo-lo-que-sabemos">Todo lo que sabemos</a></div><div class="clock" aria-label="Cuenta regresiva"><div><strong data-cd="d">—</strong><span>días</span></div><div><strong data-cd="h">—</strong><span>horas</span></div><div><strong data-cd="m">—</strong><span>min</span></div></div></div>'; }
+
+/* ===================== Páginas ===================== */
+function pHome() {
+  var news = inSec('noticias'), vir = inSec('virales');
+  var latest = ['gta-6-pc', 'diamantes-minecraft', 'hacer-live-tiktok', 'celulares-free-fire', 'blox-fruits-subir-nivel'].map(function (k) { return byId[k]; });
+  return '<div class="wrap">' +
+    '<section class="intro"><h1>Guías de juegos y <span class="mark">trucos para creadores</span>.</h1><p>Minecraft, Roblox, GTA VI, Free Fire y TikTok LIVE, explicado fácil por alguien que juega y hace lives todos los días.</p>' + searchBox('q-home') +
+    '<div class="popular"><span>Lo que más buscan:</span><a href="#/a/codigos-roblox">códigos de Roblox</a><a href="#/a/diamantes-minecraft">diamantes en Minecraft</a><a href="#/a/gta-6-pc">GTA VI en PC</a><a href="#/herramientas/diamantes">cuánto paga TikTok LIVE</a></div></section>' +
+    '<section class="sec"><div class="sec-h"><h2>Elige tu juego</h2><a class="more" href="#/juegos">Todos los juegos</a></div>' + gamesGrid() + '</section>' +
+    '<div class="sec">' + ad('970×250', 'ad-bill', 'en el borde de la primera pantalla · 320×100 en celular') + '</div>' +
+    '<section class="sec split"><div><div class="sec-h"><h2>Lo nuevo</h2><a class="more" href="#/juegos">Ver todo</a></div><div class="list">' + latest.map(row).join('') + '</div></div><aside class="side">' + topList('Lo más leído hoy', popular().slice(0, 5)) + ad('300×250', 'ad-box') + '</aside></section>' +
+    '<section class="sec">' + countdownHTML() + '</section>' +
+    '<section class="sec"><div class="sec-h"><div><h2>Equipo</h2><p>Celulares para jugar, audífonos y equipo para stream. Lo que usamos y probamos.</p></div><a class="more" href="#/equipo">Ver todo</a></div><div class="grid">' + inSec('equipo').slice(0, 3).map(card).join('') + '</div></section>' +
+    '<section class="sec"><div class="sec-h"><div><h2>Para creadores</h2><p>Lives, batallas, OBS y equipo. Lo que aprendimos haciendo stream todos los días.</p></div><a class="more" href="#/creadores">Ver todo</a></div><div class="creators">' + host() + '<div class="c-grid">' + inSec('creadores').slice(0, 4).map(card).join('') + '</div></div></section>' +
+    '<section class="sec"><div class="sec-h"><div><h2>Herramientas gratis</h2><p>Sin registrarte, desde el celular.</p></div><a class="more" href="#/herramientas">Ver todas</a></div>' + toolsGrid(3) + '</section>' +
+    '<section class="sec split"><div><div class="sec-h"><h2>Noticias de hoy</h2><a class="more" href="#/noticias">Todas</a></div><div class="news">' + news.map(newsItem).join('') + '</div></div><aside class="side">' + ad('300×250', 'ad-box') + '</aside></section>' +
+    '<section class="sec"><div class="sec-h"><div><h2>Virales de la semana</h2><p>Lo más gracioso de los lives.</p></div><a class="more" href="#/virales">Ver todo</a></div><div class="clips" role="list">' + vir.map(clip).join('') + '</div></section>' +
+    '<section class="sec join"><div><h2>Recibe los códigos antes que nadie.</h2><p>Únete al canal de WhatsApp. Un mensaje cuando hay códigos nuevos o una guía importante.</p></div><div class="btns"><button class="btn y" type="button" data-toast="En el sitio real, este botón abre el canal de WhatsApp">Unirme al canal</button><button class="btn o" type="button" data-toast="En el sitio real, este botón agrega el sitio como fuente preferida en Google">Agregar como fuente en Google</button></div></section>' +
+    '</div>';
+}
+function searchBox(id) {
+  return '<form class="search" data-search role="search"><label class="sr" for="' + id + '">Buscar en entretenimiento593</label><div class="search-box"><svg width="20" height="20" aria-hidden="true"><use href="#i-search"/></svg><input id="' + id + '" type="search" autocomplete="off" placeholder="Busca un juego o una duda…" data-q><button class="btn" type="submit"><svg width="16" height="16" aria-hidden="true"><use href="#i-search"/></svg><span>Buscar</span></button></div><div class="suggest" hidden></div></form>';
+}
+function gamesGrid() {
+  return '<div class="games">' + Object.keys(GAMES).map(function (k) { var g = GAMES[k]; return '<a class="game" href="#/juegos/' + k + '"><svg aria-hidden="true"><use href="#' + g.icon + '"/></svg><div><strong>' + g.name + '</strong><small>' + inGame(k).length + ' artículos</small></div></a>'; }).join('') +
+    '<a class="game all" href="#/juegos"><svg aria-hidden="true"><use href="#i-grid"/></svg><div><strong>Todos</strong><small>' + Object.keys(GAMES).length + ' juegos</small></div></a></div>';
+}
+function toolsGrid(n) {
+  return '<div class="tools">' + TOOLS.slice(0, n || TOOLS.length).map(function (t) { return '<a class="tool-t" href="' + (t.href || '#/herramientas/' + t.id) + '"><svg aria-hidden="true"><use href="#' + t.icon + '"/></svg><h3>' + t.name + '</h3><p>' + t.desc + '</p><span class="go">' + t.go + ' →</span></a>'; }).join('') + '</div>';
+}
+function hubHead(crumb, title, desc, facts) {
+  return '<header class="hub-h"><div><div class="crumbs">' + crumb + '</div><h1>' + title + '</h1><p>' + desc + '</p></div>' + (facts ? '<div class="facts-h">' + facts.map(function (f) { return '<div><strong>' + f[0] + '</strong>' + f[1] + '</div>'; }).join('') + '</div>' : '') + '</header>';
+}
+function pJuegos() {
+  var guides = inSec('juegos');
+  return '<div class="wrap">' + hubHead('<a href="#/">Inicio</a> / Juegos', 'Juegos', SECTIONS.juegos.desc, [[Object.keys(GAMES).length, 'juegos'], [guides.length, 'guías']]) +
+    '<section class="sec" style="margin-top:32px"><div class="sec-h"><h2>Elige tu juego</h2></div>' + gamesGrid() + '</section>' +
+    '<section class="sec split"><div><div class="sec-h"><h2>Todas las guías</h2></div><div class="list">' + guides.map(row).join('') + '</div></div><aside class="side"><div class="sticky">' + topList('Lo más leído', popular().filter(function (a) { return a.sec === 'juegos'; })) + ad('300×600', 'ad-tall', 'solo en computadora') + '</div></aside></section></div>';
+}
+function pGame(k) {
+  var g = GAMES[k]; if (!g) return pNotFound();
+  var items = inGame(k), firsts = items.slice(0, 3);
+  return '<div class="wrap">' + hubHead('<a href="#/">Inicio</a> / <a href="#/juegos">Juegos</a>', g.name, g.desc, [[items.length, 'artículos']].concat(g.facts)) +
+    '<div class="filters" role="group" aria-label="Filtrar">' + ['Todo'].concat(g.tags).map(function (t, i) { return '<button type="button" data-filter="' + esc(t) + '" aria-pressed="' + (i === 0) + '">' + esc(t) + '</button>'; }).join('') + '</div>' +
+    '<div class="start">' + firsts.map(function (a, i) { return '<a href="#/a/' + a.id + '"><small>' + ['Lo más buscado', 'Para empezar', 'Recién actualizado'][i] + '</small><strong>' + esc(a.title) + '</strong></a>'; }).join('') + '</div>' +
+    (k === 'gta6' ? '<div style="margin-bottom:40px">' + countdownHTML() + '</div>' : '') +
+    '<div class="split"><div class="list" id="hub-list">' + items.map(function (a) { return row(a).replace('<a class="row"', '<a class="row" data-tag="' + esc(a.tag) + '"'); }).join('') + '<p class="empty" hidden>Todavía no hay guías en este filtro.</p></div><aside class="side"><div class="sticky">' + topList('Lo más leído de ' + g.name, items.slice(0, 3)) + ad('300×250', 'ad-box') + '</div></aside></div></div>';
+}
+function pSection(s) {
+  var items = inSec(s), S = SECTIONS[s];
+  var head = hubHead('<a href="#/">Inicio</a> / ' + S.name, S.name, S.desc, [[items.length, s === 'virales' ? 'clips' : 'artículos']]);
+  var body = '';
+  if (s === 'equipo') body = '<section class="sec" style="margin-top:32px"><div class="sec-h"><div><h2>¿Qué celular me alcanza?</h2><p>Responde dos preguntas y te decimos qué buscar.</p></div></div>' + recoHTML() + '</section><section class="sec split"><div><div class="sec-h"><h2>Guías de equipo</h2></div><div class="list">' + items.map(row).join('') + '</div></div><aside class="side"><div class="sticky">' + ad('300×600', 'ad-tall', 'solo en computadora') + '</div></aside></section>';
+  else if (s === 'creadores') body = '<section class="sec" style="margin-top:32px"><div class="creators">' + host() + '<div class="c-grid">' + items.slice(0, 4).map(card).join('') + '</div></div></section><section class="sec split"><div><div class="sec-h"><h2>Todas las guías para creadores</h2></div><div class="list">' + items.map(row).join('') + '</div></div><aside class="side"><div class="sticky">' + ad('300×600', 'ad-tall', 'solo en computadora') + '</div></aside></section>';
+  else if (s === 'noticias') body = '<section class="sec split" style="margin-top:32px"><div><div class="sec-h"><h2>Hoy</h2></div><div class="news">' + items.map(newsItem).join('') + '</div></div><aside class="side"><div class="sticky">' + topList('Lo más leído', popular().slice(0, 5)) + ad('300×250', 'ad-box') + '</div></aside></section>';
+  else if (s === 'virales') body = '<section class="sec" style="margin-top:32px"><div class="clips wrapgrid">' + items.map(clip).join('') + '</div></section><div class="sec">' + ad('970×250', 'ad-bill') + '</div>';
+  return '<div class="wrap">' + head + body + '</div>';
+}
+function pTools() {
+  return '<div class="wrap">' + hubHead('<a href="#/">Inicio</a> / Herramientas', 'Herramientas', SECTIONS.herramientas.desc, [[TOOLS.length, 'herramientas']]) + '<section class="sec" style="margin-top:32px">' + toolsGrid() + '</section><div class="sec">' + ad('970×250', 'ad-bill') + '</div></div>';
+}
+
+/* Artículo */
+function renderBlock(b, a) {
+  switch (b[0]) {
+    case 'p': return '<p>' + esc(b[1]) + '</p>';
+    case 'h': return '<h2 id="' + slug(b[1]) + '">' + esc(b[1]) + '</h2>';
+    case 'steps': return '<ol class="steps">' + b[1].map(function (s) { return '<li><div><b>' + esc(s[0]) + '</b>' + esc(s[1]) + '</div></li>'; }).join('') + '</ol>';
+    case 'facts': return '<div class="facts3">' + b[1].map(function (f) { return '<div><strong>' + esc(f[0]) + '</strong><span>' + esc(f[1]) + '</span></div>'; }).join('') + '</div>';
+    case 'box': return '<div class="box"><b>' + esc(b[1]) + '</b><ul>' + b[2].map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul></div>';
+    case 'tip': return '<p class="tip"><b>Consejo:</b>' + esc(b[1]) + '</p>';
+    case 'table': return '<div class="table-wrap"><table><thead><tr>' + b[1].map(function (h) { return '<th>' + esc(h) + '</th>'; }).join('') + '</tr></thead><tbody>' + b[2].map(function (r) { return '<tr>' + r.map(function (c) { return '<td>' + esc(c) + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table></div>';
+    case 'codes': return '<div class="codes">' + b[1].map(function (c) { return '<div class="code' + (c[2] ? '' : ' off') + '"><div><strong>' + esc(c[0]) + '</strong><span>' + esc(c[1]) + '</span></div>' + (c[2] ? '<button class="copy" type="button" data-copy="' + esc(c[0]) + '">Copiar</button>' : '') + '</div>'; }).join('') + '</div>';
+    case 'picks': return '<div class="picks">' + b[1].map(function (p, i) { return '<div class="pick"><div class="pick-h"><small>' + esc(p.badge) + '</small><span class="price">desde <strong>' + esc(p.price) + '</strong></span><h3>' + (i + 1) + '. ' + esc(p.name) + '</h3></div><div class="specs">' + p.specs.map(function (s) { return '<span>' + esc(s) + '</span>'; }).join('') + '</div><div class="pc"><div><b>A favor</b><ul>' + p.pros.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div><div class="con"><b>En contra</b><ul>' + p.cons.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div></div><div class="btns"><button class="btn y sm" type="button" data-toast="En el sitio real, este botón lleva a Mercado Libre con nuestro enlace de afiliado">Ver precio en Mercado Libre</button></div></div>'; }).join('') + '</div>';
+    case 'disclosure': return '<p class="disclosure">Si compras desde nuestros enlaces, podemos recibir una comisión. No cambia el precio ni nuestra opinión.</p>';
+    case 'calc': return calcHTML();
+    case 'tool': return b[1] === 'nombres' ? namesHTML() : '';
+    case 'countdown': return countdownHTML();
+    case 'related': return '';
+  }
+  return '';
+}
+function slug(s) { return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+function pArticle(id) {
+  var a = byId[id]; if (!a) return pNotFound();
+  var crumbs = '<a href="#/">Inicio</a> / <a href="#/' + a.sec + '">' + SECTIONS[a.sec].name + '</a>' + (a.game && a.sec === 'juegos' ? ' / <a href="#/juegos/' + a.game + '">' + GAMES[a.game].name + '</a>' : '');
+  var author = a.byCreator ? '<div class="byline"><div class="face" aria-hidden="true">' + esc(CREATOR.initials) + '</div><div><b>' + esc(CREATOR.name) + '</b><span>' + esc(a.date) + ' · ' + a.mins + ' min de lectura</span></div></div>' : '<div class="byline"><div class="face" aria-hidden="true" style="background:var(--yellow);color:var(--ink)">593</div><div><b>Redacción entretenimiento593</b><span>' + esc(a.date) + (a.mins ? ' · ' + a.mins + ' min de lectura' : '') + '</span></div></div>';
+  if (a.type === 'viral') return pViral(a, crumbs);
+  var heads = a.blocks.filter(function (b) { return b[0] === 'h'; });
+  var body = '', count = 0, adsPlaced = 0;
+  if (a.quick) body += '<div class="quick"><b>Respuesta corta</b>' + esc(a.quick) + '</div>';
+  if (heads.length > 1) body += '<details class="toc-m"><summary>En esta guía</summary><ol>' + heads.map(function (h) { return '<li><button type="button" data-jump="' + slug(h[1]) + '">' + esc(h[1]) + '</button></li>'; }).join('') + '</ol></details>';
+  a.blocks.forEach(function (b, i) {
+    body += renderBlock(b, a); count++;
+    var nb = a.blocks[i + 1], okSpot = b[0] !== 'h' && b[0] !== 'disclosure' && b[0] !== 'countdown' && !(nb && nb[0] === 'related');
+    if (okSpot && ((count >= 2 && adsPlaced === 0) || (count >= 6 && adsPlaced === 1))) { body += '<div class="ad-slot">' + ad('336×280', 'ad-in', adsPlaced === 0 ? 'después de los primeros párrafos' : 'a mitad del artículo') + '</div>'; adsPlaced++; }
+  });
+  if (adsPlaced === 0) body += '<div class="ad-slot">' + ad('336×280', 'ad-in') + '</div>';
+  body += '<div class="useful"><b>¿Te sirvió?</b><div class="btns"><button class="btn o sm" type="button" data-fb>Sí</button><button class="btn o sm" type="button" data-fb>No</button></div></div>';
+  body += '<p class="sources">' + (a.type === 'noticia' ? 'Fuente: comunicado oficial (enlace en el sitio real).' : a.type === 'comparativa' ? 'Pruebas propias del equipo de entretenimiento593.' : a.byCreator ? 'Fuentes: centro de ayuda oficial y experiencia propia del creador.' : 'Fuentes: wiki y notas oficiales del juego, y pruebas propias.') + '</p>';
+  var rel = relatedOf(a);
+  var toc = heads.length > 1 ? '<nav class="toc" aria-label="En esta guía"><b>En esta guía</b><ol>' + heads.map(function (h) { return '<li><button type="button" data-jump="' + slug(h[1]) + '">' + esc(h[1]) + '</button></li>'; }).join('') + '</ol></nav>' : '';
+  return '<div class="wrap"><header class="a-head"><div class="crumbs">' + crumbs + '</div><h1>' + esc(a.title) + '</h1><p class="dek">' + esc(a.dek) + '</p>' + author + '</header>' +
+    '<div class="a-cover">' + cover(a) + '<p class="caption">' + (a.type === 'comparativa' ? 'Foto propia de las pruebas.' : 'Captura propia del juego o del stream.') + '</p></div>' +
+    '<div class="a-grid"><article class="prose">' + body + '</article><aside class="a-side"><div class="sticky">' + toc + ad('300×600', 'ad-tall', 'solo en computadora') + '</div></aside></div>' +
+    '<section class="related"><div class="sec-h"><h2>Sigue con</h2></div><div class="grid">' + rel.map(card).join('') + '</div></section></div>';
+}
+function relatedOf(a) {
+  var r = a.blocks.filter(function (b) { return b[0] === 'related'; })[0];
+  var list = r ? r[1].map(function (k) { return byId[k]; }) : [];
+  var pool = A.filter(function (x) { return x.id !== a.id && x.type !== 'viral' && list.indexOf(x) < 0 && (x.game && x.game === a.game || x.sec === a.sec); });
+  return list.concat(pool).concat(popular().filter(function (x) { return x.id !== a.id && list.indexOf(x) < 0 && pool.indexOf(x) < 0; })).slice(0, 3);
+}
+function pViral(a, crumbs) {
+  var rel = relatedOf(a);
+  return '<div class="wrap"><header class="a-head"><div class="crumbs">' + crumbs + '</div><h1>' + esc(a.title) + '</h1><p class="dek">' + esc(a.dek) + '</p></header>' +
+    '<div class="viral"><div class="v"><svg aria-hidden="true"><use href="#i-play"/></svg><small>Video de TikTok insertado con el reproductor oficial · ' + esc(a.dur) + '</small></div><div class="prose">' + a.blocks.map(function (b) { return renderBlock(b, a); }).join('') +
+    '<div class="ad-slot">' + ad('300×250', 'ad-box') + '</div><div class="sec-h" style="margin-top:28px"><h2 style="font-size:22px">Si te gustó, esto te sirve</h2></div><div class="list">' + rel.map(row).join('') + '</div></div></div>' +
+    '<section class="related"><div class="sec-h"><h2>Más virales</h2><a class="more" href="#/virales">Ver todos</a></div><div class="clips" role="list">' + inSec('virales').filter(function (x) { return x.id !== a.id; }).map(clip).join('') + '</div></section></div>';
+}
+
+/* Herramientas */
+function calcHTML() {
+  return '<section class="panel" aria-label="Calculadora de diamantes" data-calc><div><label for="coins">Monedas que te regalaron</label><div class="field"><input id="coins" type="number" inputmode="numeric" min="0" value="20000" data-coins><span>monedas</span></div></div>' +
+    '<div class="chips" aria-label="Valores rápidos">' + [1000, 5000, 20000, 100000].map(function (v) { return '<button type="button" data-v="' + v + '">' + v.toLocaleString('es-EC') + '</button>'; }).join('') + '</div>' +
+    '<div class="out"><div><span>Diamantes para ti</span><strong data-o="d">10.000</strong></div><div class="big"><span>En dólares</span><strong data-o="u">$50,00</strong></div></div>' +
+    '<p class="how"><b>Cómo se calcula:</b> recibes cerca del 50 % de las monedas como diamantes, y cada diamante vale unos $0,005. Son valores aproximados: TikTok no publica una tasa oficial.</p>' +
+    '<div><span class="lbl">Modo batalla</span><div class="vs" style="margin-top:10px"><span>Tú <span data-b="a">12.400</span></span><span><span data-b="b">9.800</span> Rival</span></div><div class="bar" style="margin-top:8px" aria-hidden="true"><i class="a" data-bar="a"></i><i class="b" data-bar="b"></i></div><div class="chips" style="margin-top:12px"><button type="button" data-side="a">+1.000 para ti</button><button type="button" data-side="b">+1.000 al rival</button><button type="button" data-side="r">Reiniciar</button></div><p class="how" style="margin-top:10px">Vas <span data-b="s">ganando</span> por <b data-b="usd">$6,50</b> en lo que recibe el creador.</p></div></section>';
+}
+function namesHTML() {
+  return '<section class="panel" aria-label="Generador de nombres" data-names><div><label for="nick">Escribe tu nombre</label><div class="field"><input id="nick" class="txt" type="text" maxlength="16" value="Gamer593" data-nick autocomplete="off"></div></div><div class="names" data-list></div><p class="how">Algunos juegos no aceptan todos los símbolos. Pruébalo en el chat antes de pagar el cambio de nombre.</p></section>';
+}
+function recoHTML() {
+  return '<section class="panel" aria-label="Recomendador de celular" data-reco><div><span class="lbl">¿A qué juegas más?</span><div class="chips" style="margin-top:10px" data-group="game">' + ['Free Fire', 'Roblox', 'Minecraft', 'Fortnite'].map(function (g, i) { return '<button type="button" data-val="' + g + '" aria-pressed="' + (i === 0) + '">' + g + '</button>'; }).join('') + '</div></div>' +
+    '<div><span class="lbl">¿Cuánto puedes gastar?</span><div class="chips" style="margin-top:10px" data-group="budget">' + [['low', 'Menos de $150'], ['mid', '$150 a $300'], ['high', 'Más de $300']].map(function (b, i) { return '<button type="button" data-val="' + b[0] + '" aria-pressed="' + (i === 1) + '">' + b[1] + '</button>'; }).join('') + '</div></div>' +
+    '<div class="reco" data-out></div></section>';
+}
+function pTool(id) {
+  var t = TOOLS.filter(function (x) { return x.id === id; })[0]; if (!t || t.href) return pNotFound();
+  var inner = id === 'diamantes' ? calcHTML() : id === 'nombres' ? namesHTML() : recoHTML();
+  var faq = {
+    diamantes: [['¿Cuánto son 1.000 diamantes?', 'Unos $5, según lo que reportan los creadores en 2026.'], ['¿Por qué recibo menos de lo que gastó mi público?', 'TikTok se queda con cerca de la mitad del valor del regalo.']],
+    nombres: [['¿Funciona en Free Fire?', 'La mayoría de estilos sí. Algunos símbolos no se aceptan: pruébalo antes de pagar el cambio.'], ['¿Es gratis?', 'Sí, y no guardamos lo que escribes.']],
+    celular: [['¿Por qué no dicen un modelo exacto?', 'Porque los precios cambian por país. En la guía de celulares ponemos los modelos que probamos.'], ['¿Qué importa más para jugar?', 'La memoria RAM y la pantalla. Después, la batería.']]
+  }[id];
+  return '<div class="wrap"><header class="a-head"><div class="crumbs"><a href="#/">Inicio</a> / <a href="#/herramientas">Herramientas</a></div><h1>' + t.name + '</h1><p class="dek">' + t.desc + '</p></header>' +
+    '<div class="tool-wrap"><div>' + inner + '<section class="prose" style="margin-top:40px"><h2 style="margin-top:0">Preguntas frecuentes</h2>' + faq.map(function (f) { return '<p><b>' + f[0] + '</b> ' + f[1] + '</p>'; }).join('') + '</section></div><aside>' + ad('300×250', 'ad-box', 'al lado, nunca encima de los botones') + '</aside></div>' +
+    '<section class="related"><div class="sec-h"><h2>Otras herramientas</h2></div>' + '<div class="tools">' + TOOLS.filter(function (x) { return x.id !== id; }).slice(0, 3).map(function (x) { return '<a class="tool-t" href="' + (x.href || '#/herramientas/' + x.id) + '"><svg aria-hidden="true"><use href="#' + x.icon + '"/></svg><h3>' + x.name + '</h3><p>' + x.desc + '</p><span class="go">' + x.go + ' →</span></a>'; }).join('') + '</div></section></div>';
+}
+
+/* Búsqueda */
+function norm(s) { return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+function find(q) {
+  var t = norm(q.trim()); if (!t) return [];
+  var words = t.split(/\s+/);
+  return A.map(function (a) { var hay = norm(a.title + ' ' + a.dek + ' ' + where(a) + ' ' + (a.tag || '')); var s = words.reduce(function (n, w) { return n + (hay.indexOf(w) > -1 ? 1 : 0); }, 0); return [a, s + (norm(a.title).indexOf(t) > -1 ? 2 : 0)]; })
+    .filter(function (x) { return x[1] >= words.length; }).sort(function (x, y) { return y[1] - x[1]; }).map(function (x) { return x[0]; });
+}
+function pSearch(q) {
+  var res = find(q || '');
+  return '<div class="wrap"><header class="a-head"><div class="crumbs"><a href="#/">Inicio</a> / Buscar</div><h1>Buscar</h1>' + searchBox('q-page') + '</header>' +
+    '<section class="sec" style="margin-top:36px">' + (q ? '<p class="meta" style="margin-bottom:16px">' + res.length + ' resultado' + (res.length === 1 ? '' : 's') + ' para "' + esc(q) + '"</p>' + (res.length ? '<div class="list">' + res.map(row).join('') + '</div>' : '<p class="empty">No encontramos nada. Prueba con el nombre del juego, por ejemplo "Minecraft" o "Roblox".</p>') : '<div class="popular"><span>Prueba con:</span><a href="#/buscar/roblox">roblox</a><a href="#/buscar/diamantes">diamantes</a><a href="#/buscar/tiktok">tiktok</a><a href="#/buscar/celular">celular</a><a href="#/buscar/gta">gta</a></div>') + '</section></div>';
+}
+
+/* Páginas del sitio */
+var PAGES = {
+  'quienes-somos': ['Quiénes somos', '<p class="lede">entretenimiento593 es el sitio de ' + esc(CREATOR.name) + ' y su equipo: guías de juegos, equipo y trucos para creadores, hechas en Ecuador para toda Latinoamérica.</p><h2>Qué hacemos</h2><p>Explicamos fácil lo que la gente busca todos los días: cómo avanzar en un juego, qué celular comprar para jugar o cómo hacer mejores lives. Todo lo probamos antes de publicarlo.</p><h2>Nuestras reglas</h2><div class="box"><b>Siempre</b><ul><li>Títulos que dicen lo que hay adentro. Nada de clickbait.</li><li>Fuentes oficiales enlazadas y fecha de actualización visible.</li><li>Lo que recomendamos, lo probamos.</li><li>La IA nos ayuda a investigar; los artículos los escribe y firma una persona.</li></ul></div>'],
+  'como-probamos': ['Cómo probamos', '<p class="lede">Lo que recomendamos lo usamos antes. Así lo hacemos en cada tipo de artículo.</p><h2>Guías de juegos</h2><p>Seguimos cada paso en el juego, en la versión actual, y anotamos la fecha de la prueba.</p><h2>Equipo</h2><p>Usamos cada producto en partidas y lives reales, medimos lo que se puede medir y mostramos fotos propias.</p><h2>Códigos</h2><p>Los revisamos uno por uno cada mañana y movemos a "expirados" los que ya no funcionan.</p>'],
+  'anuncia': ['Anuncia con nosotros', '<p class="lede">Llega a jóvenes gamers y creadores de Ecuador y Latinoamérica, en el sitio y en las redes de ' + esc(CREATOR.name) + '.</p><div class="kpis"><div><strong>—</strong><span>seguidores en redes</span></div><div><strong>—</strong><span>visitas al mes</span></div><div><strong>18–34</strong><span>edad principal</span></div><div><strong>LATAM</strong><span>países principales</span></div></div><p class="how">Las cifras se completan con los datos reales de la audiencia.</p><h2>Formatos</h2><div class="formats"><div><h3>Sección patrocinada</h3><p>"Guías de Free Fire presentadas por tu marca", con logo y banner fijo durante el mes.</p></div><div><h3>Nota patrocinada</h3><p>Un artículo sobre tu producto, marcado como patrocinado y escrito por el equipo.</p></div><div><h3>Creador + sitio</h3><p>Un live o video del creador, una nota en el sitio y una semana de banner.</p></div><div><h3>Banners</h3><p>Espacios en portada y artículos, con reporte de impresiones y clics.</p></div></div><h2>Contacto comercial</h2><p>marcas@entretenimiento593.com (dirección de ejemplo)</p>'],
+  'contacto': ['Contacto', '<p class="lede">¿Encontraste un error, un código que no funciona o quieres proponer una guía? Escríbenos.</p><h2>Correo</h2><p>hola@entretenimiento593.com (dirección de ejemplo)</p><h2>Redes</h2><p>TikTok, Instagram y canal de WhatsApp del creador (enlaces en el sitio real).</p>'],
+  'privacidad': ['Privacidad y cookies', '<p class="lede">Resumen de ejemplo. El texto legal completo se publica antes del lanzamiento.</p><h2>Qué datos usamos</h2><p>El sitio muestra anuncios de Google, que pueden usar cookies para personalizarlos. Puedes cambiar tus preferencias desde la configuración de anuncios de Google.</p><h2>Lo que no hacemos</h2><p>No vendemos tus datos y las herramientas no guardan lo que escribes.</p>'],
+  'terminos': ['Términos de uso', '<p class="lede">Resumen de ejemplo. El texto legal completo se publica antes del lanzamiento.</p><h2>Uso del contenido</h2><p>Puedes compartir los enlaces a nuestras guías. No copies los artículos completos en otros sitios.</p><h2>Marcas</h2><p>Los nombres de juegos y marcas pertenecen a sus dueños y se usan solo para identificarlos.</p>']
+};
+function pPage(k) {
+  var p = PAGES[k]; if (!p) return pNotFound();
+  return '<div class="wrap"><header class="a-head"><div class="crumbs"><a href="#/">Inicio</a> / ' + p[0] + '</div><h1>' + p[0] + '</h1></header><div class="prose page" style="margin-top:28px">' + p[1] + '</div></div>';
+}
+function pNotFound() {
+  return '<div class="wrap"><header class="a-head"><h1>No encontramos esa página</h1><p class="dek">Puede que el enlace esté mal escrito. Prueba con el buscador o vuelve al inicio.</p><div><a class="btn" href="#/">Ir al inicio</a></div></header></div>';
+}
+
+/* ===================== Router ===================== */
+var app = document.getElementById('app');
+function route() {
+  var h = location.hash.replace(/^#\/?/, '');
+  var p = h.split('/').map(function (x) { return decodeURIComponent(x || ''); });
+  var html, sec = '', tab = '', title = 'entretenimiento593 · Guías de juegos y trucos para creadores';
+  if (!p[0]) { html = pHome(); tab = 'inicio'; }
+  else if (p[0] === 'juegos') { sec = tab = 'juegos'; html = p[1] ? pGame(p[1]) : pJuegos(); if (p[1] && GAMES[p[1]]) title = GAMES[p[1]].name + ' · entretenimiento593'; }
+  else if (p[0] === 'herramientas') { sec = 'herramientas'; html = p[1] ? pTool(p[1]) : pTools(); }
+  else if (SECTIONS[p[0]]) { sec = tab = p[0]; html = pSection(p[0]); title = SECTIONS[p[0]].name + ' · entretenimiento593'; }
+  else if (p[0] === 'a') { var a = byId[p[1]]; html = pArticle(p[1]); if (a) { sec = a.sec; tab = a.sec; title = a.title + ' · entretenimiento593'; } }
+  else if (p[0] === 'buscar') { html = pSearch(p[1] || ''); }
+  else if (p[0] === 'p') { html = pPage(p[1]); }
+  else html = pNotFound();
+  app.innerHTML = html;
+  document.title = title;
+  document.querySelectorAll('.nav a').forEach(function (x) { x.classList.toggle('on', x.dataset.sec === sec); });
+  document.querySelectorAll('.tabbar [data-tab]').forEach(function (x) { x.classList.toggle('on', x.dataset.tab === tab); });
+  closeSheet();
+  window.scrollTo(0, 0);
+  mount();
+}
+window.addEventListener('hashchange', route);
+
+/* ===================== Interacción ===================== */
+var sheet = document.getElementById('sheet');
+function closeSheet() { sheet.hidden = true; }
+document.addEventListener('click', function (e) {
+  var t = e.target;
+  if (t.closest('[data-menu]')) { sheet.hidden = false; document.getElementById('sheet-x').focus(); return; }
+  if (t.closest('#sheet-x') || t === sheet) { closeSheet(); return; }
+  var copy = t.closest('[data-copy]');
+  if (copy) { var txt = copy.dataset.copy, done = function () { copy.textContent = 'Copiado'; copy.classList.add('done'); setTimeout(function () { copy.textContent = 'Copiar'; copy.classList.remove('done'); }, 1400); }; try { navigator.clipboard.writeText(txt).then(done, done); } catch (err) { done(); } return; }
+  var toast = t.closest('[data-toast]'); if (toast) { showToast(toast.dataset.toast); return; }
+  var fb = t.closest('[data-fb]'); if (fb) { fb.parentNode.innerHTML = '<span class="meta">Gracias. Lo usamos para mejorar la guía.</span>'; return; }
+  var jump = t.closest('[data-jump]'); if (jump) { var el = document.getElementById(jump.dataset.jump); if (el) el.scrollIntoView({ behavior: 'smooth' }); return; }
+  var f = t.closest('[data-filter]');
+  if (f) {
+    document.querySelectorAll('[data-filter]').forEach(function (b) { b.setAttribute('aria-pressed', String(b === f)); });
+    var shown = 0;
+    document.querySelectorAll('#hub-list .row').forEach(function (r) { var ok = f.dataset.filter === 'Todo' || r.dataset.tag === f.dataset.filter; r.hidden = !ok; if (ok) shown++; });
+    var em = document.querySelector('#hub-list .empty'); if (em) em.hidden = shown > 0;
+    return;
+  }
+  if (!t.closest('[data-search]')) document.querySelectorAll('.suggest').forEach(function (s) { s.hidden = true; });
+});
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeSheet(); document.querySelectorAll('.suggest').forEach(function (s) { s.hidden = true; }); } });
+var toastT;
+function showToast(msg) { var el = document.querySelector('.toast') || document.body.appendChild(Object.assign(document.createElement('div'), { className: 'toast', role: 'status' })); el.textContent = msg; el.hidden = false; clearTimeout(toastT); toastT = setTimeout(function () { el.hidden = true; }, 2600); }
+
+var cdTimer;
+function mount() {
+  // Buscador
+  document.querySelectorAll('[data-search]').forEach(function (form) {
+    var input = form.querySelector('[data-q]'), box = form.querySelector('.suggest');
+    var cur = (location.hash.match(/^#\/buscar\/(.+)$/) || [])[1]; if (cur && form.querySelector('#q-page')) input.value = decodeURIComponent(cur);
+    function render() {
+      var res = find(input.value).slice(0, 6);
+      if (!input.value.trim()) { box.hidden = true; return; }
+      box.innerHTML = res.length ? res.map(function (a) { return '<a href="#/a/' + a.id + '"><span>' + esc(a.title) + '</span><small>' + esc(where(a)) + '</small></a>'; }).join('') : '<a href="#/buscar/' + encodeURIComponent(input.value) + '"><span>Sin resultados para "' + esc(input.value) + '"</span><small>Ver búsqueda</small></a>';
+      box.hidden = false;
+    }
+    input.addEventListener('input', render);
+    form.addEventListener('submit', function (e) { e.preventDefault(); location.hash = '#/buscar/' + encodeURIComponent(input.value.trim()); });
+  });
+  // Cuenta regresiva
+  clearInterval(cdTimer);
+  if (document.querySelector('[data-cd]')) {
+    var tick = function () { var ms = Math.max(0, GTA_DATE - Date.now()), pad = function (n) { return String(n).padStart(2, '0'); };
+      document.querySelectorAll('[data-cd="d"]').forEach(function (x) { x.textContent = Math.floor(ms / 864e5); });
+      document.querySelectorAll('[data-cd="h"]').forEach(function (x) { x.textContent = pad(Math.floor(ms / 36e5) % 24); });
+      document.querySelectorAll('[data-cd="m"]').forEach(function (x) { x.textContent = pad(Math.floor(ms / 6e4) % 60); }); };
+    tick(); cdTimer = setInterval(tick, 30000);
+  }
+  // Calculadora
+  document.querySelectorAll('[data-calc]').forEach(function (c) {
+    var nf = new Intl.NumberFormat('es-EC'), usd = new Intl.NumberFormat('es-EC', { style: 'currency', currency: 'USD' });
+    var inp = c.querySelector('[data-coins]'), A1 = 12400, B1 = 9800;
+    function calc() { var v = Math.max(0, Number(inp.value) || 0), d = Math.floor(v * 0.5); c.querySelector('[data-o="d"]').textContent = nf.format(d); c.querySelector('[data-o="u"]').textContent = usd.format(d * 0.005); }
+    function battle() { var tot = A1 + B1 || 1; c.querySelector('[data-b="a"]').textContent = nf.format(A1); c.querySelector('[data-b="b"]').textContent = nf.format(B1); c.querySelector('[data-bar="a"]').style.width = (A1 / tot * 100) + '%'; c.querySelector('[data-bar="b"]').style.width = (B1 / tot * 100) + '%'; c.querySelector('[data-b="s"]').textContent = A1 >= B1 ? 'ganando' : 'perdiendo'; c.querySelector('[data-b="usd"]').textContent = usd.format(Math.abs(A1 - B1) * 0.5 * 0.005); }
+    inp.addEventListener('input', calc);
+    c.querySelectorAll('[data-v]').forEach(function (b) { b.addEventListener('click', function () { inp.value = b.dataset.v; calc(); }); });
+    c.querySelectorAll('[data-side]').forEach(function (b) { b.addEventListener('click', function () { if (b.dataset.side === 'a') A1 += 1000; else if (b.dataset.side === 'b') B1 += 1000; else { A1 = 12400; B1 = 9800; } battle(); }); });
+    calc(); battle();
+  });
+  // Nombres
+  document.querySelectorAll('[data-names]').forEach(function (c) {
+    var inp = c.querySelector('[data-nick]'), list = c.querySelector('[data-list]');
+    function draw() {
+      var v = inp.value.trim() || 'Gamer593';
+      list.innerHTML = STYLES.map(function (s) { var out = s[1](v); return '<div class="name-row"><div><strong>' + esc(out) + '</strong><small>' + s[0] + '</small></div><button class="copy" type="button" data-copy="' + esc(out) + '">Copiar</button></div>'; }).join('');
+    }
+    inp.addEventListener('input', draw); draw();
+  });
+  // Recomendador
+  document.querySelectorAll('[data-reco]').forEach(function (c) {
+    var out = c.querySelector('[data-out]');
+    function draw() {
+      var g = c.querySelector('[data-group="game"] [aria-pressed="true"]').dataset.val, b = c.querySelector('[data-group="budget"] [aria-pressed="true"]').dataset.val;
+      var r = { low: ['Gama de entrada', 'Busca 6 GB de RAM y 5.000 mAh de batería. ' + g + ' corre en gráficos bajos o medios.'], mid: ['Gama media', 'Busca 8 GB de RAM y pantalla de 90 o 120 Hz. ' + g + ' corre fluido en gráficos altos.'], high: ['Gama media alta', 'Busca 8 GB de RAM o más, 120 Hz y buena cámara frontal: te sirve también para hacer lives de ' + g + '.'] }[b];
+      out.innerHTML = '<small style="font-weight:700">Te recomendamos</small><h3>' + r[0] + '</h3><p>' + r[1] + '</p><div><a class="btn sm" href="#/a/celulares-free-fire">Ver los modelos que probamos</a></div>';
+    }
+    c.querySelectorAll('[data-group]').forEach(function (grp) { grp.addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; grp.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); }); draw(); }); });
+    draw();
+  });
+}
+
+/* Estilos de letras (Unicode) */
+function mapAlpha(s, up, low, dig, ex) {
+  return Array.from(s).map(function (ch) {
+    if (ex && ex[ch]) return ex[ch];
+    var c = ch.codePointAt(0);
+    if (c >= 65 && c <= 90) return String.fromCodePoint(up + c - 65);
+    if (c >= 97 && c <= 122) return String.fromCodePoint(low + c - 97);
+    if (dig && c >= 48 && c <= 57) return String.fromCodePoint(dig + c - 48);
+    return ch;
+  }).join('');
+}
+var SMALL = 'ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ';
+var DS_EX = { C: 'ℂ', H: 'ℍ', N: 'ℕ', P: 'ℙ', Q: 'ℚ', R: 'ℝ', Z: 'ℤ' };
+var STYLES = [
+  ['Negrita', function (s) { return mapAlpha(s, 0x1D5D4, 0x1D5EE, 0x1D7EC); }],
+  ['Clásica', function (s) { return mapAlpha(s, 0x1D400, 0x1D41A, 0x1D7CE); }],
+  ['Cursiva elegante', function (s) { return mapAlpha(s, 0x1D4D0, 0x1D4EA); }],
+  ['Gótica', function (s) { return mapAlpha(s, 0x1D56C, 0x1D586); }],
+  ['Doble línea', function (s) { return mapAlpha(s, 0x1D538, 0x1D552, 0x1D7D8, DS_EX); }],
+  ['Versalitas', function (s) { return Array.from(s).map(function (ch) { var c = ch.toLowerCase().charCodeAt(0); return c >= 97 && c <= 122 ? SMALL[c - 97] : ch; }).join(''); }],
+  ['Con alas', function (s) { return '꧁' + mapAlpha(s, 0x1D5D4, 0x1D5EE, 0x1D7EC) + '꧂'; }],
+  ['Estrella', function (s) { return '★彡 ' + s + ' 彡★'; }],
+  ['Corchetes', function (s) { return '『' + s + '』'; }],
+  ['Ancha', function (s) { return mapAlpha(s, 0xFF21, 0xFF41, 0xFF10); }]
+];
+
+route();
+</script>
+</body>
+</html>
