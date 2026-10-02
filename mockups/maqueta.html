@@ -1,0 +1,417 @@
+<title>Novedades593 Maqueta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+/* Layout: portal de noticias. Header de marca, barra de secciones con color por sección,
+   portada en grilla 8/4 con columna "Lo más leído", nota de 680px + barra de 300px. */
+:root {
+  --bg: #F6F7F9;
+  --paper: #FFFFFF;
+  --ink: #111827;
+  --ink-2: #374151;
+  --muted: #6B7280;
+  --line: #E5E7EB;
+  --brand: #0B2E6B;        /* azul profundo */
+  --brand-ink: #FFFFFF;
+  --hot: #FFC72C;          /* amarillo: urgente / en vivo */
+  --gaming: #5B3FD9;
+  --deportes: #0E8A4F;
+  --farandula: #D1236F;
+  --influencers: #E36414;
+  --ad: #FFF7DB;
+  --ad-line: #E8C766;
+  --ad-ink: #7A5B00;
+  --img-a: #1F3A6E;
+  --img-b: #3B5BA0;
+  --display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --body: "Source Serif 4", Georgia, serif;
+  --ui: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D1117; --paper: #151B23; --ink: #F3F4F6; --ink-2: #D1D5DB; --muted: #9CA3AF; --line: #2A323D;
+    --brand: #0B2E6B; --hot: #FFC72C;
+    --gaming: #8B78F0; --deportes: #34C27F; --farandula: #F25C9B; --influencers: #FF8A3D;
+    --ad: #2A2412; --ad-line: #6B5A1E; --ad-ink: #F2D27A; --img-a: #1B2B4A; --img-b: #2C4677;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D1117; --paper: #151B23; --ink: #F3F4F6; --ink-2: #D1D5DB; --muted: #9CA3AF; --line: #2A323D;
+  --brand: #0B2E6B; --hot: #FFC72C;
+  --gaming: #8B78F0; --deportes: #34C27F; --farandula: #F25C9B; --influencers: #FF8A3D;
+  --ad: #2A2412; --ad-line: #6B5A1E; --ad-ink: #F2D27A; --img-a: #1B2B4A; --img-b: #2C4677;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--ui); font-size: 15px; line-height: 1.45; }
+a { color: inherit; text-decoration: none; }
+a:hover h2, a:hover h3 { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--hot); outline-offset: 2px; }
+.wrap { max-width: 1160px; margin: 0 auto; padding-inline: 16px; }
+
+/* Barra de la maqueta */
+.mockbar { background: var(--ink); color: var(--bg); font-size: 13px; }
+.mockbar .wrap { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; padding-block: 8px; }
+.tabs { display: flex; gap: 6px; }
+.tabs button { font: 600 13px var(--ui); padding: 6px 12px; border-radius: 6px; border: 1px solid currentColor; background: transparent; color: inherit; cursor: pointer; }
+.tabs button[aria-pressed="true"] { background: var(--hot); color: #111827; border-color: var(--hot); }
+
+/* Header */
+header.site { background: var(--brand); color: var(--brand-ink); position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; }
+header.site .wrap { display: flex; align-items: center; gap: 16px; min-height: 58px; }
+.logo { font: 900 26px/1 var(--display); letter-spacing: -0.02em; }
+.logo span { background: var(--hot); color: #0B2E6B; padding: 1px 6px; border-radius: 4px; margin-left: 2px; }
+.head-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+.pill-btn { font: 600 13px var(--ui); padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,.4); color: #fff; background: transparent; white-space: nowrap; }
+.pill-btn.wa { background: #1FA855; border-color: #1FA855; }
+.search { width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,.4); background: transparent; color: #fff; display: grid; place-items: center; }
+
+nav.sections { background: var(--paper); border-bottom: 1px solid var(--line); }
+nav.sections .wrap { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+nav.sections a { font: 800 14px var(--display); text-transform: uppercase; letter-spacing: .04em; padding: 12px 12px 9px; border-bottom: 3px solid transparent; white-space: nowrap; }
+nav.sections a[data-s="gaming"] { border-color: var(--gaming); }
+nav.sections a:hover { background: var(--bg); }
+.s-gaming { --s: var(--gaming); } .s-deportes { --s: var(--deportes); } .s-farandula { --s: var(--farandula); } .s-influencers { --s: var(--influencers); }
+
+.ticker { background: var(--paper); border-bottom: 1px solid var(--line); font-size: 14px; }
+.ticker .wrap { display: flex; gap: 12px; align-items: center; padding-block: 8px; overflow: hidden; white-space: nowrap; }
+.live { font: 800 12px var(--display); background: var(--hot); color: #111827; padding: 3px 8px; border-radius: 3px; text-transform: uppercase; letter-spacing: .06em; flex: none; }
+.ticker p { margin: 0; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+
+/* Anuncios */
+.ad { background: var(--ad); border: 1px dashed var(--ad-line); color: var(--ad-ink); border-radius: 6px; display: grid; place-items: center; text-align: center; font-size: 12px; padding: 8px; }
+.ad b { display: block; font: 800 13px var(--display); letter-spacing: .04em; text-transform: uppercase; }
+.ad small { display: block; opacity: .85; }
+.ad-top { margin-block: 16px; min-height: 100px; }
+@media (min-width: 900px) { .ad-top { min-height: 250px; } }
+.ad-feed { min-height: 250px; }
+.ad-side { min-height: 600px; position: sticky; top: 80px; }
+.ad-in { min-height: 280px; margin-block: 32px; }
+.ad-sponsor { min-height: 0; padding: 10px 14px; display: flex; gap: 10px; justify-content: center; place-items: initial; align-items: center; margin-bottom: 12px; }
+.ad-label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); text-align: center; margin-bottom: 4px; }
+
+/* Imágenes de ejemplo (sin fotos reales en la maqueta) */
+.img { aspect-ratio: 16 / 9; max-width: 100%; border-radius: 6px; background:
+  linear-gradient(135deg, color-mix(in srgb, var(--s, var(--img-b)) 70%, var(--img-a)), var(--img-a));
+  display: grid; place-items: end start; padding: 10px; color: #fff; font-size: 11px; position: relative; overflow: hidden; }
+.img::after { content: "imagen 16:9 · 1200px+"; opacity: .75; font-family: var(--ui); }
+
+.kicker { font: 800 12px var(--display); text-transform: uppercase; letter-spacing: .06em; color: var(--s, var(--brand)); }
+.meta { font-size: 13px; color: var(--muted); }
+.tag-new { background: var(--hot); color: #111827; font: 800 11px var(--display); padding: 1px 5px; border-radius: 3px; margin-right: 6px; text-transform: uppercase; }
+
+main { padding-block: 0 48px; }
+.grid-top { display: grid; gap: 24px; grid-template-columns: 1fr; }
+@media (min-width: 900px) { .grid-top { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); } }
+.lead { display: grid; gap: 12px; }
+.lead h2 { font: 900 clamp(26px, 4vw, 40px)/1.08 var(--display); letter-spacing: -0.015em; margin: 0; text-wrap: balance; }
+.lead p { font: 18px/1.5 var(--body); color: var(--ink-2); margin: 0; }
+.secondary { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; margin-top: 8px; }
+.card { display: grid; gap: 6px; align-content: start; min-width: 0; }
+.card h3 { font: 800 17px/1.22 var(--display); margin: 0; text-wrap: balance; }
+
+aside.most { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 16px; align-self: start; }
+aside.most h2 { font: 900 18px var(--display); text-transform: uppercase; letter-spacing: .03em; margin: 0 0 8px; }
+.most ol { list-style: none; padding: 0; margin: 0; counter-reset: n; }
+.most li { counter-increment: n; display: grid; grid-template-columns: 34px 1fr; gap: 8px; padding-block: 12px; border-top: 1px solid var(--line); }
+.most li::before { content: counter(n); font: 900 28px/1 var(--display); color: var(--line); }
+.most li a { font: 700 15px/1.3 var(--display); }
+.creator { margin-top: 16px; padding: 14px; border-radius: 8px; background: var(--brand); color: #fff; display: grid; gap: 8px; }
+.creator .avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--hot); color: #0B2E6B; display: grid; place-items: center; font: 900 18px var(--display); }
+.creator .row { display: flex; gap: 10px; align-items: center; }
+.creator p { margin: 0; font-size: 14px; }
+
+section.block { margin-top: 40px; }
+.block-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-top: 4px solid var(--s); padding-top: 10px; margin-bottom: 16px; }
+.block-head h2 { font: 900 24px var(--display); text-transform: uppercase; letter-spacing: .02em; margin: 0; color: var(--s); }
+.block-head a { font: 600 14px var(--ui); color: var(--muted); }
+.row4 { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+
+.util { display: grid; gap: 20px; grid-template-columns: 1fr; }
+@media (min-width: 900px) { .util { grid-template-columns: 1fr 1fr; } }
+.box { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 16px; min-width: 0; }
+.box h3 { font: 800 16px var(--display); margin: 0 0 10px; text-transform: uppercase; letter-spacing: .03em; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; font-size: 14px; }
+th, td { padding: 7px 8px; border-bottom: 1px solid var(--line); text-align: left; }
+th { font: 700 12px var(--ui); color: var(--muted); text-transform: uppercase; }
+td.n, th.n { text-align: right; }
+.codes { display: grid; gap: 8px; }
+.code { display: flex; justify-content: space-between; align-items: center; gap: 10px; background: var(--bg); border-radius: 6px; padding: 8px 10px; font: 700 15px ui-monospace, SFMono-Regular, Menlo, monospace; }
+.code button { font: 600 12px var(--ui); padding: 6px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; }
+
+footer { background: var(--brand); color: #fff; padding-block: 32px; font-size: 14px; }
+footer .wrap { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+footer h4 { font: 800 14px var(--display); text-transform: uppercase; margin: 0 0 8px; }
+footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; opacity: .9; }
+
+/* Nota */
+.art { display: grid; gap: 40px; grid-template-columns: minmax(0, 1fr); padding-top: 8px; }
+@media (min-width: 1040px) { .art { grid-template-columns: minmax(0, 680px) 300px; justify-content: space-between; } }
+.art aside.side { display: none; }
+@media (min-width: 1040px) { .art aside.side { display: grid; gap: 24px; align-content: start; } }
+.crumbs { font-size: 13px; color: var(--muted); margin: 16px 0 8px; }
+.art h1 { font: 900 clamp(28px, 4.5vw, 44px)/1.08 var(--display); letter-spacing: -0.015em; margin: 8px 0 12px; text-wrap: balance; }
+.dek { font: 20px/1.5 var(--body); color: var(--ink-2); margin: 0 0 16px; }
+.byline { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; padding-block: 12px; border-block: 1px solid var(--line); margin-bottom: 20px; }
+.byline .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--s); color: #fff; display: grid; place-items: center; font: 800 15px var(--display); }
+.byline .who { display: grid; }
+.byline .who b { font-size: 15px; }
+.share { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; }
+.share span { font: 600 12px var(--ui); padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; }
+.caption { font-size: 13px; color: var(--muted); margin: 6px 0 20px; }
+.prose { font: 19px/1.7 var(--body); color: var(--ink); max-width: 66ch; }
+.prose p { margin: 0 0 1.1em; }
+.prose h2 { font: 900 26px/1.2 var(--display); margin: 1.4em 0 .5em; }
+.embed { border: 1px solid var(--line); border-radius: 8px; padding: 14px; font: 14px/1.5 var(--ui); background: var(--paper); margin: 24px 0; }
+.embed b { display: block; margin-bottom: 4px; }
+.pref { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin: 28px 0; font-size: 14px; }
+.pref .g { font: 600 13px var(--ui); padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); }
+.sources { font-size: 14px; color: var(--ink-2); border-top: 1px solid var(--line); padding-top: 12px; }
+.related { display: grid; gap: 14px; }
+.related .card { grid-template-columns: 96px 1fr; gap: 10px; align-items: start; }
+.related .img { padding: 0; }
+.related .img::after { content: none; }
+.related h3 { font-size: 15px; }
+
+.notes { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 16px; margin-top: 32px; font-size: 14px; }
+.notes h2 { font: 800 16px var(--display); margin: 0 0 8px; text-transform: uppercase; }
+.notes ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+
+@media (max-width: 560px) {
+  .secondary { grid-template-columns: 1fr; }
+  .pill-btn.wa { display: none; }
+}
+@media (prefers-reduced-motion: no-preference) { a h2, a h3 { transition: color .15s; } }
+</style>
+
+<div class="mockbar">
+  <div class="wrap">
+    <span>Maqueta Novedades593 · contenido de ejemplo · los recuadros amarillos son espacios de anuncio</span>
+    <div class="tabs" role="group" aria-label="Vista">
+      <button id="tab-home" type="button" aria-pressed="true" data-view="home">Portada</button>
+      <button id="tab-art" type="button" aria-pressed="false" data-view="art">Nota</button>
+    </div>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="#home" data-go="home">Novedades<span>593</span></a>
+    <div class="head-actions">
+      <span class="pill-btn wa">Canal de WhatsApp</span>
+      <span class="search" aria-label="Buscar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+      </span>
+    </div>
+  </div>
+</header>
+<nav class="sections" aria-label="Secciones">
+  <div class="wrap">
+    <a href="#home" data-go="home">Últimas</a>
+    <a class="s-gaming" style="border-color:var(--gaming)" href="#home" data-go="home">Gaming</a>
+    <a class="s-deportes" style="border-color:var(--deportes)" href="#home" data-go="home">Deportes</a>
+    <a class="s-farandula" style="border-color:var(--farandula)" href="#home" data-go="home">Farándula</a>
+    <a class="s-influencers" style="border-color:var(--influencers)" href="#home" data-go="home">Influencers</a>
+  </div>
+</nav>
+<div class="ticker">
+  <div class="wrap"><span class="live">Última hora</span><p>LigaPro: así queda la tabla tras la fecha 12 · Free Fire: códigos de recompensa de hoy · Lanzamientos de videojuegos de octubre</p></div>
+</div>
+
+<!-- PORTADA -->
+<main id="view-home">
+  <div class="wrap">
+    <div class="ad-label">Publicidad</div>
+    <div class="ad ad-top"><div><b>top</b><small>970×250 / 728×90 desktop · 320×100 móvil · AdSense o venta directa (GAM)</small></div></div>
+
+    <div class="grid-top">
+      <div>
+        <a class="lead s-deportes" href="#art" data-go="art">
+          <div class="img"></div>
+          <span class="kicker">Deportes · LigaPro</span>
+          <h2>Barcelona SC vs Emelec: previa, alineaciones probables y dónde ver el Clásico del Astillero</h2>
+          <p>Todo lo que necesitas antes del partido: cómo llegan los dos equipos, las bajas confirmadas y los canales de transmisión en Ecuador.</p>
+          <span class="meta">Por la redacción · hace 25 min</span>
+        </a>
+        <div class="secondary">
+          <a class="card s-gaming" href="#art" data-go="art">
+            <div class="img"></div>
+            <span class="kicker">Gaming</span>
+            <h3>Free Fire: códigos de recompensa de hoy y cómo canjearlos</h3>
+            <span class="meta"><span class="tag-new">Actualizado</span>hace 1 h</span>
+          </a>
+          <a class="card s-influencers" href="#art" data-go="art">
+            <div class="img"></div>
+            <span class="kicker">Influencers</span>
+            <h3>Los creadores ecuatorianos que más crecieron en TikTok este mes</h3>
+            <span class="meta">hace 3 h</span>
+          </a>
+        </div>
+      </div>
+
+      <aside class="most" aria-label="Lo más leído">
+        <h2>Lo más leído</h2>
+        <ol>
+          <li><a href="#art" data-go="art">Calendario de La Tri: fechas y horarios de las Eliminatorias</a></li>
+          <li><a href="#art" data-go="art">GTA VI: todo lo que se sabe del lanzamiento</a></li>
+          <li><a href="#art" data-go="art">Quién es quién en el reality de la temporada</a></li>
+          <li><a href="#art" data-go="art">Tabla de posiciones de LigaPro actualizada</a></li>
+          <li><a href="#art" data-go="art">Juegos gratis de la semana en Epic Games Store</a></li>
+        </ol>
+        <div class="creator">
+          <div class="row"><div class="avatar" aria-hidden="true">CC</div><div><b>La columna del creador</b><p>Opinión firmada, lo que dijo en su live y reacciones</p></div></div>
+          <p>Este espacio diferencia al sitio de los resúmenes con IA de Google.</p>
+        </div>
+      </aside>
+    </div>
+
+    <section class="block s-gaming">
+      <div class="block-head"><h2>Gaming</h2><a href="#home">Ver todo →</a></div>
+      <div class="ad ad-sponsor"><b>Sección presentada por [marca]</b><small>patrocinio solo de venta directa (Ad Manager)</small></div>
+      <div class="row4">
+        <a class="card" href="#art" data-go="art"><div class="img"></div><h3>Lanzamientos de videojuegos de octubre: fechas y plataformas</h3><span class="meta">hace 2 h</span></a>
+        <a class="card" href="#art" data-go="art"><div class="img"></div><h3>Fortnite: cómo completar las misiones de la semana</h3><span class="meta">hace 5 h</span></a>
+        <a class="card" href="#art" data-go="art"><div class="img"></div><h3>Equipos ecuatorianos en el torneo regional de esports</h3><span class="meta">ayer</span></a>
+        <div><div class="ad-label">Publicidad</div><div class="ad ad-feed"><div><b>feed</b><small>300×250 · cada 6 tarjetas</small></div></div></div>
+      </div>
+    </section>
+
+    <section class="block s-farandula">
+      <div class="block-head"><h2>Farándula</h2><a href="#home">Ver todo →</a></div>
+      <div class="row4">
+        <a class="card" href="#art" data-go="art"><div class="img"></div><h3>Lo que dejó la gala de premios de la televisión ecuatoriana</h3><span class="meta">hace 4 h</span></a>
+        <a class="card" href="#art" data-go="art"><div class="img"></div><h3>Los conciertos confirmados en Quito y Guayaquil para fin de año</h3><span class="meta">hace 6 h</span></a>
+        <a class="card" href="#art" data-go="art"><div class="img"></div><h3>Series y películas que llegan a streaming esta semana</h3><span class="meta">ayer</span></a>
+        <a class="card" href="#art" data-go="art"><div class="img"></div><h3>La agenda de eventos del fin de semana</h3><span class="meta">ayer</span></a>
+      </div>
+    </section>
+
+    <section class="block s-deportes">
+      <div class="block-head"><h2>Útil para hoy</h2><a href="#home">Evergreen que vuelve a buscarse</a></div>
+      <div class="util">
+        <div class="box">
+          <h3>Tabla LigaPro (ejemplo)</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>#</th><th>Equipo</th><th class="n">PJ</th><th class="n">DG</th><th class="n">Pts</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>Equipo A</td><td class="n">12</td><td class="n">+11</td><td class="n">26</td></tr>
+                <tr><td>2</td><td>Equipo B</td><td class="n">12</td><td class="n">+8</td><td class="n">24</td></tr>
+                <tr><td>3</td><td>Equipo C</td><td class="n">12</td><td class="n">+5</td><td class="n">21</td></tr>
+                <tr><td>4</td><td>Equipo D</td><td class="n">12</td><td class="n">+2</td><td class="n">19</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="box s-gaming">
+          <h3>Códigos del día (ejemplo)</h3>
+          <div class="codes">
+            <div class="code"><span>XXXX-XXXX-XXXX</span><button type="button" id="copy-1">Copiar</button></div>
+            <div class="code"><span>YYYY-YYYY-YYYY</span><button type="button" id="copy-2">Copiar</button></div>
+            <div class="code"><span>ZZZZ-ZZZZ-ZZZZ</span><button type="button" id="copy-3">Copiar</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="notes">
+      <h2>Notas de la maqueta</h2>
+      <ul>
+        <li>Color por sección: morado gaming, verde deportes, rosado farándula, naranja influencers. Amarillo solo para lo urgente.</li>
+        <li>Espacios de anuncio con alto reservado (sin saltos de página), etiqueta "Publicidad" y lejos de botones.</li>
+        <li>El patrocinio de sección se vende directo a marcas del creador y se sirve con Ad Manager.</li>
+        <li>Imágenes reales: propias, con licencia o embeds oficiales. Nunca fotos descargadas de redes.</li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<!-- NOTA -->
+<main id="view-art" hidden>
+  <div class="wrap">
+    <div class="ad-label" style="margin-top:16px">Publicidad</div>
+    <div class="ad ad-top" style="margin-top:0"><div><b>top</b><small>970×250 / 728×90 · 320×100 móvil</small></div></div>
+    <div class="art s-deportes">
+      <article>
+        <div class="crumbs">Inicio › Deportes › LigaPro</div>
+        <span class="kicker">Deportes · LigaPro</span>
+        <h1>Barcelona SC vs Emelec: previa, alineaciones probables y dónde ver el Clásico del Astillero</h1>
+        <p class="dek">Todo lo que necesitas antes del partido: cómo llegan los dos equipos, las bajas confirmadas y los canales de transmisión en Ecuador.</p>
+        <div class="byline">
+          <div class="avatar" aria-hidden="true">RD</div>
+          <div class="who"><b>Nombre del redactor</b><span class="meta">Publicado 2 oct 2026, 10:15 · Actualizado 11:40</span></div>
+          <div class="share"><span>WhatsApp</span><span>X</span><span>Facebook</span><span>Copiar enlace</span></div>
+        </div>
+        <div class="img"></div>
+        <p class="caption">Foto: fuente con licencia o propia (siempre con crédito).</p>
+        <div class="prose">
+          <p>Primer párrafo con lo esencial: quién juega, cuándo, dónde y por qué importa. Es lo que Google muestra en Discover y lo que el lector necesita si solo lee una línea.</p>
+          <p>Segundo párrafo con contexto: cómo llegan los equipos, posiciones en la tabla y racha reciente, con el dato citado de la fuente oficial.</p>
+          <p>Tercer párrafo con las bajas confirmadas y lo que dijeron los entrenadores en rueda de prensa.</p>
+          <p>Cuarto párrafo. El primer anuncio dentro de la nota va recién aquí, nunca antes del primer párrafo.</p>
+          <div class="ad-label">Publicidad</div>
+          <div class="ad ad-in"><div><b>in-article-1</b><small>300×250 / 336×280 / fluid · 32px de aire arriba y abajo</small></div></div>
+          <h2>Dónde ver el partido</h2>
+          <p>Canales y plataformas oficiales con su horario. Solo enlaces a transmisiones legales.</p>
+          <div class="embed"><b>Post embebido oficial (X / Instagram / TikTok)</b>Se usa el embed de la red social, no una captura ni la foto descargada.</div>
+          <h2>Alineaciones probables</h2>
+          <p>Texto propio del redactor con el análisis. Aquí entra la voz del creador si tiene opinión del partido.</p>
+          <div class="pref">
+            <span>¿Te sirvió? Agréganos como fuente preferida para ver más de Novedades593 en Google.</span>
+            <span class="g">Botón Preferred Sources de Google</span>
+          </div>
+          <div class="sources"><b>Fuentes:</b> LigaPro (sitio oficial), cuentas oficiales de los clubes, rueda de prensa.</div>
+        </div>
+      </article>
+      <aside class="side" aria-label="Barra lateral">
+        <div>
+          <h2 style="font:900 16px var(--display);text-transform:uppercase;margin:0 0 10px">Relacionadas</h2>
+          <div class="related">
+            <a class="card" href="#art"><div class="img"></div><h3>Tabla de posiciones de LigaPro actualizada</h3></a>
+            <a class="card" href="#art"><div class="img"></div><h3>Calendario de La Tri en las Eliminatorias</h3></a>
+            <a class="card" href="#art"><div class="img"></div><h3>Los goleadores del torneo</h3></a>
+          </div>
+        </div>
+        <div><div class="ad-label">Publicidad</div><div class="ad ad-side"><div><b>sidebar-sticky</b><small>300×600 · solo desktop</small></div></div></div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><div class="logo">Novedades<span>593</span></div><p style="opacity:.85;margin:8px 0 0">Gaming, deportes, farándula e influencers desde Ecuador.</p></div>
+    <div><h4>Secciones</h4><ul><li>Gaming</li><li>Deportes</li><li>Farándula</li><li>Influencers</li></ul></div>
+    <div><h4>El sitio</h4><ul><li>Quiénes somos</li><li>Equipo editorial</li><li>Política editorial</li><li>Anuncia con nosotros</li></ul></div>
+    <div><h4>Legal</h4><ul><li>Privacidad y cookies</li><li>Términos</li><li>Contacto</li></ul></div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var views = { home: document.getElementById('view-home'), art: document.getElementById('view-art') };
+  var tabs = document.querySelectorAll('.tabs button');
+  function show(v) {
+    if (!views[v]) return;
+    Object.keys(views).forEach(function (k) { views[k].hidden = k !== v; });
+    tabs.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.view === v)); });
+    window.scrollTo(0, 0);
+  }
+  tabs.forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.view); }); });
+  document.querySelectorAll('[data-go]').forEach(function (a) {
+    a.addEventListener('click', function (e) { e.preventDefault(); show(a.dataset.go); });
+  });
+  if (location.hash === '#art') show('art');
+  document.querySelectorAll('.code button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var text = b.previousElementSibling.textContent;
+      var done = function () { b.textContent = 'Copiado'; setTimeout(function () { b.textContent = 'Copiar'; }, 1500); };
+      try { navigator.clipboard.writeText(text).then(done, done); } catch (e) { done(); }
+    });
+  });
+})();
+</script>
