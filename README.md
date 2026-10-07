@@ -4,7 +4,7 @@ Guías de juegos y trucos para creadores. Hecho en Ecuador para toda Latinoamér
 
 Sitio **estático** hecho con [Astro 7](https://docs.astro.build/): cada página se genera como HTML al construir el sitio, sin servidor ni base de datos. Es lo más rápido posible (mejor Core Web Vitals, anuncios más visibles, mejor RPM), cuesta $0 en hosting y no hay nada que hackear.
 
-> Estado: **fase 1 (migración) terminada.** El contenido es el de la maqueta (de ejemplo) y el sitio está en `noindex` hasta el lanzamiento. Siguen la fase 2 (ambientación visual) y la fase 3 (artículos e imágenes reales).
+> Estado: **fases 1, 2 y 3 terminadas.** Sitio en Astro con la ambientación "Dimensión 593" y 20 artículos reales con fuentes oficiales y portadas ilustradas. Sigue en `noindex` hasta el lanzamiento (dominio, correos y alta en AdSense).
 
 ## Requisitos
 
@@ -25,19 +25,20 @@ Sitio **estático** hecho con [Astro 7](https://docs.astro.build/): cada página
 | `npm test`           | Pruebas unitarias (Vitest) de la lógica: herramientas, URLs, fechas, SEO, anuncios   |
 | `npm run test:links` | Revisa `dist/`: enlaces rotos, anclas, barra final, título, descripción y canonical  |
 | `npm run test:e2e`   | Pruebas en navegador (Playwright + axe) en computadora y celular, contra `dist/`     |
+| `npm run covers`     | Genera las portadas ilustradas de los artículos (ver docs/GUIA-CONTENIDO.md)         |
 | `npm run verify`     | Todo lo anterior en orden. Es lo mismo que corre la CI en cada cambio                |
 
 ## Estructura
 
 ```
 src/
+├── assets/covers/  Portadas de los artículos (PNG 1600×900, las genera scripts/covers)
 ├── config/          Datos editables: sitio, creador, secciones, herramientas, anuncios, CSP
 ├── content/
 │   ├── articles/    Artículos en MDX, una carpeta por sección
 │   ├── pages/       Páginas institucionales y legales (MDX)
 │   ├── games.yaml   Juegos con página propia
-│   ├── authors.yaml Autores con perfil
-│   └── codes.yaml   Códigos de juegos (se revisan cada mañana)
+│   └── authors.yaml Autores con perfil
 ├── content.config.ts  Esquemas: qué datos lleva cada archivo (se validan al construir)
 ├── components/
 │   ├── ads/         Espacios de anuncio (vista previa, AdSense)

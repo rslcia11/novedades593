@@ -45,7 +45,7 @@ Texto del artículo...
 | `game`        | En `juegos` | id del juego en `games.yaml` (`minecraft`, `roblox`, `gta6`, `freefire`, `fortnite`)                            |
 | `tag`         | Si hay juego | Filtro de la página del juego. Tiene que estar en los `tags` de ese juego                                      |
 | `type`        | Sí          | `guia`, `codigos`, `comparativa`, `creador`, `noticia` (solo en noticias) o `viral` (solo en virales)            |
-| `author`      | Sí          | id en `authors.yaml` (`yeri-loco` o `redaccion`)                                                                |
+| `author`      | Sí          | id en `authors.yaml` (`yeri-loco` o `redaccion`). Firma quien escribió de verdad el artículo                    |
 | `publishedAt` | Sí          | Fecha y hora de publicación, con zona de Ecuador (`-05:00`)                                                      |
 | `updatedAt`   | No          | Última actualización. Se muestra como "Actualizado el…". Úsala cuando cambies algo de verdad                     |
 | `featured`    | No          | `true` para que aparezca en "Lo más leído"                                                                      |
@@ -58,18 +58,31 @@ Texto del artículo...
 
 ### Imágenes de portada
 
-Guarda la imagen junto al artículo (por ejemplo, `src/content/articles/juegos/nether.jpg`, de al menos 1200 px de ancho, 16:9) y agrégala a la ficha:
+Cada artículo lleva una portada ilustrada de 1600×900 con el estilo de la Dimensión 593. Las portadas se dibujan con código (SVG) para que todas sean originales y coherentes:
+
+1. Agrega la escena del artículo en `scripts/covers/scenes.mjs`, con la clave igual al nombre del archivo. Combina los objetos de `scripts/covers/props.mjs` (gema, celular, micrófono, escudo, trofeo…) o crea uno nuevo ahí.
+2. Genera la imagen: `npm run covers -- nombre-del-articulo` (sin nombre, regenera todas).
+3. Revisa el resultado en `src/assets/covers/nombre-del-articulo.png`.
+4. Agrégala a la ficha del artículo:
 
 ```yaml
 cover:
   label: 'Nether'
   tone: inverse
-  image: ./nether.jpg
-  alt: 'Portal al Nether encendido en un bosque de Minecraft'
-  caption: 'Captura propia del juego'
+  image: ../../../assets/covers/portal-nether.png
+  alt: 'Ilustración de un marco de bloques oscuros con un remolino morado en el centro'
+  caption: 'Ilustración: entretenimiento593'
 ```
 
-Astro la convierte a AVIF/WebP en varios tamaños. `alt` es obligatorio cuando hay imagen. **Nunca** uses fotos descargadas de redes sociales: solo capturas propias, imágenes con licencia o embeds oficiales.
+Reglas de las portadas, basadas en lo que funciona en Google Discover y en redes:
+
+- **Un solo sujeto grande y centrado.** Discover recorta los bordes según el dispositivo.
+- **Fondo oscuro y sujeto brillante.** El contraste es lo que más llama la atención.
+- **Sin texto dentro de la imagen.** El título ya está en la página y el texto se corta al recortar.
+- **Nada de logos, personajes ni capturas de marcas ajenas.** Solo objetos genéricos dibujados por nosotros.
+- **`alt` obligatorio**, describiendo la ilustración.
+
+Astro convierte la imagen a AVIF y WebP en varios tamaños, y genera la versión de 1200×630 para redes sociales. Si algún día usas una captura propia del juego, guárdala en `src/assets/covers/` con al menos 1200 px de ancho. **Nunca** uses fotos descargadas de redes sociales.
 
 ## Escribir el texto
 
@@ -120,9 +133,6 @@ Se usan directamente, sin importar nada.
   />
 </Picks>
 
-<GameCodes game="roblox" status="active" />
-<GameCodes game="roblox" status="expired" />
-
 <Countdown game="gta6" />
 <DiamondCalculator />
 <NameGenerator />
@@ -130,9 +140,14 @@ Se usan directamente, sin importar nada.
 
 Ojo con `<Box>`: deja una línea en blanco después de abrirlo y antes de cerrarlo para que la lista se vea bien.
 
-## Códigos de juegos
+## Cómo escribir para que se lea (y pague)
 
-Se editan en `src/content/codes.yaml`, no dentro del artículo. Cada mañana: cambia `checkedAt` a la hora de la revisión y pon `active: false` a los que dejaron de funcionar. El panel "Hoy" de la portada y el artículo de códigos se actualizan solos.
+- **Responde en las primeras líneas.** La "Respuesta corta" (`summary`) da lo que la persona vino a buscar; el resto amplía.
+- **Frases cortas, tú y español neutro.** Así se entiende en todo Latinoamérica.
+- **Escanea fácil:** títulos `##` cada pocas líneas, pasos numerados, tablas y recuadros.
+- **Enlaza otras guías del sitio** donde ayuden de verdad. Cada página extra que lee alguien suma.
+- **Cita la fuente oficial de cada dato** y, si un número no es oficial, dilo.
+- **Nada de relleno.** Si un dato no está confirmado, no lo inventes: escribe "todavía no está anunciado".
 
 ## Reglas editoriales (obligatorias)
 
