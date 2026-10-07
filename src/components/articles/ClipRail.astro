@@ -1,0 +1,48 @@
+---
+/** Fila de virales desplazable (o cuadrícula en la página de virales). */
+import type { Article } from '@/lib/content';
+import ClipCard from './ClipCard.astro';
+
+interface Props {
+  articles: Article[];
+  layout?: 'rail' | 'grid';
+}
+
+const { articles, layout = 'rail' } = Astro.props;
+---
+
+<div class:list={['clips', `clips--${layout}`]} role="list">
+  {articles.map((article, i) => (
+    <ClipCard article={article} index={i} />
+  ))}
+</div>
+
+<style>
+  .clips--rail {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(170px, 1fr);
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 6px;
+  }
+
+  .clips--grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  @media (max-width: 900px) {
+    .clips--grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 700px) {
+    .clips--rail {
+      grid-auto-columns: 42%;
+    }
+  }
+</style>

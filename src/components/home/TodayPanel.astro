@@ -1,0 +1,171 @@
+---
+/** Panel "Hoy" de la portada: cuenta regresiva de GTA VI, guía de códigos y la calculadora más usada. */
+import { SITE } from '@/config/site';
+import { getGame } from '@/lib/content';
+import { formatUsd } from '@/lib/format';
+import { diamondsToUsd } from '@/lib/tools/diamonds';
+import { toolUrl } from '@/lib/urls';
+import Countdown from '@/components/tools/Countdown.astro';
+
+interface Props {
+  countdownHref: string;
+  codesHref: string;
+}
+
+const { countdownHref, codesHref } = Astro.props;
+const gta = await getGame('gta6');
+const releaseLabel = gta.data.facts[0]?.value ?? '';
+---
+
+<aside class="today" aria-labelledby="today-title">
+  <div class="today-h">
+    <h2 id="today-title">Hoy en {SITE.name}</h2>
+  </div>
+
+  <div class="t-card t-main">
+    <small>
+      {gta.data.name} · {releaseLabel}
+    </small>
+    <div class="row2">
+      <h3>Faltan pocos días para {gta.data.name}.</h3>
+      <Countdown game="gta6" variant="clock" />
+    </div>
+    <a class="go" href={countdownHref}>
+      Todo lo que sabemos
+    </a>
+  </div>
+
+  <a class="t-card t-accent pressable" href={codesHref}>
+    <small>Códigos de Roblox</small>
+    <h3>Cómo canjearlos sin caer en estafas</h3>
+    <span class="go">Ver la guía</span>
+  </a>
+
+  <a class="t-card t-outline pressable" href={toolUrl('diamantes')}>
+    <small>TikTok LIVE</small>
+    <span>
+      <span class="big">{formatUsd(diamondsToUsd(1_000)).replace(/,00$/, '')}</span>
+      <br />
+      por cada 1.000 diamantes
+    </span>
+    <span class="go">Calcular los míos</span>
+  </a>
+</aside>
+
+<style>
+  .today {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .today-h {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+
+  h2 {
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0;
+  }
+
+  .t-card {
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    display: grid;
+    gap: 10px;
+    align-content: space-between;
+    min-width: 0;
+  }
+
+  small {
+    font-size: 0.8125rem;
+    font-weight: var(--weight-bold);
+  }
+
+  h3 {
+    font-size: var(--text-xl);
+    font-weight: var(--weight-black);
+    line-height: 1.15;
+  }
+
+  .t-main {
+    grid-column: 1 / -1;
+    background: var(--color-inverse-bg);
+    color: var(--color-inverse-text);
+    border: var(--border-strong);
+    box-shadow: var(--shadow-pop);
+    padding: 24px;
+  }
+
+  .t-main small {
+    color: var(--color-accent);
+  }
+
+  .t-main h3 {
+    font-size: clamp(24px, 2.6vw, 32px);
+  }
+
+  .row2 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .t-accent {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    border: 2px solid var(--color-bg-deep);
+    box-shadow: var(--shadow-pop-2);
+  }
+
+  .t-outline {
+    border: var(--border-strong);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-pop-3);
+  }
+
+  .big {
+    font-size: 2.125rem;
+    font-weight: var(--weight-black);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .go {
+    font-weight: var(--weight-bold);
+    font-size: var(--text-sm);
+    border-bottom: 1.5px solid currentColor;
+    justify-self: start;
+  }
+
+  @media (min-width: 701px) and (max-width: 1099px) {
+    .today {
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    .t-main {
+      grid-column: auto;
+    }
+
+    .t-main h3 {
+      font-size: 1.375rem;
+    }
+  }
+
+  @media (max-width: 460px) {
+    .today {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

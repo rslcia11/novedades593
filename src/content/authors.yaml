@@ -1,0 +1,16 @@
+# Autores con perfil público (/autores/<id>/). Google valora saber quién escribe y por qué sabe del tema.
+- id: yeri-loco
+  name: Yeri Loco
+  initials: YL
+  role: Creador de contenido
+  kind: person
+  bio: Hace lives y batallas en TikTok y streamea Minecraft, Roblox y Free Fire desde hace 4 años. Aquí cuenta lo que le funcionó de verdad.
+  links: []
+
+- id: redaccion
+  name: Redacción entretenimiento593
+  initials: '593'
+  role: Equipo editorial
+  kind: organization
+  bio: El equipo editorial del sitio. Investigamos cada tema en las fuentes oficiales de los juegos y plataformas, enlazamos esas fuentes en cada artículo y actualizamos las guías cuando algo cambia.
+  links: []

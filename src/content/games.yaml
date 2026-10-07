@@ -1,0 +1,51 @@
+# Juegos con página propia. El id es el que aparece en la URL: /juegos/<id>/
+- id: minecraft
+  name: Minecraft
+  icon: block
+  order: 1
+  description: Diamantes, el Nether, cómo jugar con amigos y las novedades de cada actualización. Para Java y Bedrock.
+  facts:
+    - { value: '26.3', label: última versión (Java) }
+    - { value: Java y Bedrock, label: ediciones }
+  tags: [Para empezar, Exploración, Multijugador, Novedades]
+
+- id: roblox
+  name: Roblox
+  icon: cube
+  order: 2
+  description: Cómo canjear códigos, cómo proteger tu cuenta y cómo reconocer las estafas de Robux gratis.
+  facts:
+    - { value: Oficial, label: solo fuentes de Roblox }
+    - { value: '6', label: grupos de edad para el chat }
+  tags: [Códigos, Seguridad]
+
+- id: gta6
+  name: GTA VI
+  icon: car
+  order: 3
+  description: Fecha, precio, plataformas y todo lo que Rockstar confirmó. Separamos lo oficial de los rumores.
+  releaseDate: 2026-11-19T00:00:00-05:00
+  facts:
+    - { value: 19 nov, label: lanzamiento }
+    - { value: PS5 y Xbox, label: plataformas }
+  tags: [Lanzamiento, Consolas]
+
+- id: freefire
+  name: Free Fire
+  icon: fire
+  order: 4
+  description: Requisitos para jugar en tu celular, nombres con letras especiales y la Free Fire World Series.
+  facts:
+    - { value: Celular, label: plataforma }
+    - { value: FFWS, label: torneo LATAM }
+  tags: [Celulares, Torneos]
+
+- id: fortnite
+  name: Fortnite
+  icon: bus
+  order: 5
+  description: Requisitos oficiales y configuración para jugar fluido en computadoras modestas.
+  facts:
+    - { value: 8 GB, label: RAM mínima en PC }
+    - { value: Gratis, label: para jugar }
+  tags: [Configuración]

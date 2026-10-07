@@ -1,0 +1,85 @@
+---
+/** Barra de navegación inferior en celular. El botón "Menú" abre el diálogo con todas las secciones. */
+import { SECTIONS } from '@/config/sections';
+import { sectionUrl } from '@/lib/urls';
+import Icon from '@/components/ui/Icon.astro';
+import { currentSection } from './current-section';
+
+const active = currentSection(Astro.url.pathname);
+const isHome = Astro.url.pathname === '/';
+const tabs = (['juegos', 'equipo', 'creadores'] as const).map((id) => ({
+  id,
+  label: SECTIONS[id].name,
+  icon: SECTIONS[id].icon,
+  href: sectionUrl(id),
+}));
+---
+
+<nav class="tabbar" aria-label="Navegación principal">
+  <a href="/" aria-current={isHome ? 'page' : undefined}>
+    <Icon name="home" />
+    Inicio
+  </a>
+  {tabs.map((tab) => (
+    <a href={tab.href} aria-current={active === tab.id ? 'page' : undefined}>
+      <Icon name={tab.icon} />
+      {tab.label}
+    </a>
+  ))}
+  <button type="button" data-menu-open aria-haspopup="dialog" aria-controls="site-menu">
+    <Icon name="menu" />
+    Menú
+  </button>
+</nav>
+
+<style>
+  .tabbar {
+    display: none;
+  }
+
+  @media (max-width: 700px) {
+    :global(body) {
+      padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .tabbar {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      position: fixed;
+      inset: auto 0 0;
+      z-index: 45;
+      background: var(--color-bg-deep);
+      border-top: var(--border);
+      padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
+    }
+
+    a,
+    button {
+      display: grid;
+      justify-items: center;
+      gap: 2px;
+      font-size: 0.6875rem;
+      font-weight: var(--weight-semibold);
+      padding: 4px 0;
+      color: var(--color-muted);
+      background: none;
+      border: 0;
+    }
+
+    [aria-current='page'] {
+      color: var(--color-text);
+    }
+
+    [aria-current='page'] :global(svg) {
+      background: var(--color-accent);
+      color: var(--color-on-accent);
+      border-radius: var(--radius-sm);
+    }
+
+    :global(svg) {
+      width: 36px;
+      height: 26px;
+      padding: 2px 7px;
+    }
+  }
+</style>

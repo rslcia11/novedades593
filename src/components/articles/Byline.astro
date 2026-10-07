@@ -1,0 +1,51 @@
+---
+import type { Article, Author } from '@/lib/content';
+import { articleReadingMinutes } from '@/lib/content';
+import { displayDate } from '@/lib/dates';
+import { authorUrl } from '@/lib/urls';
+import Avatar from '@/components/ui/Avatar.astro';
+
+interface Props {
+  article: Article;
+  author: Author;
+}
+
+const { article, author } = Astro.props;
+const { label, date } = displayDate(article.data.publishedAt, article.data.updatedAt);
+const minutes = articleReadingMinutes(article);
+---
+
+<div class="byline">
+  <Avatar initials={author.data.initials} tone={author.data.kind === 'person' ? 'inverse' : 'accent'} />
+  <div>
+    <a href={authorUrl(author.id)} rel="author">
+      <b>{author.data.name}</b>
+    </a>
+    <span>
+      <time datetime={date.toISOString()}>{label}</time>
+      {article.data.type !== 'viral' && ` · ${minutes} min de lectura`}
+    </span>
+  </div>
+</div>
+
+<style>
+  .byline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: var(--text-sm);
+  }
+
+  b {
+    display: block;
+    font-size: 0.9375rem;
+  }
+
+  a:hover b {
+    text-decoration: underline;
+  }
+
+  span {
+    color: var(--color-muted);
+  }
+</style>

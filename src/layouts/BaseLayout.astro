@@ -1,0 +1,84 @@
+---
+/**
+ * Estructura común de todas las páginas: <head>, cabecera, contenido, pie, barra inferior y menú.
+ */
+import { Font } from 'astro:assets';
+import { PUBLIC_ADS_PROVIDER, PUBLIC_ADSENSE_CLIENT } from 'astro:env/server';
+import { SITE } from '@/config/site';
+import { validateAdsConfig } from '@/config/ads';
+import Seo, { type SeoProps } from '@/components/seo/Seo.astro';
+import AdSenseLoader from '@/components/ads/AdSenseLoader.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import TabBar from '@/components/layout/TabBar.astro';
+import MenuDialog from '@/components/layout/MenuDialog.astro';
+import '@/styles/global.css';
+
+interface Props extends SeoProps {
+  /** Barra de progreso de lectura en la cabecera. */
+  readingProgress?: boolean;
+}
+
+const { readingProgress = false, ...seo } = Astro.props;
+validateAdsConfig(PUBLIC_ADS_PROVIDER, PUBLIC_ADSENSE_CLIENT);
+---
+
+<!doctype html>
+<html lang={SITE.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content={SITE.themeColor} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <Font cssVariable="--font-schibsted" preload />
+    <Font cssVariable="--font-lilita" preload />
+    <Seo {...seo} />
+    {PUBLIC_ADS_PROVIDER === 'adsense' && PUBLIC_ADSENSE_CLIENT && (
+      <AdSenseLoader client={PUBLIC_ADSENSE_CLIENT} />
+    )}
+  </head>
+  <body>
+    <a class="skip" href="#contenido">
+      Ir al contenido
+    </a>
+    <Header progress={readingProgress} />
+    <main id="contenido" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <TabBar />
+    <MenuDialog />
+    <script>
+      import '@/scripts/shortcuts';
+    </script>
+  </body>
+</html>
+
+<style>
+  .skip {
+    position: absolute;
+    left: 16px;
+    top: -60px;
+    z-index: 100;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font-weight: var(--weight-bold);
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+  }
+
+  .skip:focus {
+    top: 8px;
+  }
+
+  main {
+    display: block;
+    min-height: 60vh;
+  }
+</style>

@@ -1,0 +1,124 @@
+---
+import { FOOTER_LINKS, SITE } from '@/config/site';
+import { SECTIONS } from '@/config/sections';
+import { getNavSections } from '@/lib/content';
+import { sectionUrl } from '@/lib/urls';
+import Logo from './Logo.astro';
+
+const sections = await getNavSections();
+---
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <Logo />
+        <p>{SITE.tagline}. Hecho en Ecuador para toda Latinoamérica.</p>
+      </div>
+      <nav aria-labelledby="foot-explora">
+        <h2 id="foot-explora">Explora</h2>
+        <ul>
+          {sections.map((id) => (
+            <li>
+              <a href={sectionUrl(id)}>{SECTIONS[id].name}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <nav aria-labelledby="foot-sitio">
+        <h2 id="foot-sitio">El sitio</h2>
+        <ul>
+          {FOOTER_LINKS.site.map((l) => (
+            <li>
+              <a href={l.href}>{l.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <nav aria-labelledby="foot-legal">
+        <h2 id="foot-legal">Legal</h2>
+        <ul>
+          {FOOTER_LINKS.legal.map((l) => (
+            <li>
+              <a href={l.href}>{l.label}</a>
+            </li>
+          ))}
+          <li>
+            <a href="/rss.xml">RSS</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <p class="foot-b">
+      {`© ${SITE.foundingYear} ${SITE.name}`} · Las marcas y nombres de juegos pertenecen a sus dueños y se
+      usan solo para identificarlos.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: 96px;
+    background: var(--color-bg-deep);
+    border-top: 2px solid var(--color-line);
+    padding-block: 44px;
+  }
+
+  .foot {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+    gap: 28px;
+    font-size: 0.9375rem;
+  }
+
+  h2 {
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0;
+    margin: 0 0 10px;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 7px;
+  }
+
+  a:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  p {
+    color: var(--color-text-2);
+    margin-top: 10px;
+    max-width: 34ch;
+  }
+
+  .foot-b {
+    margin-top: 32px;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+    max-width: none;
+  }
+
+  @media (max-width: 760px) {
+    .foot {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .foot > div:first-child {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (pointer: coarse) {
+    ul a {
+      display: inline-block;
+      padding-block: 8px;
+    }
+  }
+</style>

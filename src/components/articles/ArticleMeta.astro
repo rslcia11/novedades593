@@ -1,0 +1,27 @@
+---
+import type { Article } from '@/lib/content';
+import { articleReadingMinutes } from '@/lib/content';
+import { displayDate } from '@/lib/dates';
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+const { label, date } = displayDate(article.data.publishedAt, article.data.updatedAt);
+const minutes = article.data.type === 'viral' ? undefined : articleReadingMinutes(article);
+---
+
+<div class="meta">
+  <time datetime={date.toISOString()} class:list={{ updated: Boolean(article.data.updatedAt) }}>
+    {label}
+  </time>
+  {minutes && <span>{minutes} min de lectura</span>}
+</div>
+
+<style>
+  .updated {
+    color: var(--color-text);
+    font-weight: var(--weight-bold);
+  }
+</style>

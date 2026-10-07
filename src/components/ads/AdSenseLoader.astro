@@ -1,0 +1,11 @@
+---
+/** Script de AdSense. Se carga una sola vez por página y solo cuando el proveedor es "adsense". */
+interface Props {
+  client: string;
+}
+
+const { client } = Astro.props;
+const src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(client)}`;
+---
+
+<script is:inline async src={src} crossorigin="anonymous"></script>

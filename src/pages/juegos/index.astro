@@ -1,0 +1,59 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { SECTIONS } from '@/config/sections';
+import { getArticles, getGames } from '@/lib/content';
+import { featured, inSection } from '@/lib/article-utils';
+import { breadcrumbSchema, schemaContext } from '@/lib/seo';
+import { plural } from '@/lib/format';
+import HubHeader from '@/components/ui/HubHeader.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import GamesGrid from '@/components/home/GamesGrid.astro';
+import ArticleList from '@/components/articles/ArticleList.astro';
+import TopList from '@/components/articles/TopList.astro';
+import AdSlot from '@/components/ads/AdSlot.astro';
+
+const [articles, games] = await Promise.all([getArticles(), getGames()]);
+const guides = inSection(articles, 'juegos');
+const section = SECTIONS.juegos;
+const crumbs = [{ label: 'Inicio', href: '/' }, { label: section.name }];
+---
+
+<BaseLayout
+  title={`${section.name}: guías y trucos`}
+  description={section.description}
+  schema={[breadcrumbSchema(crumbs, schemaContext(Astro.site))]}
+>
+  <div class="wrap">
+    <HubHeader
+      crumbs={crumbs}
+      title={section.name}
+      description={section.description}
+      facts={[
+        { value: String(games.length), label: 'juegos' },
+        { value: String(guides.length), label: 'guías' },
+      ]}
+    />
+
+    <section class="sec sec--tight" aria-labelledby="games-title">
+      <SectionHeader title="Elige tu juego" id="games-title" />
+      <GamesGrid />
+    </section>
+
+    <section class="sec split" aria-labelledby="guides-title">
+      <div>
+        <SectionHeader
+          title="Todas las guías"
+          id="guides-title"
+          description={plural(guides.length, 'guía')}
+        />
+        <ArticleList articles={guides} />
+      </div>
+      <aside class="side" aria-label="Lo más leído">
+        <div class="sticky">
+          <TopList title="Lo más leído" articles={featured(guides)} />
+          <AdSlot placement="sidebar-tall" />
+        </div>
+      </aside>
+    </section>
+  </div>
+</BaseLayout>

@@ -1,0 +1,43 @@
+---
+import SectionPage from '@/components/layout/SectionPage.astro';
+import { getArticles } from '@/lib/content';
+import { inSection } from '@/lib/article-utils';
+import { sectionUrl } from '@/lib/urls';
+import ClipRail from '@/components/articles/ClipRail.astro';
+import AdSlot from '@/components/ads/AdSlot.astro';
+
+const items = inSection(await getArticles(), 'virales');
+// Sin clips, la página queda fuera de Google y fuera del menú hasta que haya contenido propio.
+const empty = items.length === 0;
+---
+
+<SectionPage
+  section="virales"
+  seoTitle="Virales gamer y de los lives"
+  facts={[{ value: String(items.length), label: 'clips' }]}
+  noindex={empty}
+>
+  {empty ? (
+    <section class="sec sec--tight" aria-label="Próximamente">
+      <p class="lede">
+        Muy pronto: los mejores momentos de los lives, con contexto y comentarios propios. Mientras tanto,
+        mira las <a href={sectionUrl('juegos')}>guías de juegos</a> o los{' '}
+        <a href={sectionUrl('creadores')}>trucos para creadores</a>.
+      </p>
+    </section>
+  ) : (
+    <>
+      <section class="sec sec--tight" aria-label="Clips">
+        <ClipRail articles={items} layout="grid" />
+      </section>
+      <AdSlot placement="billboard" class="sec" />
+    </>
+  )}
+</SectionPage>
+
+<style>
+  .lede a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+</style>

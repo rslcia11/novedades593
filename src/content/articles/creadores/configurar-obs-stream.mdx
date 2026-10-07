@@ -1,0 +1,80 @@
+---
+title: 'Cómo configurar OBS para hacer stream: guía paso a paso para empezar bien'
+description: 'Escenas, fuentes, codificador y bitrate: qué poner en OBS según las recomendaciones oficiales de Twitch y YouTube, y qué pasa con TikTok.'
+summary: 'Usa el asistente de configuración automática de OBS (Herramientas), arma una escena con tu juego, cámara y micrófono, y elige un bitrate que tu internet aguante: Twitch recomienda 6.000 kbps para 1080p a 60 fps y 3.000 kbps para 720p a 30 fps.'
+section: creadores
+type: creador
+author: redaccion
+publishedAt: 2026-09-30T12:00:00-05:00
+cover:
+  label: 'OBS'
+  tone: soft
+  image: ../../../assets/covers/configurar-obs-stream.png
+  alt: 'Ilustración de un monitor con un programa de transmisión: escena principal, cámaras y un botón rojo de grabar'
+  caption: 'Ilustración: entretenimiento593'
+related:
+  - internet-para-jugar
+  - kick-twitch-tiktok
+  - equipo-stream-basico
+sources:
+  - name: 'OBS Studio: Guía de inicio rápido'
+    url: https://obsproject.com/kb/quick-start-guide
+  - name: 'Twitch Ayuda: Pautas de transmisión'
+    url: https://help.twitch.tv/s/article/broadcasting-guidelines
+  - name: 'YouTube Ayuda: Configuración del codificador, tasas de bits y resoluciones'
+    url: https://support.google.com/youtube/answer/2853702
+---
+
+OBS Studio es gratis, de código abierto y lo usan desde streamers que empiezan hasta los más grandes. Asusta un poco la primera vez por la cantidad de opciones, pero para empezar necesitas entender solo cuatro cosas: escenas, fuentes, codificador y bitrate.
+
+## 1. Deja que OBS se configure solo
+
+OBS trae un **asistente de configuración automática** en **Herramientas → Asistente de configuración automática**. Le dices si quieres transmitir o grabar, eliges tu plataforma y, si vas a transmitir, pega tu clave de transmisión para que pruebe tu conexión. El asistente elige una base razonable según tu computadora y tu internet. Después puedes afinar a mano.
+
+## 2. Escenas y fuentes
+
+- Una **escena** es una "pantalla" de tu stream: por ejemplo, "Jugando", "Empezando pronto" o "Pausa".
+- Las **fuentes** son lo que hay dentro de cada escena: el juego, tu cámara, el micrófono, imágenes o alertas.
+
+<Steps>
+  <Step title="Crea una escena llamada Jugando.">En el panel de Escenas, toca el botón +.</Step>
+  <Step title="Agrega la captura del juego.">Fuente Captura de juego (o Captura de ventana si no la detecta).</Step>
+  <Step title="Agrega tu cámara.">Fuente Dispositivo de captura de video, y ubícala en una esquina.</Step>
+  <Step title="Revisa el micrófono en el mezclador de audio.">Habla fuerte: la barra debe llegar a la zona amarilla, nunca a la roja.</Step>
+  <Step title="Crea una escena de Pausa.">Te salva cuando tienes que alejarte un momento.</Step>
+</Steps>
+
+## 3. Codificador: que tu PC no sufra
+
+Codificar el video consume recursos. Twitch lo explica así: **x264** usa mucho el procesador y puede bajar tus FPS en el juego, mientras que el **codificador de la tarjeta gráfica** (por ejemplo, NVIDIA NVENC) usa una parte dedicada de la tarjeta y te deja jugar y transmitir sin perder rendimiento. Si tu tarjeta lo tiene, úsalo. Si usas x264, Twitch sugiere empezar con el preset *veryfast*.
+
+Twitch también recomienda usar **CBR (tasa de bits constante)**.
+
+## 4. Bitrate y resolución
+
+El bitrate es la "calidad" de tu stream. Estas son las recomendaciones de Twitch:
+
+| Resolución | Bitrate recomendado |
+| --- | --- |
+| 720p a 30 fps | 3.000 kbps |
+| 720p a 60 fps | 4.500 kbps |
+| 1080p a 30 fps | 4.500 kbps |
+| 1080p a 60 fps | 6.000 kbps |
+
+Tu internet tiene que aguantarlo: Twitch recomienda una velocidad de subida igual al bitrate más un 30 %, y YouTube, entre 1,5 y 2 veces tu bitrate. Si no te alcanza, baja a 720p: un stream fluido en 720p se ve mejor que uno a 1080p que se corta. Te explicamos cómo medir tu conexión en [qué internet necesitas para hacer lives](/equipo/internet-para-jugar/).
+
+YouTube recomienda además un **intervalo de fotogramas clave de 2 segundos** y audio AAC.
+
+## ¿Y TikTok?
+
+TikTok no entrega claves de transmisión a todas las cuentas. La forma oficial de transmitir a TikTok desde la PC es **TikTok LIVE Studio**. Si tu cuenta tiene clave de transmisión habilitada, puedes usarla en OBS como servicio personalizado. Desconfía de quien te venda claves o "accesos": va contra las normas y puede costarte la cuenta. Para los requisitos de LIVE, mira [cómo hacer LIVE en TikTok](/creadores/hacer-live-tiktok/).
+
+<Box title="Antes de tu primer stream">
+
+- Haz una transmisión de prueba o graba unos minutos y revisa audio e imagen.
+- Fíjate en la barra de estado de OBS: si aparecen fotogramas perdidos, baja el bitrate.
+- Ten a mano la escena de Pausa y practica cambiar de escena.
+
+</Box>
+
+<Tip>¿Todavía no decides dónde transmitir? Compara requisitos y ganancias en [Kick, Twitch o TikTok: dónde hacer stream en Latinoamérica](/creadores/kick-twitch-tiktok/).</Tip>

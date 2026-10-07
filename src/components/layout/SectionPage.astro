@@ -1,0 +1,32 @@
+---
+/** Estructura común de las páginas de sección: encabezado grande y contenido propio de cada sección. */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { SECTIONS, type SectionId } from '@/config/sections';
+import { breadcrumbSchema, schemaContext } from '@/lib/seo';
+import HubHeader from '@/components/ui/HubHeader.astro';
+
+interface Props {
+  section: SectionId;
+  facts: { value: string; label: string }[];
+  /** Título para Google, si debe ser más descriptivo que el nombre de la sección. */
+  seoTitle?: string;
+  /** Fuera de Google (por ejemplo, mientras la sección no tiene contenido). */
+  noindex?: boolean;
+}
+
+const { section: id, facts, seoTitle, noindex = false } = Astro.props;
+const section = SECTIONS[id];
+const crumbs = [{ label: 'Inicio', href: '/' }, { label: section.name }];
+---
+
+<BaseLayout
+  title={seoTitle ?? section.name}
+  description={section.description}
+  noindex={noindex}
+  schema={[breadcrumbSchema(crumbs, schemaContext(Astro.site))]}
+>
+  <div class="wrap">
+    <HubHeader crumbs={crumbs} title={section.name} description={section.description} facts={facts} />
+    <slot />
+  </div>
+</BaseLayout>

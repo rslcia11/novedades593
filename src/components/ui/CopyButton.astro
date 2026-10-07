@@ -1,0 +1,53 @@
+---
+/**
+ * Botón "Copiar". El texto a copiar se lee de `data-copy` al hacer clic, así otras
+ * herramientas (como el generador de nombres) pueden cambiarlo sin volver a montar el botón.
+ */
+interface Props {
+  text: string;
+  label?: string;
+  /** Texto accesible: qué se copia ("Copiar código LOBBY593"). */
+  ariaLabel?: string;
+  class?: string;
+}
+
+const { text, label = 'Copiar', ariaLabel, class: className = 'copy' } = Astro.props;
+---
+
+<copy-button>
+  <button class={className} type="button" data-copy={text} aria-label={ariaLabel}>
+    {label}
+  </button>
+  <span class="sr-only" aria-live="polite" data-status></span>
+</copy-button>
+
+<script>
+  import { copyText } from '@/scripts/clipboard';
+
+  class CopyButton extends HTMLElement {
+    connectedCallback() {
+      const button = this.querySelector('button');
+      const status = this.querySelector<HTMLElement>('[data-status]');
+      if (!button || !status) return;
+      const label = button.textContent ?? 'Copiar';
+      let timer: number | undefined;
+
+      button.addEventListener('click', async () => {
+        const ok = await copyText(button.dataset['copy'] ?? '');
+        button.textContent = ok ? 'Copiado ✓' : 'No se pudo copiar';
+        button.toggleAttribute('data-done', ok);
+        status.textContent = ok
+          ? 'Copiado al portapapeles'
+          : 'No se pudo copiar. Selecciónalo y cópialo a mano.';
+        window.clearTimeout(timer);
+        timer = window.setTimeout(() => {
+          button.textContent = label;
+          button.removeAttribute('data-done');
+          status.textContent = '';
+        }, 1600);
+      });
+    }
+  }
+
+  if (!customElements.get('copy-button')) customElements.define('copy-button', CopyButton);
+</script>

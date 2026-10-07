@@ -1,0 +1,82 @@
+---
+/** Índice del artículo a partir de sus títulos (##). En celular es un desplegable; en computadora, lateral. */
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings: MarkdownHeading[];
+  variant: 'mobile' | 'sidebar';
+}
+
+const { headings, variant } = Astro.props;
+const items = headings.filter((h) => h.depth === 2);
+---
+
+{items.length > 1 &&
+  (variant === 'mobile' ? (
+    <details class="toc-m">
+      <summary>En esta guía</summary>
+      <ol>
+        {items.map((h) => (
+          <li>
+            <a href={`#${h.slug}`}>{h.text}</a>
+          </li>
+        ))}
+      </ol>
+    </details>
+  ) : (
+    <nav class="toc" aria-label="En esta guía">
+      <b>En esta guía</b>
+      <ol>
+        {items.map((h) => (
+          <li>
+            <a href={`#${h.slug}`}>{h.text}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  ))}
+
+<style>
+  .toc b {
+    display: block;
+    font-size: var(--text-sm);
+    margin-bottom: 8px;
+  }
+
+  ol {
+    margin: 0;
+    padding-left: 18px;
+    display: grid;
+    gap: 6px;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .toc-m {
+    display: none;
+    border: var(--border-strong);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    font-size: var(--text-base);
+  }
+
+  .toc-m summary {
+    font-weight: var(--weight-bold);
+    cursor: pointer;
+  }
+
+  .toc-m ol {
+    margin-top: 10px;
+    font-size: var(--text-base);
+  }
+
+  @media (max-width: 1060px) {
+    .toc-m {
+      display: block;
+    }
+  }
+</style>

@@ -1,0 +1,46 @@
+---
+interface Props {
+  initials: string;
+  size?: 'sm' | 'lg';
+  tone?: 'inverse' | 'accent';
+}
+
+const { initials, size = 'sm', tone = 'inverse' } = Astro.props;
+---
+
+<span class:list={['face', `face--${size}`, `face--${tone}`]} aria-hidden="true">
+  {initials}
+</span>
+
+<style>
+  .face {
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: var(--weight-black);
+    flex: none;
+  }
+
+  .face--sm {
+    width: 44px;
+    height: 44px;
+    font-size: 0.9375rem;
+  }
+
+  .face--lg {
+    width: 72px;
+    height: 72px;
+    font-size: 1.5rem;
+  }
+
+  .face--inverse {
+    background: var(--color-bg-deep);
+    color: var(--color-accent);
+    border: 2px solid var(--color-accent);
+  }
+
+  .face--accent {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+</style>

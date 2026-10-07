@@ -1,0 +1,72 @@
+---
+/** Noticias con hora (o fecha si no son de hoy). */
+import { articleHref, type Article } from '@/lib/content';
+import { formatShortDate, formatTime } from '@/lib/dates';
+
+interface Props {
+  articles: Article[];
+}
+
+const { articles } = Astro.props;
+---
+
+<div class="news">
+  {articles.map((article) => (
+    <a href={articleHref(article)}>
+      <time datetime={article.data.publishedAt.toISOString()}>
+        <span>{formatShortDate(article.data.publishedAt)}</span>
+        {formatTime(article.data.publishedAt)}
+      </time>
+      <div>
+        <h3>{article.data.title}</h3>
+        <p>{article.data.description}</p>
+      </div>
+    </a>
+  ))}
+</div>
+
+<style>
+  .news {
+    display: grid;
+  }
+
+  a {
+    display: grid;
+    grid-template-columns: 90px minmax(0, 1fr);
+    gap: 16px;
+    padding: 16px 0;
+    border-top: var(--border);
+  }
+
+  a:first-child {
+    border-top: 0;
+  }
+
+  time {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    font-variant-numeric: tabular-nums;
+  }
+
+  time span {
+    display: block;
+    color: var(--color-muted);
+    font-weight: var(--weight-semibold);
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-heavy);
+    line-height: 1.25;
+  }
+
+  p {
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    margin-top: 4px;
+  }
+
+  a:hover h3 {
+    text-decoration: underline;
+  }
+</style>

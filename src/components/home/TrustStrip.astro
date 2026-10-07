@@ -1,0 +1,90 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+
+/** Promesas que el sitio cumple de verdad: cada una se puede comprobar en cualquier artículo. */
+const items = [
+  { icon: 'news', title: 'Fuentes oficiales', text: 'enlazadas en cada artículo' },
+  { icon: 'tool', title: 'Guías con fecha', text: 'y aviso cuando se actualizan' },
+  { icon: 'phone', title: 'Hecho para celular', text: 'rápido en gama media' },
+  { icon: 'grid', title: 'Gratis y sin registro', text: 'guías y herramientas' },
+];
+---
+
+<ul class="trust">
+  {items.map((item) => (
+    <li>
+      <Icon name={item.icon} />
+      <span>
+        <b>{item.title}</b>
+        {item.text}
+      </span>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .trust {
+    list-style: none;
+    margin: 48px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-block: var(--border);
+  }
+
+  li {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 18px 16px;
+    font-size: var(--text-sm);
+    color: var(--color-text-2);
+    line-height: 1.35;
+  }
+
+  li + li {
+    border-left: var(--border);
+  }
+
+  li :global(svg) {
+    width: 28px;
+    height: 28px;
+    flex: none;
+    color: var(--color-accent);
+  }
+
+  b {
+    display: block;
+    color: var(--color-text);
+    font-size: 0.9375rem;
+  }
+
+  @media (max-width: 900px) {
+    .trust {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    li:nth-child(3) {
+      border-left: 0;
+    }
+
+    li:nth-child(n + 3) {
+      border-top: var(--border);
+    }
+  }
+
+  @media (max-width: 460px) {
+    li {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 14px 12px;
+      font-size: 0.8125rem;
+    }
+
+    li :global(svg) {
+      width: 24px;
+      height: 24px;
+    }
+  }
+</style>

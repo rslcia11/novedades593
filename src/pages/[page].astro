@@ -1,0 +1,63 @@
+---
+/** Páginas institucionales y legales desde src/content/pages/*.mdx */
+import type { GetStaticPaths } from 'astro';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import type { Page } from '@/lib/content';
+import { breadcrumbSchema, schemaContext } from '@/lib/seo';
+import { formatDate } from '@/lib/dates';
+import { mdxComponents } from '@/components/content';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+
+export const getStaticPaths = (async () => {
+  const pages = await getCollection('pages');
+  return pages.map((page) => ({ params: { page: page.id }, props: { page } }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  page: Page;
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+const crumbs = [{ label: 'Inicio', href: '/' }, { label: page.data.title }];
+---
+
+<BaseLayout
+  title={page.data.title}
+  description={page.data.description}
+  schema={[breadcrumbSchema(crumbs, schemaContext(Astro.site))]}
+>
+  <div class="wrap">
+    <header class="p-head">
+      <Breadcrumbs items={crumbs} />
+      <h1>{page.data.title}</h1>
+      <p class="meta">
+        Actualizado el{' '}
+        <time datetime={page.data.updatedAt.toISOString()}>{formatDate(page.data.updatedAt)}</time>
+      </p>
+    </header>
+    <div class="prose page">
+      <Content components={mdxComponents} />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .p-head {
+    padding-top: 32px;
+    display: grid;
+    gap: 12px;
+  }
+
+  h1 {
+    font-size: clamp(30px, 4.6vw, 52px);
+    font-weight: var(--weight-black);
+    line-height: 1.05;
+  }
+
+  .page {
+    max-width: 760px;
+    margin-top: 28px;
+  }
+</style>

@@ -1,0 +1,289 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { CREATOR, KEY_ARTICLES, POPULAR_SEARCHES, SITE } from '@/config/site';
+import { SECTIONS } from '@/config/sections';
+import { articleHref, getArticle, getArticles } from '@/lib/content';
+import { featured, inSection, sortByPublished } from '@/lib/article-utils';
+import { sectionUrl } from '@/lib/urls';
+import { organizationSchema, schemaContext, websiteSchema } from '@/lib/seo';
+import SearchBox from '@/components/search/SearchBox.astro';
+import TodayPanel from '@/components/home/TodayPanel.astro';
+import TrustStrip from '@/components/home/TrustStrip.astro';
+import GamesGrid from '@/components/home/GamesGrid.astro';
+import HostCard from '@/components/home/HostCard.astro';
+import Community from '@/components/home/Community.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import ArticleList from '@/components/articles/ArticleList.astro';
+import ArticleCard from '@/components/articles/ArticleCard.astro';
+import TopList from '@/components/articles/TopList.astro';
+import NewsList from '@/components/articles/NewsList.astro';
+import ClipRail from '@/components/articles/ClipRail.astro';
+import ToolsGrid from '@/components/tools/ToolsGrid.astro';
+import AdSlot from '@/components/ads/AdSlot.astro';
+import Portal from '@/components/ui/Portal.astro';
+
+const articles = await getArticles();
+const [gtaGuide, codesGuide] = await Promise.all([
+  getArticle(KEY_ARTICLES.gtaGuide),
+  getArticle(KEY_ARTICLES.codesGuide),
+]);
+const virals = inSection(articles, 'virales');
+const latest = articles.filter((a) => ['juegos', 'equipo', 'creadores'].includes(a.data.section)).slice(0, 5);
+const ctx = schemaContext(Astro.site);
+---
+
+<BaseLayout
+  title={SITE.tagline}
+  description={`Minecraft, Roblox, GTA VI, Free Fire y TikTok LIVE explicado fácil por ${CREATOR.name}. ${SITE.description}`}
+  schema={[organizationSchema(ctx), websiteSchema(ctx)]}
+>
+  <div class="wrap">
+    <div class="hero">
+      <section class="intro" aria-labelledby="home-title">
+        <h1 id="home-title">
+          Guías de juegos y <span class="mark">trucos para creadores</span>.
+        </h1>
+        <p>
+          Minecraft, Roblox, GTA VI, Free Fire y TikTok LIVE, explicado fácil por {CREATOR.name}, que juega y
+          hace lives todos los días.
+        </p>
+        <SearchBox id="q-home" />
+        <p class="popular">
+          <span>Lo que más buscan:</span>
+          {POPULAR_SEARCHES.map((s) => (
+            <a href={s.href}>{s.label}</a>
+          ))}
+        </p>
+      </section>
+      <div class="today-wrap">
+        <Portal size={560} class="hero-portal" />
+        <TodayPanel countdownHref={articleHref(gtaGuide)} codesHref={articleHref(codesGuide)} />
+      </div>
+    </div>
+
+    <TrustStrip />
+
+    <section class="sec" aria-labelledby="home-games">
+      <SectionHeader
+        title="Elige tu juego"
+        id="home-games"
+        more={{ label: 'Todos los juegos', href: sectionUrl('juegos') }}
+      />
+      <GamesGrid />
+    </section>
+
+    <AdSlot placement="billboard" class="sec" />
+
+    <section class="sec split" aria-labelledby="home-latest">
+      <div>
+        <SectionHeader
+          title="Lo nuevo"
+          id="home-latest"
+          more={{ label: 'Ver todo', href: sectionUrl('juegos') }}
+        />
+        <ArticleList articles={latest} />
+      </div>
+      <aside class="side" aria-label="Lo más leído">
+        <TopList title="Lo más leído hoy" articles={featured(articles).slice(0, 5)} />
+        <AdSlot placement="sidebar" />
+      </aside>
+    </section>
+
+    <section class="sec" aria-labelledby="home-gear">
+      <SectionHeader
+        title={SECTIONS.equipo.name}
+        id="home-gear"
+        description={SECTIONS.equipo.description}
+        more={{ label: 'Ver todo', href: sectionUrl('equipo') }}
+      />
+      <div class="grid">
+        {inSection(articles, 'equipo')
+          .slice(0, 3)
+          .map((a) => (
+            <ArticleCard article={a} />
+          ))}
+      </div>
+    </section>
+
+    <section class="sec" aria-labelledby="home-creators">
+      <SectionHeader
+        title="Para creadores"
+        id="home-creators"
+        description={SECTIONS.creadores.description}
+        more={{ label: 'Ver todo', href: sectionUrl('creadores') }}
+      />
+      <div class="creators">
+        <HostCard />
+        <div class="c-grid">
+          {inSection(articles, 'creadores')
+            .slice(0, 4)
+            .map((a) => (
+              <ArticleCard article={a} />
+            ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" aria-labelledby="home-tools">
+      <SectionHeader
+        title="Herramientas gratis"
+        id="home-tools"
+        description="Sin registrarte, desde el celular."
+        more={{ label: 'Ver todas', href: sectionUrl('herramientas') }}
+      />
+      <ToolsGrid limit={3} />
+    </section>
+
+    <section class="sec split" aria-labelledby="home-news">
+      <div>
+        <SectionHeader
+          title="Últimas noticias"
+          id="home-news"
+          more={{ label: 'Todas', href: sectionUrl('noticias') }}
+        />
+        <NewsList articles={sortByPublished(inSection(articles, 'noticias')).slice(0, 5)} />
+      </div>
+      <aside class="side" aria-label="Publicidad">
+        <AdSlot placement="sidebar" />
+      </aside>
+    </section>
+
+    {virals.length > 0 && (
+      <section class="sec" aria-labelledby="home-virals">
+        <SectionHeader
+          title="Virales de la semana"
+          id="home-virals"
+          description="Lo más gracioso de los lives."
+          more={{ label: 'Ver todo', href: sectionUrl('virales') }}
+        />
+        <ClipRail articles={virals} />
+      </section>
+    )}
+
+    <section class="sec" aria-label="Comunidad">
+      <Community />
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .hero {
+    /* El portal decorativo sobresale del panel: se recorta aquí para que la página no se desborde */
+    overflow-x: clip;
+    overflow-clip-margin: 24px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    gap: clamp(32px, 5vw, 72px);
+    align-items: center;
+    padding-block: 56px 8px;
+  }
+
+  .today-wrap {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .today-wrap :global(.hero-portal) {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    width: 130%;
+    max-width: none;
+    transform: translate(-45%, -50%);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .intro {
+    display: grid;
+    gap: 22px;
+  }
+
+  .intro > :global(*) {
+    min-width: 0;
+  }
+
+  h1 {
+    font-size: clamp(38px, 5.4vw, 76px);
+    font-weight: var(--weight-black);
+    line-height: 1.1;
+    letter-spacing: var(--tracking-tighter);
+  }
+
+  .intro > p:not(.popular) {
+    font-size: var(--text-md);
+    color: var(--color-text-2);
+    max-width: 56ch;
+  }
+
+  .popular {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    align-items: baseline;
+  }
+
+  .popular a {
+    color: var(--color-text);
+    font-weight: var(--weight-semibold);
+    border-bottom: var(--border);
+  }
+
+  .popular a:hover {
+    border-color: var(--color-outline);
+  }
+
+  .creators {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 2fr);
+    gap: 24px;
+  }
+
+  .c-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 20px;
+  }
+
+  @media (min-width: 701px) {
+    .intro > p:not(.popular) {
+      font-size: 1.1875rem;
+    }
+  }
+
+  @media (max-width: 1099px) {
+    .hero {
+      grid-template-columns: minmax(0, 1fr);
+      padding-top: 36px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .creators {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 700px) {
+    .hero {
+      padding-top: 24px;
+      gap: 28px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .c-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (pointer: coarse) {
+    .popular a {
+      display: inline-block;
+      padding-block: 8px;
+    }
+  }
+</style>

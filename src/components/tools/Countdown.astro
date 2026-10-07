@@ -1,0 +1,188 @@
+---
+/**
+ * Cuenta regresiva hasta el lanzamiento de un juego (`releaseDate` en games.yaml).
+ * `variant="band"`: bloque grande con enlace; `variant="inline"`: solo el reloj.
+ */
+import { getGame } from '@/lib/content';
+import { gameUrl } from '@/lib/urls';
+import { formatDate } from '@/lib/dates';
+
+interface Props {
+  game: string;
+  variant?: 'band' | 'clock';
+  /** Enlace del botón (por defecto, la página del juego). */
+  href?: string | undefined;
+}
+
+const { game: gameId, variant = 'band', href } = Astro.props;
+const game = await getGame(gameId);
+const release = game.data.releaseDate;
+if (!release) throw new Error(`El juego ${gameId} no tiene releaseDate para la cuenta regresiva.`);
+const releaseText = formatDate(release).replace(/ de \d{4}$/, '');
+---
+
+<count-down data-target={release.toISOString()} class:list={['countdown', `countdown--${variant}`]}>
+  {variant === 'band' && (
+    <div>
+      <h2>
+        {game.data.name} sale el {releaseText}.
+      </h2>
+      <p>
+        Precio en Latinoamérica, plataformas y requisitos. Lo actualizamos cada vez que hay un anuncio
+        oficial.
+      </p>
+      <a class="btn btn--accent" href={href ?? gameUrl(game.id)}>
+        Todo lo que sabemos
+      </a>
+    </div>
+  )}
+  <div class="clock" role="timer" aria-label={`Tiempo que falta para ${game.data.name}`}>
+    <div>
+      <strong data-unit="days">—</strong>
+      <span>días</span>
+    </div>
+    <div>
+      <strong data-unit="hours">—</strong>
+      <span>horas</span>
+    </div>
+    <div>
+      <strong data-unit="minutes">—</strong>
+      <span>min</span>
+    </div>
+  </div>
+</count-down>
+
+<script>
+  import { pad2, timeLeft } from '@/lib/tools/countdown';
+
+  class CountDown extends HTMLElement {
+    #timer: number | undefined;
+
+    connectedCallback() {
+      const target = new Date(this.dataset['target'] ?? '');
+      if (Number.isNaN(target.getTime())) return;
+      const units = {
+        days: this.querySelector('[data-unit="days"]'),
+        hours: this.querySelector('[data-unit="hours"]'),
+        minutes: this.querySelector('[data-unit="minutes"]'),
+      };
+      const tick = () => {
+        const left = timeLeft(target);
+        if (units.days) units.days.textContent = String(left.days);
+        if (units.hours) units.hours.textContent = pad2(left.hours);
+        if (units.minutes) units.minutes.textContent = pad2(left.minutes);
+        if (left.done) window.clearInterval(this.#timer);
+      };
+      tick();
+      this.#timer = window.setInterval(tick, 30_000);
+    }
+
+    disconnectedCallback() {
+      window.clearInterval(this.#timer);
+    }
+  }
+
+  if (!customElements.get('count-down')) customElements.define('count-down', CountDown);
+</script>
+
+<style>
+  .countdown {
+    display: block;
+  }
+
+  .countdown--band {
+    background: var(--color-inverse-bg);
+    color: var(--color-inverse-text);
+    border: var(--border-strong);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-pop);
+    padding: 36px 40px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 28px;
+    align-items: center;
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-size: clamp(26px, 3.4vw, 40px);
+    font-weight: var(--weight-black);
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  p {
+    color: var(--color-inverse-muted);
+    margin-top: 10px;
+    max-width: 46ch;
+    font-size: var(--text-base);
+  }
+
+  .btn {
+    margin-top: 20px;
+  }
+
+  .clock {
+    display: flex;
+    gap: 10px;
+  }
+
+  .clock div {
+    min-width: 92px;
+    text-align: center;
+    border: 1.5px solid var(--color-inverse-line);
+    border-radius: var(--radius-md);
+    padding: 12px 10px;
+  }
+
+  .clock strong {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: var(--weight-regular);
+    font-size: 2.75rem;
+    line-height: 1;
+    color: var(--color-accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .clock span {
+    font-size: 0.8125rem;
+    color: var(--color-inverse-muted);
+  }
+
+  .countdown--clock .clock div {
+    min-width: 76px;
+    padding: 10px 8px;
+  }
+
+  .countdown--clock .clock strong {
+    font-size: 2.25rem;
+  }
+
+  @media (max-width: 760px) {
+    .countdown--band {
+      grid-template-columns: minmax(0, 1fr);
+      padding: 24px 20px;
+    }
+
+    .clock div {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .clock strong {
+      font-size: 2.125rem;
+    }
+  }
+
+  @media (max-width: 460px) {
+    .countdown--clock .clock {
+      width: 100%;
+    }
+
+    .countdown--clock .clock div {
+      min-width: 0;
+      flex: 1;
+    }
+  }
+</style>

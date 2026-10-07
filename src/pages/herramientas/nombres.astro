@@ -1,0 +1,16 @@
+---
+import ToolPage from '@/components/layout/ToolPage.astro';
+import NameGenerator from '@/components/tools/NameGenerator.astro';
+
+const faq = [
+  {
+    question: '¿Funciona en Free Fire?',
+    answer: 'La mayoría de estilos sí. Algunos símbolos no se aceptan: pruébalo antes de pagar el cambio.',
+  },
+  { question: '¿Es gratis?', answer: 'Sí, y no guardamos lo que escribes: todo pasa en tu celular.' },
+];
+---
+
+<ToolPage tool="nombres" seoTitle="Nombres con letras especiales para Free Fire, TikTok y Roblox" faq={faq}>
+  <NameGenerator />
+</ToolPage>

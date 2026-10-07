@@ -1,0 +1,40 @@
+---
+interface Props {
+  value: string;
+}
+
+const { value } = Astro.props;
+---
+
+<div class="kpi">
+  <dt>
+    <slot />
+  </dt>
+  <dd>{value}</dd>
+</div>
+
+<style>
+  .kpi {
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+  }
+
+  dd {
+    margin: 0;
+    font-family: var(--font-display);
+    color: var(--color-accent);
+    font-size: 1.75rem;
+    letter-spacing: -0.03em;
+    line-height: 1.3;
+  }
+
+  dt {
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: var(--color-text-2);
+  }
+</style>

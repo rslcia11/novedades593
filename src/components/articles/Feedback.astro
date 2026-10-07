@@ -1,0 +1,59 @@
+---
+/**
+ * "¿Te sirvió?". Por ahora solo agradece; cuando se conecte la analítica (GA4) se envía
+ * el evento desde `send()` sin cambiar el componente.
+ */
+---
+
+<article-feedback class="useful">
+  <b id="feedback-q">¿Te sirvió?</b>
+  <div class="btns" role="group" aria-labelledby="feedback-q">
+    <button class="btn btn--outline btn--sm" type="button" data-value="yes">
+      Sí
+    </button>
+    <button class="btn btn--outline btn--sm" type="button" data-value="no">
+      No
+    </button>
+  </div>
+  <p class="meta" role="status" hidden>
+    Gracias. Lo usamos para mejorar la guía.
+  </p>
+</article-feedback>
+
+<script>
+  class ArticleFeedback extends HTMLElement {
+    connectedCallback() {
+      const group = this.querySelector<HTMLElement>('.btns');
+      const thanks = this.querySelector<HTMLElement>('[role="status"]');
+      group?.addEventListener('click', (event) => {
+        const button = (event.target as HTMLElement).closest('button');
+        if (!button || !thanks) return;
+        group.hidden = true;
+        thanks.hidden = false;
+      });
+    }
+  }
+
+  if (!customElements.get('article-feedback')) customElements.define('article-feedback', ArticleFeedback);
+</script>
+
+<style>
+  .useful {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-top: 2px solid var(--color-outline);
+    padding-top: 20px;
+  }
+
+  b {
+    font-size: var(--text-md);
+  }
+
+  .btns {
+    display: flex;
+    gap: 8px;
+  }
+</style>

@@ -1,0 +1,80 @@
+---
+title: 'Qué velocidad de internet necesitas para jugar y para hacer lives'
+description: 'Para jugar importa el ping; para transmitir, la velocidad de subida. Cuántos megas necesitas según las guías oficiales de Twitch y YouTube y cómo medirlos.'
+summary: 'Para jugar, lo clave es un ping bajo y estable, no los megas. Para transmitir, necesitas una velocidad de subida mayor que la calidad del stream: Twitch recomienda tener un 30 % más que tu bitrate, y YouTube, entre 1,5 y 2 veces.'
+section: equipo
+type: guia
+author: redaccion
+publishedAt: 2026-09-29T10:00:00-05:00
+featured: true
+cover:
+  label: 'Internet'
+  tone: accent
+  image: ../../../assets/covers/internet-para-jugar.png
+  alt: 'Ilustración de un router celeste con antenas y grandes ondas de wifi verdes'
+  caption: 'Ilustración: entretenimiento593'
+related:
+  - configurar-obs-stream
+  - equipo-stream-basico
+  - requisitos-free-fire
+sources:
+  - name: 'Twitch Ayuda: Pautas de transmisión'
+    url: https://help.twitch.tv/s/article/broadcasting-guidelines
+  - name: 'Twitch Ayuda: Guía de salud de la transmisión'
+    url: https://help.twitch.tv/s/article/guide-to-broadcast-health
+  - name: 'YouTube Ayuda: Configuración del codificador, tasas de bits y resoluciones'
+    url: https://support.google.com/youtube/answer/2853702
+---
+
+"Tengo 100 megas y igual me da lag." Es la queja más común entre gamers, y tiene explicación: para jugar, los megas casi no importan. Lo que importa es otra cosa que los planes de internet casi nunca anuncian. Y si quieres hacer lives, entra en juego un tercer número. Vamos por partes.
+
+## Los tres números que importan
+
+| Número | Qué mide | Para qué importa |
+| --- | --- | --- |
+| **Ping (latencia)** | Cuánto tarda tu conexión en ir y volver del servidor, en milisegundos | Jugar en línea sin lag |
+| **Velocidad de bajada** | Cuánto puedes descargar por segundo | Descargar juegos y ver streams |
+| **Velocidad de subida** | Cuánto puedes enviar por segundo | Hacer lives y transmitir |
+
+## Para jugar: el ping manda
+
+Un juego en línea envía muy pocos datos, pero necesita que lleguen **rápido y sin cortes**. Por eso un ping bajo y estable vale más que muchos megas. Si el ping sube y baja a cada rato (eso se llama *jitter*), vas a ver a los rivales saltar aunque tu plan sea rápido.
+
+<Box title="Cómo bajar el ping sin cambiar de plan">
+
+- Conecta la consola o la PC por **cable** en lugar de wifi.
+- Si usas wifi, acércate al router y prefiere la banda de **5 GHz**: tiene menos interferencia.
+- Pausa las descargas y las actualizaciones mientras juegas.
+- Elige en el juego el servidor más cercano a tu país.
+- Reinicia el router de vez en cuando.
+
+</Box>
+
+## Para hacer lives: la velocidad de subida
+
+Cuando transmites, tu conexión **sube** video todo el tiempo. La calidad de ese video se mide en *bitrate* (kilobits por segundo). Estas son las recomendaciones oficiales de Twitch:
+
+| Calidad del stream | Bitrate recomendado por Twitch |
+| --- | --- |
+| 720p a 30 fps | 3.000 kbps (3 Mbps) |
+| 720p a 60 fps | 4.500 kbps |
+| 1080p a 30 fps | 4.500 kbps |
+| 1080p a 60 fps | 6.000 kbps (6 Mbps) |
+
+La regla clave: tu velocidad de subida tiene que ser **mayor** que tu bitrate.
+
+- **Twitch** recomienda una subida igual al bitrate más un 30 %. Ejemplo: para transmitir a 6 Mbps, conviene tener al menos 8 Mbps de subida.
+- **YouTube** recomienda apuntar a una subida de **1,5 a 2 veces** tu bitrate total.
+
+Muchos planes de hogar en Latinoamérica tienen la subida mucho más baja que la bajada. Revisa ese número antes de planear lives en 1080p: quizás te convenga empezar en 720p.
+
+## Cómo medir tu conexión
+
+<Steps>
+  <Step title="Conéctate donde vas a jugar o transmitir.">Medir junto al router no sirve si juegas en otro cuarto.</Step>
+  <Step title="Cierra otras descargas y pide a tu casa que pause el streaming.">Así mides tu conexión real.</Step>
+  <Step title="Usa una prueba de velocidad conocida.">Anota el ping, la bajada y la subida.</Step>
+  <Step title="Repite a la hora en que juegas.">De noche, cuando todos usan internet, los números suelen bajar.</Step>
+</Steps>
+
+<Tip>¿Ya tienes la conexión lista? El siguiente paso es el programa para transmitir. En nuestra guía de [configurar OBS para hacer stream](/creadores/configurar-obs-stream/) te explicamos qué poner en cada opción. Y si recién empiezas, mira [qué equipo comprar primero para hacer lives](/equipo/equipo-stream-basico/).</Tip>

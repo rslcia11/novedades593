@@ -1,0 +1,28 @@
+---
+import CopyButton from './CopyButton.astro';
+import NewTabHint from './NewTabHint.astro';
+
+interface Props {
+  title: string;
+  url: string;
+}
+
+const { title, url } = Astro.props;
+const whatsapp = `https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}`;
+---
+
+<div class="share">
+  <a class="btn btn--outline btn--sm" href={whatsapp} target="_blank" rel="noopener noreferrer">
+    Compartir por WhatsApp
+    <NewTabHint />
+  </a>
+  <CopyButton text={url} label="Copiar enlace" class="btn btn--outline btn--sm" />
+</div>
+
+<style>
+  .share {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+</style>

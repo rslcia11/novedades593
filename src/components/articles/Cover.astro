@@ -1,0 +1,148 @@
+---
+/**
+ * Portada de un artículo. Si tiene imagen, la optimiza (AVIF/WebP, tamaños responsivos);
+ * si no, muestra la portada tipográfica de la marca. Siempre 16:9 para no mover la página.
+ */
+import { Image } from 'astro:assets';
+import type { Article } from '@/lib/content';
+import Icon from '@/components/ui/Icon.astro';
+
+interface Props {
+  article: Article;
+  size?: 'card' | 'hero';
+  /** Carga inmediata (la primera imagen visible de la página). */
+  eager?: boolean;
+}
+
+const { article, size = 'card', eager = false } = Astro.props;
+const { cover, type } = article.data;
+const sizes = size === 'hero' ? '(min-width: 1320px) 1224px, 100vw' : '(min-width: 960px) 400px, 50vw';
+---
+
+<div class:list={['cover', `cover--${cover.tone}`, `cover--${size}`]}>
+  {cover.image ? (
+    <Image
+      src={cover.image}
+      alt={cover.alt ?? ''}
+      widths={size === 'hero' ? [640, 960, 1280, 1920] : [320, 480, 640, 800]}
+      sizes={sizes}
+      loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={eager ? 'high' : 'auto'}
+    />
+  ) : type === 'viral' ? (
+    <span class="play">
+      <Icon name="play" />
+    </span>
+  ) : (
+    <span class="label" aria-hidden="true">
+      {cover.label}
+    </span>
+  )}
+</div>
+
+<style>
+  .cover {
+    container-type: inline-size;
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    border-radius: var(--radius-md);
+    border: 2px solid var(--color-outline);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 6% 7%;
+    background: var(--color-surface);
+  }
+
+  .cover::after {
+    content: '593';
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-size: 0.6875rem;
+    font-weight: var(--weight-heavy);
+    padding: 1px 5px;
+    border-radius: var(--radius-xs);
+    background: var(--color-brand);
+    color: var(--color-on-brand);
+  }
+
+  .cover:has(img) {
+    padding: 0;
+  }
+
+  .cover:has(img)::after {
+    content: none;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .label {
+    font-weight: var(--weight-black);
+    font-size: 15cqi;
+    line-height: 0.92;
+    letter-spacing: var(--tracking-tighter);
+    overflow-wrap: anywhere;
+  }
+
+  .cover--inverse {
+    background: var(--color-inverse-bg);
+    color: var(--color-inverse-text);
+  }
+
+  .cover--accent {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  .cover--accent::after {
+    background: var(--color-bg-deep);
+    color: var(--color-brand);
+  }
+
+  .cover--grid {
+    background-color: var(--color-surface);
+    background-image:
+      linear-gradient(var(--color-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+
+  .play {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+  }
+
+  .play :global(svg) {
+    width: 18cqi;
+    height: 18cqi;
+    max-width: 64px;
+    max-height: 64px;
+  }
+
+  .cover--hero {
+    aspect-ratio: 21 / 9;
+    border-radius: var(--radius-lg);
+  }
+
+  .cover--hero .label {
+    font-size: 9cqi;
+  }
+
+  @media (max-width: 700px) {
+    .cover--hero {
+      aspect-ratio: 16 / 9;
+    }
+
+    .cover--hero .label {
+      font-size: 13cqi;
+    }
+  }
+</style>

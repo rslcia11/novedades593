@@ -1,0 +1,57 @@
+{
+  "name": "entretenimiento593",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Guías de juegos y trucos para creadores. Sitio estático con Astro.",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && pagefind --site dist",
+    "preview": "astro preview",
+    "check": "astro check",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:links": "node scripts/check-links.mjs",
+    "verify": "npm run lint && npm run format:check && npm run check && npm test && npm run build && npm run test:links && npm run test:e2e",
+    "covers": "node scripts/covers/generate.mjs"
+  },
+  "dependencies": {
+    "@astrojs/markdown-satteri": "^0.4.3",
+    "@astrojs/mdx": "^8.0.3",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/schibsted-grotesk": "^5.3.0",
+    "@fontsource/lilita-one": "^5.3.0",
+    "astro": "^7.3.6",
+    "satteri": "^0.10.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@axe-core/playwright": "^4.13.0",
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "1.56.1",
+    "@types/hast": "^3.0.5",
+    "@types/node": "^22.20.5",
+    "eslint": "^10.12.0",
+    "eslint-plugin-astro": "^1.7.0",
+    "eslint-plugin-jsx-a11y": "npm:eslint-plugin-jsx-a11y-x@^0.2.0",
+    "globals": "^17.13.0",
+    "pagefind": "^1.5.2",
+    "prettier": "^3.9.9",
+    "prettier-plugin-astro": "^1.1.0",
+    "sharp": "^0.35.5",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.71.1",
+    "vitest": "^5.0.3"
+  },
+  "overrides": {
+    "playwright-core": "1.56.1"
+  }
+}

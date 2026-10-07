@@ -1,0 +1,52 @@
+---
+/** Encabezado de un bloque de la portada o de una sección: título, bajada opcional y enlace "Ver todo". */
+interface Props {
+  title: string;
+  description?: string;
+  more?: { label: string; href: string };
+  id?: string;
+}
+
+const { title, description, more, id } = Astro.props;
+---
+
+<div class="sec-h">
+  <div>
+    <h2 id={id}>{title}</h2>
+    {description && <p>{description}</p>}
+  </div>
+  {more && (
+    <a class="more" href={more.href}>
+      {more.label}
+    </a>
+  )}
+</div>
+
+<style>
+  .sec-h {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: var(--weight-heavy);
+    line-height: 1.1;
+  }
+
+  p {
+    color: var(--color-muted);
+    font-size: 0.9375rem;
+    margin-top: 6px;
+  }
+
+  .more {
+    font-weight: var(--weight-semibold);
+    font-size: 0.9375rem;
+    white-space: nowrap;
+    border-bottom: 1.5px solid var(--color-outline);
+  }
+</style>

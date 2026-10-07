@@ -1,0 +1,102 @@
+---
+/** Generador de nombres con letras especiales. Cada estilo tiene su botón de copiar. */
+import { DEFAULT_NAME, NAME_MAX_LENGTH, generateNames } from '@/lib/tools/names';
+import CopyButton from '@/components/ui/CopyButton.astro';
+
+const names = generateNames(DEFAULT_NAME);
+---
+
+<name-generator class="panel" role="group" aria-labelledby="names-title">
+  <h2 id="names-title" class="sr-only">
+    Generador de nombres
+  </h2>
+  <div>
+    <label for="names-input">Escribe tu nombre</label>
+    <div class="field">
+      <input
+        id="names-input"
+        type="text"
+        maxlength={NAME_MAX_LENGTH}
+        value={DEFAULT_NAME}
+        autocomplete="off"
+        spellcheck="false"
+        data-name-input
+      />
+    </div>
+  </div>
+  <ul class="names">
+    {names.map((n) => (
+      <li class="name-row" data-style={n.id}>
+        <div>
+          <strong data-output>{n.value}</strong>
+          <small>{n.label}</small>
+        </div>
+        <CopyButton text={n.value} ariaLabel={`Copiar estilo ${n.label}`} />
+      </li>
+    ))}
+  </ul>
+  <p class="how">
+    Algunos juegos no aceptan todos los símbolos. Pruébalo en el chat antes de pagar el cambio de nombre. No
+    guardamos lo que escribes.
+  </p>
+</name-generator>
+
+<script>
+  import { generateNames } from '@/lib/tools/names';
+
+  class NameGenerator extends HTMLElement {
+    connectedCallback() {
+      const input = this.querySelector<HTMLInputElement>('[data-name-input]');
+      if (!input) return;
+      const rows = new Map(
+        [...this.querySelectorAll<HTMLElement>('[data-style]')].map((row) => [row.dataset['style'], row]),
+      );
+      const render = () => {
+        for (const name of generateNames(input.value)) {
+          const row = rows.get(name.id);
+          const output = row?.querySelector('[data-output]');
+          const button = row?.querySelector<HTMLButtonElement>('[data-copy]');
+          if (output) output.textContent = name.value;
+          if (button) button.dataset['copy'] = name.value;
+        }
+      };
+      input.addEventListener('input', render);
+      render();
+    }
+  }
+
+  if (!customElements.get('name-generator')) customElements.define('name-generator', NameGenerator);
+</script>
+
+<style>
+  .names {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    border-top: var(--border);
+  }
+
+  .name-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: var(--border);
+  }
+
+  strong {
+    display: block;
+    font-size: 1.375rem;
+    font-weight: var(--weight-regular);
+    overflow-wrap: anywhere;
+    line-height: 1.3;
+  }
+
+  small {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+</style>

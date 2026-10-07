@@ -1,0 +1,166 @@
+---
+import NewTabHint from '@/components/ui/NewTabHint.astro';
+/**
+ * Producto recomendado. Si tiene `url` (enlace de afiliado) muestra el botón de compra,
+ * marcado como patrocinado para Google (rel="sponsored").
+ */
+interface Props {
+  badge: string;
+  name: string;
+  price: string;
+  specs: string[];
+  pros: string[];
+  cons: string[];
+  url?: string;
+  store?: string;
+}
+
+const { badge, name, price, specs, pros, cons, url, store = 'Mercado Libre' } = Astro.props;
+---
+
+<li class="pick">
+  <div class="pick-h">
+    <small>{badge}</small>
+    <span class="price">
+      desde <strong>{price}</strong>
+    </span>
+    <h3>{name}</h3>
+  </div>
+  <ul class="specs" aria-label="Características">
+    {specs.map((s) => (
+      <li>{s}</li>
+    ))}
+  </ul>
+  <div class="pc">
+    <div>
+      <b>A favor</b>
+      <ul class="pros">
+        {pros.map((p) => (
+          <li>{p}</li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <b>En contra</b>
+      <ul class="cons">
+        {cons.map((c) => (
+          <li>{c}</li>
+        ))}
+      </ul>
+    </div>
+  </div>
+  {url && (
+    <div>
+      <a class="btn btn--accent btn--sm" href={url} target="_blank" rel="sponsored nofollow noopener">
+        Ver precio en {store}
+        <NewTabHint />
+      </a>
+    </div>
+  )}
+</li>
+
+<style>
+  .pick {
+    counter-increment: pick;
+    border: 2px solid var(--color-outline);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-pop);
+    padding: 22px;
+    display: grid;
+    gap: 14px;
+    font-size: var(--text-base);
+    line-height: 1.5;
+  }
+
+  .pick-h {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 6px 16px;
+  }
+
+  small {
+    font-size: 0.8125rem;
+    font-weight: var(--weight-bold);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    padding: 2px 8px;
+    border-radius: var(--radius-xs);
+  }
+
+  h3 {
+    font-size: 1.375rem;
+    font-weight: var(--weight-black);
+    line-height: 1.15;
+    width: 100%;
+  }
+
+  h3::before {
+    content: counter(pick) '. ';
+  }
+
+  .price {
+    font-size: 0.9375rem;
+    color: var(--color-text-2);
+  }
+
+  .price strong {
+    font-size: 1.375rem;
+    color: var(--color-text);
+    font-weight: var(--weight-black);
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .specs li {
+    font-size: 0.8125rem;
+    border: var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+  }
+
+  .pc {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    font-size: 0.9375rem;
+  }
+
+  .pc ul {
+    margin-top: 6px;
+    display: grid;
+    gap: 4px;
+  }
+
+  .pros li::before {
+    content: '+ ';
+    font-weight: var(--weight-black);
+  }
+
+  .cons li::before {
+    content: '– ';
+    font-weight: var(--weight-black);
+  }
+
+  .pc b {
+    font-size: var(--text-sm);
+  }
+
+  @media (max-width: 560px) {
+    .pc {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

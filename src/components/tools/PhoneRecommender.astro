@@ -1,0 +1,108 @@
+---
+/** "¿Qué celular me alcanza?": dos preguntas y una recomendación de qué buscar. */
+import { BUDGETS, DEFAULT_BUDGET, DEFAULT_PHONE_GAME, PHONE_GAMES, recommendPhone } from '@/lib/tools/phones';
+
+interface Props {
+  /** Enlace a la guía con los modelos probados. */
+  guideHref: string;
+}
+
+const { guideHref } = Astro.props;
+const initial = recommendPhone(DEFAULT_PHONE_GAME, DEFAULT_BUDGET);
+---
+
+<phone-recommender class="panel" role="group" aria-labelledby="reco-title">
+  <h2 id="reco-title" class="sr-only">
+    Recomendador de celular
+  </h2>
+  <div>
+    <span class="label" id="reco-game">
+      ¿A qué juegas más?
+    </span>
+    <div class="chips" role="group" aria-labelledby="reco-game" data-group="game">
+      {PHONE_GAMES.map((g) => (
+        <button type="button" data-value={g} aria-pressed={g === DEFAULT_PHONE_GAME ? 'true' : 'false'}>
+          {g}
+        </button>
+      ))}
+    </div>
+  </div>
+  <div>
+    <span class="label" id="reco-budget">
+      ¿Cuánto puedes gastar?
+    </span>
+    <div class="chips" role="group" aria-labelledby="reco-budget" data-group="budget">
+      {BUDGETS.map((b) => (
+        <button type="button" data-value={b.id} aria-pressed={b.id === DEFAULT_BUDGET ? 'true' : 'false'}>
+          {b.label}
+        </button>
+      ))}
+    </div>
+  </div>
+  <div class="reco" aria-live="polite">
+    <small>Te recomendamos</small>
+    <h3 data-tier>{initial.tier}</h3>
+    <p data-advice>{initial.advice}</p>
+    <div>
+      <a class="btn btn--sm" href={guideHref}>
+        Ver los requisitos oficiales
+      </a>
+    </div>
+  </div>
+</phone-recommender>
+
+<script>
+  import { isBudget, isPhoneGame, recommendPhone } from '@/lib/tools/phones';
+  import { required } from '@/scripts/dom';
+
+  class PhoneRecommender extends HTMLElement {
+    connectedCallback() {
+      const selected = (group: string) =>
+        this.querySelector<HTMLElement>(`[data-group="${group}"] [aria-pressed="true"]`)?.dataset['value'];
+      const render = () => {
+        const game = selected('game');
+        const budget = selected('budget');
+        if (!isPhoneGame(game) || !isBudget(budget)) return;
+        const reco = recommendPhone(game, budget);
+        required(this, '[data-tier]').textContent = reco.tier;
+        required(this, '[data-advice]').textContent = reco.advice;
+      };
+      this.querySelectorAll<HTMLElement>('[data-group]').forEach((group) =>
+        group.addEventListener('click', (event) => {
+          const button = (event.target as HTMLElement).closest('button');
+          if (!button) return;
+          group
+            .querySelectorAll('button')
+            .forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+          render();
+        }),
+      );
+    }
+  }
+
+  if (!customElements.get('phone-recommender')) customElements.define('phone-recommender', PhoneRecommender);
+</script>
+
+<style>
+  .chips {
+    margin-top: 10px;
+  }
+
+  .reco {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    display: grid;
+    gap: 8px;
+  }
+
+  small {
+    font-weight: var(--weight-bold);
+  }
+
+  h3 {
+    font-size: 1.375rem;
+    font-weight: var(--weight-black);
+  }
+</style>

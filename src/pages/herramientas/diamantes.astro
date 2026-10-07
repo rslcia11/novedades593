@@ -1,0 +1,24 @@
+---
+import ToolPage from '@/components/layout/ToolPage.astro';
+import DiamondCalculator from '@/components/tools/DiamondCalculator.astro';
+
+const faq = [
+  {
+    question: '¿Cuánto son 1.000 diamantes?',
+    answer: 'Unos $5, según lo que reportan los creadores en 2026.',
+  },
+  {
+    question: '¿Por qué recibo menos de lo que gastó mi público?',
+    answer: 'TikTok se queda con cerca de la mitad del valor del regalo.',
+  },
+  {
+    question: '¿Los valores son oficiales?',
+    answer:
+      'No. TikTok no publica una tasa fija y puede cambiar por país. Usamos lo que reportan los creadores.',
+  },
+];
+---
+
+<ToolPage tool="diamantes" seoTitle="Calculadora de diamantes de TikTok LIVE a dólares" faq={faq}>
+  <DiamondCalculator />
+</ToolPage>
