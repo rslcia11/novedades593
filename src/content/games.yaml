@@ -1,0 +1,51 @@
+# Juegos con página propia. El id es el que aparece en la URL: /juegos/<id>/
+- id: minecraft
+  name: Minecraft
+  icon: block
+  order: 1
+  description: Guías para empezar, granjas, el Nether y cómo jugar con amigos. Probado en Java y Bedrock.
+  facts:
+    - { value: '1.21', label: versión }
+    - { value: Java y Bedrock, label: ediciones }
+  tags: [Para empezar, Granjas, Exploración, Multijugador]
+
+- id: roblox
+  name: Roblox
+  icon: cube
+  order: 2
+  description: Códigos, Blox Fruits y cómo cuidar tu cuenta. Revisamos los códigos todos los días.
+  facts:
+    - { value: Diario, label: revisión de códigos }
+    - { value: '+13', label: edad recomendada }
+  tags: [Códigos, Blox Fruits, Seguridad]
+
+- id: gta6
+  name: GTA VI
+  icon: car
+  order: 3
+  description: Fecha, plataformas, requisitos y todo lo confirmado. Lo actualizamos con cada anuncio de Rockstar.
+  releaseDate: 2026-11-19T00:00:00-05:00
+  facts:
+    - { value: 19 nov, label: lanzamiento }
+    - { value: PS5 y Xbox, label: plataformas }
+  tags: [Lanzamiento, Equipo, Consolas]
+
+- id: freefire
+  name: Free Fire
+  icon: fire
+  order: 4
+  description: Sensibilidad, nombres con letras especiales y cómo bajar el lag en celulares de gama baja.
+  facts:
+    - { value: Celular, label: plataforma }
+    - { value: FFWS, label: torneo LATAM }
+  tags: [Configuración, Nombres, Rendimiento, Celulares, Torneos]
+
+- id: fortnite
+  name: Fortnite
+  icon: bus
+  order: 5
+  description: Misiones de la semana y configuración para jugar fluido en equipos modestos.
+  facts:
+    - { value: Semanal, label: misiones }
+    - { value: Gratis, label: para jugar }
+  tags: [Misiones, Configuración]
