@@ -10,9 +10,11 @@ interface Props {
   facts: { value: string; label: string }[];
   /** Título para Google, si debe ser más descriptivo que el nombre de la sección. */
   seoTitle?: string;
+  /** Fuera de Google (por ejemplo, mientras la sección no tiene contenido). */
+  noindex?: boolean;
 }
 
-const { section: id, facts, seoTitle } = Astro.props;
+const { section: id, facts, seoTitle, noindex = false } = Astro.props;
 const section = SECTIONS[id];
 const crumbs = [{ label: 'Inicio', href: '/' }, { label: section.name }];
 ---
@@ -20,6 +22,7 @@ const crumbs = [{ label: 'Inicio', href: '/' }, { label: section.name }];
 <BaseLayout
   title={seoTitle ?? section.name}
   description={section.description}
+  noindex={noindex}
   schema={[breadcrumbSchema(crumbs, schemaContext(Astro.site))]}
 >
   <div class="wrap">

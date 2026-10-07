@@ -1,15 +1,16 @@
 ---
 import ToolPage from '@/components/layout/ToolPage.astro';
 import PhoneRecommender from '@/components/tools/PhoneRecommender.astro';
-import { articleHref, getArticles } from '@/lib/content';
+import { KEY_ARTICLES } from '@/config/site';
+import { articleHref, getArticle } from '@/lib/content';
 
-const guide = (await getArticles()).find((a) => a.id === 'celulares-free-fire');
-if (!guide) throw new Error('Falta la guía celulares-free-fire, enlazada desde el recomendador.');
+const guide = await getArticle(KEY_ARTICLES.phonesGuide);
 
 const faq = [
   {
     question: '¿Por qué no dicen un modelo exacto?',
-    answer: 'Porque los precios cambian por país. En la guía de celulares ponemos los modelos que probamos.',
+    answer:
+      'Porque los modelos y los precios cambian por país. Te damos lo que importa para comparar: RAM, procesador, pantalla y batería.',
   },
   { question: '¿Qué importa más para jugar?', answer: 'La memoria RAM y la pantalla. Después, la batería.' },
 ];

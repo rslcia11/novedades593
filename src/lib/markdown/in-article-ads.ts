@@ -3,7 +3,8 @@ import { defineHastPlugin } from 'satteri';
 /**
  * Inserta los anuncios dentro del cuerpo de los artículos, siguiendo las reglas de la propuesta:
  * - nunca antes del segundo bloque (el lector primero recibe contenido),
- * - nunca justo después de un título ni pegado al final,
+ * - nunca justo después de un título ni de una frase que presenta una lista ("…estos son:"),
+ * - nunca pegado al final,
  * - como máximo dos por artículo (más no sube el ingreso y empeora la experiencia),
  * - en artículos muy cortos, uno solo al final del texto.
  *
@@ -14,6 +15,8 @@ import { defineHastPlugin } from 'satteri';
 export interface BlockInfo {
   /** Nombre de la etiqueta o del componente MDX (`p`, `h2`, `Steps`...). */
   name: string;
+  /** El bloque presenta lo que sigue (termina en dos puntos): separarlos cortaría la idea. */
+  leadsIn?: boolean;
 }
 
 export interface AdRules {
@@ -45,7 +48,7 @@ export function pickAdPositions(blocks: readonly BlockInfo[], rules: AdRules = D
     if (!block || threshold === undefined) break;
     const count = i + 1;
     if (count < threshold) continue;
-    if (HEADING.test(block.name) || NO_AD_AFTER.has(block.name)) continue;
+    if (HEADING.test(block.name) || NO_AD_AFTER.has(block.name) || block.leadsIn) continue;
     positions.push(i);
   }
   if (positions.length === 0 && blocks.length > 0 && rules.max > 0) positions.push(blocks.length - 1);
@@ -72,7 +75,10 @@ export const inArticleAdsPlugin = defineHastPlugin({
     const blocks: { info: BlockInfo; index: number }[] = [];
     children.forEach((node, index) => {
       const name = blockName(node);
-      if (name) blocks.push({ info: { name }, index });
+      if (!name) return;
+      const leadsIn =
+        name === 'p' && /:\s*$/.test(ctx.textContent(node as Parameters<typeof ctx.textContent>[0]));
+      blocks.push({ info: { name, leadsIn }, index });
     });
 
     const positions = pickAdPositions(blocks.map((b) => b.info));

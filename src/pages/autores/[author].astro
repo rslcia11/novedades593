@@ -78,7 +78,14 @@ const ctx = schemaContext(Astro.site);
         id="author-articles"
         description={plural(articles.length, 'artículo')}
       />
-      <ArticleList articles={articles} />
+      {articles.length > 0 ? (
+        <ArticleList articles={articles} />
+      ) : (
+        <p class="empty">
+          Todavía no hay artículos firmados por {author.data.name}. Mientras tanto, mira las guías de la
+          redacción.
+        </p>
+      )}
     </section>
   </div>
 </BaseLayout>

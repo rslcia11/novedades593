@@ -50,11 +50,21 @@ export const COMMUNITY: readonly CommunityChannel[] = [
  */
 export const GOOGLE_PREFERRED_SOURCE_URL: string | undefined = undefined;
 
+/**
+ * Artículos que otras partes del sitio enlazan por nombre (portada, herramientas).
+ * Si uno se renombra o se borra, el build falla con un mensaje claro.
+ */
+export const KEY_ARTICLES = {
+  gtaGuide: 'gta-6-todo-lo-que-sabemos',
+  codesGuide: 'codigos-roblox',
+  phonesGuide: 'requisitos-free-fire',
+} as const;
+
 /** Búsquedas frecuentes que se muestran bajo el buscador de la portada. */
 export const POPULAR_SEARCHES = [
   { label: 'códigos de Roblox', href: '/juegos/roblox/codigos-roblox/' },
   { label: 'diamantes en Minecraft', href: '/juegos/minecraft/diamantes-minecraft/' },
-  { label: 'GTA VI en PC', href: '/juegos/gta6/gta-6-pc/' },
+  { label: 'GTA VI: precio y fecha', href: '/juegos/gta6/gta-6-todo-lo-que-sabemos/' },
   { label: 'cuánto paga TikTok LIVE', href: '/herramientas/diamantes/' },
 ] as const;
 
@@ -64,7 +74,7 @@ export const SEARCH_SUGGESTIONS = ['roblox', 'diamantes', 'tiktok', 'celular', '
 export const FOOTER_LINKS = {
   site: [
     { label: 'Quiénes somos', href: '/quienes-somos/' },
-    { label: 'Cómo probamos', href: '/como-probamos/' },
+    { label: 'Cómo trabajamos', href: '/como-trabajamos/' },
     { label: 'Anuncia con nosotros', href: '/anuncia/' },
     { label: 'Contacto', href: '/contacto/' },
   ],

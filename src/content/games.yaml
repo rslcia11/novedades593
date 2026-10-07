@@ -3,49 +3,49 @@
   name: Minecraft
   icon: block
   order: 1
-  description: Guías para empezar, granjas, el Nether y cómo jugar con amigos. Probado en Java y Bedrock.
+  description: Diamantes, el Nether, cómo jugar con amigos y las novedades de cada actualización. Para Java y Bedrock.
   facts:
-    - { value: '1.21', label: versión }
+    - { value: '26.3', label: última versión (Java) }
     - { value: Java y Bedrock, label: ediciones }
-  tags: [Para empezar, Granjas, Exploración, Multijugador]
+  tags: [Para empezar, Exploración, Multijugador, Novedades]
 
 - id: roblox
   name: Roblox
   icon: cube
   order: 2
-  description: Códigos, Blox Fruits y cómo cuidar tu cuenta. Revisamos los códigos todos los días.
+  description: Cómo canjear códigos, cómo proteger tu cuenta y cómo reconocer las estafas de Robux gratis.
   facts:
-    - { value: Diario, label: revisión de códigos }
-    - { value: '+13', label: edad recomendada }
-  tags: [Códigos, Blox Fruits, Seguridad]
+    - { value: Oficial, label: solo fuentes de Roblox }
+    - { value: '6', label: grupos de edad para el chat }
+  tags: [Códigos, Seguridad]
 
 - id: gta6
   name: GTA VI
   icon: car
   order: 3
-  description: Fecha, plataformas, requisitos y todo lo confirmado. Lo actualizamos con cada anuncio de Rockstar.
+  description: Fecha, precio, plataformas y todo lo que Rockstar confirmó. Separamos lo oficial de los rumores.
   releaseDate: 2026-11-19T00:00:00-05:00
   facts:
     - { value: 19 nov, label: lanzamiento }
     - { value: PS5 y Xbox, label: plataformas }
-  tags: [Lanzamiento, Equipo, Consolas]
+  tags: [Lanzamiento, Consolas]
 
 - id: freefire
   name: Free Fire
   icon: fire
   order: 4
-  description: Sensibilidad, nombres con letras especiales y cómo bajar el lag en celulares de gama baja.
+  description: Requisitos para jugar en tu celular, nombres con letras especiales y la Free Fire World Series.
   facts:
     - { value: Celular, label: plataforma }
     - { value: FFWS, label: torneo LATAM }
-  tags: [Configuración, Nombres, Rendimiento, Celulares, Torneos]
+  tags: [Celulares, Torneos]
 
 - id: fortnite
   name: Fortnite
   icon: bus
   order: 5
-  description: Misiones de la semana y configuración para jugar fluido en equipos modestos.
+  description: Requisitos oficiales y configuración para jugar fluido en computadoras modestas.
   facts:
-    - { value: Semanal, label: misiones }
+    - { value: 8 GB, label: RAM mínima en PC }
     - { value: Gratis, label: para jugar }
-  tags: [Misiones, Configuración]
+  tags: [Configuración]

@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { CREATOR, POPULAR_SEARCHES, SITE } from '@/config/site';
+import { CREATOR, KEY_ARTICLES, POPULAR_SEARCHES, SITE } from '@/config/site';
 import { SECTIONS } from '@/config/sections';
-import { articleHref, getArticles } from '@/lib/content';
+import { articleHref, getArticle, getArticles } from '@/lib/content';
 import { featured, inSection, sortByPublished } from '@/lib/article-utils';
 import { sectionUrl } from '@/lib/urls';
 import { organizationSchema, schemaContext, websiteSchema } from '@/lib/seo';
@@ -20,13 +20,14 @@ import NewsList from '@/components/articles/NewsList.astro';
 import ClipRail from '@/components/articles/ClipRail.astro';
 import ToolsGrid from '@/components/tools/ToolsGrid.astro';
 import AdSlot from '@/components/ads/AdSlot.astro';
+import Portal from '@/components/ui/Portal.astro';
 
 const articles = await getArticles();
-const byId = (id: string) => {
-  const article = articles.find((a) => a.id === id);
-  if (!article) throw new Error(`La portada usa un artículo que no existe: ${id}`);
-  return article;
-};
+const [gtaGuide, codesGuide] = await Promise.all([
+  getArticle(KEY_ARTICLES.gtaGuide),
+  getArticle(KEY_ARTICLES.codesGuide),
+]);
+const virals = inSection(articles, 'virales');
 const latest = articles.filter((a) => ['juegos', 'equipo', 'creadores'].includes(a.data.section)).slice(0, 5);
 const ctx = schemaContext(Astro.site);
 ---
@@ -54,10 +55,10 @@ const ctx = schemaContext(Astro.site);
           ))}
         </p>
       </section>
-      <TodayPanel
-        countdownHref={articleHref(byId('gta-6-todo-lo-que-sabemos'))}
-        codesHref={articleHref(byId('codigos-roblox'))}
-      />
+      <div class="today-wrap">
+        <Portal size={560} class="hero-portal" />
+        <TodayPanel countdownHref={articleHref(gtaGuide)} codesHref={articleHref(codesGuide)} />
+      </div>
     </div>
 
     <TrustStrip />
@@ -136,7 +137,7 @@ const ctx = schemaContext(Astro.site);
     <section class="sec split" aria-labelledby="home-news">
       <div>
         <SectionHeader
-          title="Noticias de hoy"
+          title="Últimas noticias"
           id="home-news"
           more={{ label: 'Todas', href: sectionUrl('noticias') }}
         />
@@ -147,15 +148,17 @@ const ctx = schemaContext(Astro.site);
       </aside>
     </section>
 
-    <section class="sec" aria-labelledby="home-virals">
-      <SectionHeader
-        title="Virales de la semana"
-        id="home-virals"
-        description="Lo más gracioso de los lives."
-        more={{ label: 'Ver todo', href: sectionUrl('virales') }}
-      />
-      <ClipRail articles={inSection(articles, 'virales')} />
-    </section>
+    {virals.length > 0 && (
+      <section class="sec" aria-labelledby="home-virals">
+        <SectionHeader
+          title="Virales de la semana"
+          id="home-virals"
+          description="Lo más gracioso de los lives."
+          more={{ label: 'Ver todo', href: sectionUrl('virales') }}
+        />
+        <ClipRail articles={virals} />
+      </section>
+    )}
 
     <section class="sec" aria-label="Comunidad">
       <Community />
@@ -165,11 +168,31 @@ const ctx = schemaContext(Astro.site);
 
 <style>
   .hero {
+    /* El portal decorativo sobresale del panel: se recorta aquí para que la página no se desborde */
+    overflow-x: clip;
+    overflow-clip-margin: 24px;
     display: grid;
     grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
     gap: clamp(32px, 5vw, 72px);
     align-items: center;
     padding-block: 56px 8px;
+  }
+
+  .today-wrap {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .today-wrap :global(.hero-portal) {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    width: 130%;
+    max-width: none;
+    transform: translate(-45%, -50%);
+    opacity: 0.55;
+    pointer-events: none;
   }
 
   .intro {
@@ -210,7 +233,7 @@ const ctx = schemaContext(Astro.site);
   }
 
   .popular a:hover {
-    border-color: var(--color-text);
+    border-color: var(--color-outline);
   }
 
   .creators {

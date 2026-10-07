@@ -26,13 +26,15 @@ export const SECTIONS: Record<SectionId, SectionInfo> = {
   },
   equipo: {
     name: 'Equipo',
-    description: 'Celulares para jugar, PC, audífonos y equipo para stream. Lo que usamos y probamos.',
-    hint: 'Celulares, PC, stream',
+    description:
+      'Internet, consolas y equipo para stream: qué mirar antes de gastar, explicado con fuentes oficiales.',
+    hint: 'Internet, consolas, stream',
     icon: 'phone',
   },
   creadores: {
     name: 'Creadores',
-    description: 'Lives, batallas, OBS y cómo crecer. Lo que aprendimos haciendo stream todos los días.',
+    description:
+      'TikTok LIVE, regalos, OBS y plataformas de stream: todo lo que necesitas para crecer como creador.',
     hint: 'Lives y batallas',
     icon: 'mic',
   },

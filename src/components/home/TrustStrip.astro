@@ -1,10 +1,10 @@
 ---
-import { CREATOR } from '@/config/site';
 import Icon from '@/components/ui/Icon.astro';
 
+/** Promesas que el sitio cumple de verdad: cada una se puede comprobar en cualquier artículo. */
 const items = [
-  { icon: 'mic', title: 'Probado en lives', text: `por ${CREATOR.name}` },
-  { icon: 'tool', title: 'Actualizado a diario', text: 'códigos y guías con fecha' },
+  { icon: 'news', title: 'Fuentes oficiales', text: 'enlazadas en cada artículo' },
+  { icon: 'tool', title: 'Guías con fecha', text: 'y aviso cuando se actualizan' },
   { icon: 'phone', title: 'Hecho para celular', text: 'rápido en gama media' },
   { icon: 'grid', title: 'Gratis y sin registro', text: 'guías y herramientas' },
 ];
@@ -50,6 +50,7 @@ const items = [
     width: 28px;
     height: 28px;
     flex: none;
+    color: var(--color-accent);
   }
 
   b {

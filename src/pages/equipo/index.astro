@@ -1,6 +1,7 @@
 ---
 import SectionPage from '@/components/layout/SectionPage.astro';
-import { articleHref, getArticles } from '@/lib/content';
+import { KEY_ARTICLES } from '@/config/site';
+import { articleHref, getArticle, getArticles } from '@/lib/content';
 import { inSection } from '@/lib/article-utils';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
 import PhoneRecommender from '@/components/tools/PhoneRecommender.astro';
@@ -9,8 +10,7 @@ import AdSlot from '@/components/ads/AdSlot.astro';
 
 const articles = await getArticles();
 const items = inSection(articles, 'equipo');
-const phonesGuide = articles.find((a) => a.id === 'celulares-free-fire');
-if (!phonesGuide) throw new Error('Falta la guía celulares-free-fire, enlazada desde el recomendador.');
+const phonesGuide = await getArticle(KEY_ARTICLES.phonesGuide);
 ---
 
 <SectionPage

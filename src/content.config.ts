@@ -42,17 +42,6 @@ const authors = defineCollection({
   }),
 });
 
-const codes = defineCollection({
-  loader: file('src/content/codes.yaml'),
-  schema: z.object({
-    game: reference('games'),
-    reward: z.string(),
-    active: z.boolean(),
-    /** Última vez que alguien del equipo lo probó. */
-    checkedAt: z.coerce.date(),
-  }),
-});
-
 /** El id de un artículo es su nombre de archivo: las carpetas solo ordenan el contenido. */
 const idFromFileName = ({ entry }: { entry: string }) => entry.replace(/^.*\//, '').replace(/\.mdx$/, '');
 
@@ -124,4 +113,4 @@ const pages = defineCollection({
   }),
 });
 
-export const collections = { games, authors, codes, articles, pages };
+export const collections = { games, authors, articles, pages };

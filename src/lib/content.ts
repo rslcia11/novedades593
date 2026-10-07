@@ -7,12 +7,11 @@ import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 import { articleUrl } from './urls';
 import { findContentProblems, sortByRecent } from './article-utils';
 import { readingMinutes } from './reading-time';
-import { SECTIONS } from '@/config/sections';
+import { NAV_SECTIONS, SECTIONS, isContentSection, type SectionId } from '@/config/sections';
 
 export type Article = CollectionEntry<'articles'>;
 export type Game = CollectionEntry<'games'>;
 export type Author = CollectionEntry<'authors'>;
-export type GameCode = CollectionEntry<'codes'>;
 export type Page = CollectionEntry<'pages'>;
 
 let articlesPromise: Promise<Article[]> | undefined;
@@ -35,6 +34,13 @@ export function getArticles(): Promise<Article[]> {
   return articlesPromise;
 }
 
+/** Un artículo publicado por su id. Falla si no existe (o es borrador), para no publicar enlaces rotos. */
+export async function getArticle(id: string): Promise<Article> {
+  const article = (await getArticles()).find((a) => a.id === id);
+  if (!article) throw new Error(`Falta el artículo "${id}" (se enlaza desde otra página del sitio).`);
+  return article;
+}
+
 export async function getGames(): Promise<Game[]> {
   const games = await getCollection('games');
   return games.sort((a, b) => a.data.order - b.data.order);
@@ -50,15 +56,6 @@ export async function getAuthor(id: string): Promise<Author> {
   const author = await getEntry('authors', id);
   if (!author) throw new Error(`Autor desconocido: ${id}`);
   return author;
-}
-
-export async function getCodes(
-  game: string,
-  status: 'active' | 'expired' | 'all' = 'all',
-): Promise<GameCode[]> {
-  const codes = await getCollection('codes', ({ data }) => data.game.id === game);
-  if (status === 'all') return codes;
-  return codes.filter((c) => c.data.active === (status === 'active'));
 }
 
 export const articleHref = (article: Article) =>
@@ -81,4 +78,13 @@ export function requireGameId(article: Article): string {
   const game = article.data.game?.id;
   if (!game) throw new Error(`El artículo ${article.id} no tiene juego.`);
   return game;
+}
+
+/**
+ * Secciones que se muestran en la navegación: las de contenido solo si tienen artículos
+ * publicados (una sección vacía es contenido de poco valor para Google y AdSense).
+ */
+export async function getNavSections(): Promise<SectionId[]> {
+  const articles = await getArticles();
+  return NAV_SECTIONS.filter((id) => !isContentSection(id) || articles.some((a) => a.data.section === id));
 }

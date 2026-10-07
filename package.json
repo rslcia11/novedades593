@@ -19,7 +19,8 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:links": "node scripts/check-links.mjs",
-    "verify": "npm run lint && npm run format:check && npm run check && npm test && npm run build && npm run test:links && npm run test:e2e"
+    "verify": "npm run lint && npm run format:check && npm run check && npm test && npm run build && npm run test:links && npm run test:e2e",
+    "covers": "node scripts/covers/generate.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.3",
@@ -27,6 +28,7 @@
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "@fontsource-variable/schibsted-grotesk": "^5.3.0",
+    "@fontsource/lilita-one": "^5.3.0",
     "astro": "^7.3.6",
     "satteri": "^0.10.5"
   },

@@ -1,12 +1,10 @@
 ---
-/** Panel "Hoy" de la portada: cuenta regresiva, códigos del día y la calculadora más usada. */
+/** Panel "Hoy" de la portada: cuenta regresiva de GTA VI, guía de códigos y la calculadora más usada. */
 import { SITE } from '@/config/site';
-import { getCodes, getGame } from '@/lib/content';
-import { formatTime } from '@/lib/dates';
-import { formatUsd, plural } from '@/lib/format';
+import { getGame } from '@/lib/content';
+import { formatUsd } from '@/lib/format';
 import { diamondsToUsd } from '@/lib/tools/diamonds';
 import { toolUrl } from '@/lib/urls';
-import CopyButton from '@/components/ui/CopyButton.astro';
 import Countdown from '@/components/tools/Countdown.astro';
 
 interface Props {
@@ -15,19 +13,13 @@ interface Props {
 }
 
 const { countdownHref, codesHref } = Astro.props;
-const [gta, codes] = await Promise.all([getGame('gta6'), getCodes('roblox', 'active')]);
-const firstCode = codes[0];
-const checked = codes.reduce<Date | undefined>(
-  (latest, c) => (!latest || c.data.checkedAt > latest ? c.data.checkedAt : latest),
-  undefined,
-);
+const gta = await getGame('gta6');
 const releaseLabel = gta.data.facts[0]?.value ?? '';
 ---
 
 <aside class="today" aria-labelledby="today-title">
   <div class="today-h">
     <h2 id="today-title">Hoy en {SITE.name}</h2>
-    {checked && <span>Actualizado {formatTime(checked)}</span>}
   </div>
 
   <div class="t-card t-main">
@@ -43,19 +35,11 @@ const releaseLabel = gta.data.facts[0]?.value ?? '';
     </a>
   </div>
 
-  <div class="t-card t-accent">
+  <a class="t-card t-accent pressable" href={codesHref}>
     <small>Códigos de Roblox</small>
-    <h3>{plural(codes.length, 'activo')} hoy</h3>
-    {firstCode && (
-      <div class="code-line">
-        <span>{firstCode.id}</span>
-        <CopyButton text={firstCode.id} ariaLabel={`Copiar código ${firstCode.id}`} />
-      </div>
-    )}
-    <a class="go" href={codesHref}>
-      Ver todos
-    </a>
-  </div>
+    <h3>Cómo canjearlos sin caer en estafas</h3>
+    <span class="go">Ver la guía</span>
+  </a>
 
   <a class="t-card t-outline pressable" href={toolUrl('diamantes')}>
     <small>TikTok LIVE</small>
@@ -86,6 +70,7 @@ const releaseLabel = gta.data.facts[0]?.value ?? '';
 
   h2 {
     color: var(--color-text);
+    font-family: var(--font-sans);
     font-size: 0.9375rem;
     font-weight: var(--weight-bold);
     letter-spacing: 0;
@@ -115,6 +100,8 @@ const releaseLabel = gta.data.facts[0]?.value ?? '';
     grid-column: 1 / -1;
     background: var(--color-inverse-bg);
     color: var(--color-inverse-text);
+    border: var(--border-strong);
+    box-shadow: var(--shadow-pop);
     padding: 24px;
   }
 
@@ -137,36 +124,14 @@ const releaseLabel = gta.data.facts[0]?.value ?? '';
   .t-accent {
     background: var(--color-accent);
     color: var(--color-on-accent);
+    border: 2px solid var(--color-bg-deep);
+    box-shadow: var(--shadow-pop-2);
   }
 
   .t-outline {
     border: var(--border-strong);
-  }
-
-  .code-line {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    background: rgb(255 255 255 / 55%);
-    border-radius: var(--radius-sm);
-    padding: 6px 6px 6px 12px;
-    font-weight: var(--weight-heavy);
-    letter-spacing: 0.02em;
-    min-width: 0;
-  }
-
-  .code-line > span {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 0.9375rem;
-  }
-
-  .code-line :global(.copy) {
-    min-height: 34px;
-    padding: 0 10px;
-    font-size: 0.8125rem;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-pop-3);
   }
 
   .big {
