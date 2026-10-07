@@ -14,8 +14,10 @@ const { title } = Astro.props;
 
 <style>
   .box {
-    border: 2px solid var(--color-text);
+    border: 2px solid var(--color-outline);
     border-radius: var(--radius-md);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-pop-3);
     padding: 18px 22px;
   }
 
@@ -23,6 +25,7 @@ const { title } = Astro.props;
     display: block;
     font-size: 0.9375rem;
     margin-bottom: 6px;
+    color: var(--color-accent-3);
   }
 
   .box :global(ul) {

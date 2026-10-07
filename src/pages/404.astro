@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SearchBox from '@/components/search/SearchBox.astro';
 import GamesGrid from '@/components/home/GamesGrid.astro';
+import Portal from '@/components/ui/Portal.astro';
 ---
 
 <BaseLayout
@@ -11,9 +12,11 @@ import GamesGrid from '@/components/home/GamesGrid.astro';
 >
   <div class="wrap">
     <header class="nf">
+      <Portal size={180} />
       <h1>No encontramos esa página</h1>
       <p class="dek">
-        Puede que el enlace esté mal escrito o que la guía haya cambiado de lugar. Búscala o elige tu juego.
+        Parece que este enlace te mandó a otra dimensión. Puede que esté mal escrito o que la guía haya
+        cambiado de lugar: búscala o elige tu juego.
       </p>
       <SearchBox id="q-404" />
       <div>

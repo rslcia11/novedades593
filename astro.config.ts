@@ -12,6 +12,7 @@ const env = loadEnv(process.env['NODE_ENV'] ?? 'production', process.cwd(), '');
 const adsProvider = env['PUBLIC_ADS_PROVIDER'] ?? 'placeholder';
 
 const FONT_DIR = './node_modules/@fontsource-variable/schibsted-grotesk/files';
+const DISPLAY_FONT_DIR = './node_modules/@fontsource/lilita-one/files';
 /** Rango Unicode del subconjunto latino (Latin-1 y puntuación). */
 const LATIN =
   'U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD';
@@ -53,6 +54,23 @@ export default defineConfig({
           {
             src: [`${FONT_DIR}/schibsted-grotesk-latin-wght-normal.woff2`],
             weight: '400 900',
+            style: 'normal',
+            unicodeRange: [LATIN],
+          },
+        ],
+      },
+    },
+    // Títulos: Lilita One (OFL), redonda y caricaturesca, del tipógrafo argentino Juan Montoreano.
+    {
+      provider: fontProviders.local(),
+      name: 'Lilita One',
+      cssVariable: '--font-lilita',
+      fallbacks: ['Arial Black', 'Arial', 'sans-serif'],
+      options: {
+        variants: [
+          {
+            src: [`${DISPLAY_FONT_DIR}/lilita-one-latin-400-normal.woff2`],
+            weight: '400',
             style: 'normal',
             unicodeRange: [LATIN],
           },

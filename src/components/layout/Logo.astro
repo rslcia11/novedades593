@@ -17,19 +17,22 @@ const { class: className } = Astro.props;
   .logo {
     display: inline-flex;
     align-items: center;
-    font-weight: var(--weight-heavy);
-    font-size: var(--text-xl);
-    letter-spacing: -0.035em;
+    font-family: var(--font-display);
+    font-weight: var(--weight-regular);
+    font-size: 1.375rem;
+    letter-spacing: 0.01em;
+    font-synthesis: none;
     white-space: nowrap;
   }
 
   b {
-    background: var(--color-accent);
-    color: var(--color-on-accent);
+    font-weight: inherit;
+    background: var(--color-brand);
+    color: var(--color-on-brand);
     padding: 1px 6px 2px;
     margin-left: 3px;
     border-radius: var(--radius-xs);
-    font-weight: var(--weight-black);
+    box-shadow: 2px 2px 0 var(--color-accent);
   }
 
   @media (max-width: 700px) {

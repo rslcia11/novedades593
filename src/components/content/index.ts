@@ -13,7 +13,6 @@ import Fact from './Fact.astro';
 import Facts from './Facts.astro';
 import Format from './Format.astro';
 import Formats from './Formats.astro';
-import GameCodes from './GameCodes.astro';
 import Kpi from './Kpi.astro';
 import Kpis from './Kpis.astro';
 import Lede from './Lede.astro';
@@ -34,7 +33,6 @@ export const mdxComponents = {
   Facts,
   Format,
   Formats,
-  GameCodes,
   Kpi,
   Kpis,
   Lede,

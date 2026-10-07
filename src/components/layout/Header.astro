@@ -1,5 +1,6 @@
 ---
-import { NAV_SECTIONS, SECTIONS } from '@/config/sections';
+import { SECTIONS } from '@/config/sections';
+import { getNavSections } from '@/lib/content';
 import { sectionUrl, searchUrl } from '@/lib/urls';
 import Icon from '@/components/ui/Icon.astro';
 import Logo from './Logo.astro';
@@ -12,13 +13,14 @@ interface Props {
 
 const { progress = false } = Astro.props;
 const active = currentSection(Astro.url.pathname);
+const sections = await getNavSections();
 ---
 
 <header class="top">
   <div class="wrap top-in">
     <Logo class="top-logo" />
     <nav class="nav" aria-label="Secciones">
-      {NAV_SECTIONS.map((id) => (
+      {sections.map((id) => (
         <a href={sectionUrl(id)} aria-current={active === id ? 'page' : undefined}>
           {SECTIONS[id].name}
         </a>
@@ -61,7 +63,8 @@ const active = currentSection(Astro.url.pathname);
     position: sticky;
     top: 0;
     z-index: 40;
-    background: var(--color-bg);
+    background: rgb(7 9 20 / 88%);
+    backdrop-filter: blur(10px);
     border-bottom: var(--border);
   }
 
@@ -85,9 +88,13 @@ const active = currentSection(Astro.url.pathname);
     white-space: nowrap;
   }
 
-  .nav a:hover,
+  .nav a:hover {
+    color: var(--color-accent);
+  }
+
   .nav a[aria-current='page'] {
-    border-color: var(--color-text);
+    color: var(--color-accent);
+    border-color: var(--color-accent);
   }
 
   .top-r {
@@ -104,12 +111,12 @@ const active = currentSection(Astro.url.pathname);
     place-items: center;
     border-radius: 50%;
     border: var(--border);
-    background: var(--color-bg);
+    background: var(--color-surface);
     flex: none;
   }
 
   .icon-btn:hover {
-    border-color: var(--color-text);
+    border-color: var(--color-outline);
   }
 
   .progress {
@@ -124,7 +131,7 @@ const active = currentSection(Astro.url.pathname);
   .progress i {
     display: block;
     height: 100%;
-    background: var(--color-text);
+    background: var(--color-accent);
     transform: scaleX(0);
     transform-origin: left;
   }
@@ -168,6 +175,7 @@ const active = currentSection(Astro.url.pathname);
     .nav a[aria-current='page'] {
       background: var(--color-accent);
       color: var(--color-on-accent);
+      border-color: transparent;
     }
   }
 

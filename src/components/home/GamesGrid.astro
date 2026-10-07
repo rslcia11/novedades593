@@ -36,7 +36,9 @@ const [games, articles] = await Promise.all([getGames(), getArticles()]);
 
   .game {
     border: var(--border-strong);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-pop);
     padding: 14px;
     aspect-ratio: 1;
     display: flex;
@@ -48,13 +50,18 @@ const [games, articles] = await Promise.all([getGames(), getArticles()]);
   .game:hover {
     background: var(--color-accent);
     color: var(--color-on-accent);
+    box-shadow: var(--shadow-pop-2);
+  }
+
+  .game:hover small {
+    color: var(--color-on-accent);
   }
 
   strong {
+    font-family: var(--font-display);
+    font-weight: var(--weight-regular);
     font-size: clamp(18px, 1.9vw, 24px);
-    font-weight: var(--weight-heavy);
     line-height: 1.05;
-    letter-spacing: -0.03em;
     display: block;
   }
 
@@ -71,16 +78,13 @@ const [games, articles] = await Promise.all([getGames(), getArticles()]);
   }
 
   .game--all {
-    background: var(--color-inverse-bg);
-    color: var(--color-inverse-text);
+    background: var(--color-accent-2);
+    color: var(--color-on-accent);
+    box-shadow: var(--shadow-pop-3);
   }
 
   .game--all small {
-    color: var(--color-inverse-muted);
-  }
-
-  .game--all:hover small {
-    color: var(--color-text-2);
+    color: var(--color-on-accent);
   }
 
   @media (max-width: 900px) {

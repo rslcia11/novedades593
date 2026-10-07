@@ -1,0 +1,87 @@
+---
+/**
+ * Portal de plasma: el motivo visual de la Dimensión 593. Dibujo propio en SVG
+ * (espirales y anillos), decorativo y oculto para lectores de pantalla.
+ * Gira despacio solo si la persona no pidió reducir el movimiento.
+ */
+interface Props {
+  size?: number;
+  class?: string;
+}
+
+const { size = 420, class: className } = Astro.props;
+const id = `portal-${Math.random().toString(36).slice(2, 8)}`;
+// Brazos de la espiral: cada uno es la misma curva rotada.
+const arms = [0, 60, 120, 180, 240, 300];
+---
+
+<svg
+  class:list={['portal', className]}
+  width={size}
+  height={size}
+  viewBox="0 0 400 400"
+  aria-hidden="true"
+  focusable="false"
+>
+  <defs>
+    <radialGradient id={`${id}-core`} cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f4ffe0"></stop>
+      <stop offset="35%" stop-color="#b8ff6a"></stop>
+      <stop offset="70%" stop-color="#4fd61c"></stop>
+      <stop offset="100%" stop-color="#1c5c0a" stop-opacity="0"></stop>
+    </radialGradient>
+    <radialGradient id={`${id}-halo`} cx="50%" cy="50%" r="50%">
+      <stop offset="55%" stop-color="#9dff3a" stop-opacity="0.35"></stop>
+      <stop offset="100%" stop-color="#9dff3a" stop-opacity="0"></stop>
+    </radialGradient>
+  </defs>
+  <circle cx="200" cy="200" r="200" fill={`url(#${id}-halo)`}></circle>
+  <g class="spin">
+    <circle cx="200" cy="200" r="150" fill={`url(#${id}-core)`}></circle>
+    {arms.map((deg, i) => (
+      <path
+        d="M200 200 C 230 160, 290 170, 300 220 S 260 330, 180 330"
+        fill="none"
+        stroke={i % 2 ? '#3fe6ff' : '#e8ffc9'}
+        stroke-opacity={i % 2 ? 0.55 : 0.8}
+        stroke-width={i % 2 ? 5 : 8}
+        stroke-linecap="round"
+        transform={`rotate(${deg} 200 200)`}
+      />
+    ))}
+    <circle
+      cx="200"
+      cy="200"
+      r="150"
+      fill="none"
+      stroke="#0d1023"
+      stroke-width="10"
+      stroke-dasharray="40 26"
+      opacity="0.35"
+    ></circle>
+  </g>
+  <circle cx="200" cy="200" r="152" fill="none" stroke="#f3f1ff" stroke-width="6"></circle>
+  <circle cx="200" cy="200" r="34" fill="#f4ffe0" opacity="0.9"></circle>
+</svg>
+
+<style>
+  .portal {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 28px rgb(157 255 58 / 45%));
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .spin {
+      transform-origin: 200px 200px;
+      animation: spin 24s linear infinite;
+    }
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>

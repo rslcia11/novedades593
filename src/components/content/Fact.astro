@@ -17,6 +17,7 @@ const { value } = Astro.props;
   .fact {
     border: var(--border-strong);
     border-radius: var(--radius-md);
+    background: var(--color-surface);
     padding: 14px 16px;
     display: flex;
     flex-direction: column-reverse;
@@ -25,10 +26,10 @@ const { value } = Astro.props;
 
   dd {
     margin: 0;
+    font-family: var(--font-display);
     font-size: 1.875rem;
-    font-weight: var(--weight-black);
     line-height: 1.05;
-    letter-spacing: -0.03em;
+    color: var(--color-accent);
     font-variant-numeric: tabular-nums;
   }
 

@@ -45,7 +45,8 @@ const sizes = size === 'hero' ? '(min-width: 1320px) 1224px, 100vw' : '(min-widt
     container-type: inline-size;
     aspect-ratio: 16 / 9;
     width: 100%;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
+    border: 2px solid var(--color-outline);
     position: relative;
     overflow: hidden;
     display: flex;
@@ -63,8 +64,8 @@ const sizes = size === 'hero' ? '(min-width: 1320px) 1224px, 100vw' : '(min-widt
     font-weight: var(--weight-heavy);
     padding: 1px 5px;
     border-radius: var(--radius-xs);
-    background: var(--color-accent);
-    color: var(--color-on-accent);
+    background: var(--color-brand);
+    color: var(--color-on-brand);
   }
 
   .cover:has(img) {
@@ -100,8 +101,8 @@ const sizes = size === 'hero' ? '(min-width: 1320px) 1224px, 100vw' : '(min-widt
   }
 
   .cover--accent::after {
-    background: var(--color-inverse-bg);
-    color: var(--color-accent);
+    background: var(--color-bg-deep);
+    color: var(--color-brand);
   }
 
   .cover--grid {

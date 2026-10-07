@@ -36,7 +36,9 @@ const author = await getAuthor(CREATOR.authorId);
   .host {
     background: var(--color-accent);
     color: var(--color-on-accent);
+    border: 2px solid var(--color-bg-deep);
     border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-pop-2);
     padding: 28px;
     display: flex;
     flex-direction: column;
@@ -45,8 +47,9 @@ const author = await getAuthor(CREATOR.authorId);
   }
 
   h3 {
-    font-size: 1.625rem;
-    font-weight: var(--weight-black);
+    font-family: var(--font-display);
+    font-weight: var(--weight-regular);
+    font-size: 1.75rem;
     line-height: 1.1;
   }
 

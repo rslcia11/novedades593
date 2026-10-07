@@ -37,6 +37,7 @@ validateAdsConfig(PUBLIC_ADS_PROVIDER, PUBLIC_ADSENSE_CLIENT);
     <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <Font cssVariable="--font-schibsted" preload />
+    <Font cssVariable="--font-lilita" preload />
     <Seo {...seo} />
     {PUBLIC_ADS_PROVIDER === 'adsense' && PUBLIC_ADSENSE_CLIENT && (
       <AdSenseLoader client={PUBLIC_ADSENSE_CLIENT} />

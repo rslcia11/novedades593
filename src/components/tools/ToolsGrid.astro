@@ -32,6 +32,8 @@ const tools = TOOLS.filter((t) => t.id !== exclude).slice(0, limit);
   .tool {
     border: var(--border-strong);
     border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-pop-2);
     padding: 22px;
     display: grid;
     gap: 10px;
@@ -40,6 +42,19 @@ const tools = TOOLS.filter((t) => t.id !== exclude).slice(0, limit);
 
   .tool:hover {
     background: var(--color-accent);
+    color: var(--color-on-accent);
+    box-shadow: var(--shadow-pop-3);
+  }
+
+  .tool:hover p {
+    color: var(--color-on-accent);
+  }
+
+  .tool :global(svg) {
+    color: var(--color-accent);
+  }
+
+  .tool:hover :global(svg) {
     color: var(--color-on-accent);
   }
 

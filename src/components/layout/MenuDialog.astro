@@ -1,12 +1,17 @@
 ---
 /** Menú completo en un <dialog> nativo: atrapa el foco, se cierra con Esc y devuelve el foco al botón. */
 import { FOOTER_LINKS } from '@/config/site';
-import { NAV_SECTIONS, SECTIONS } from '@/config/sections';
+import { SECTIONS } from '@/config/sections';
+import { getNavSections } from '@/lib/content';
 import { searchUrl, sectionUrl } from '@/lib/urls';
 import Icon from '@/components/ui/Icon.astro';
 
 const links = [
-  ...NAV_SECTIONS.map((id) => ({ label: SECTIONS[id].name, hint: SECTIONS[id].hint, href: sectionUrl(id) })),
+  ...(await getNavSections()).map((id) => ({
+    label: SECTIONS[id].name,
+    hint: SECTIONS[id].hint,
+    href: sectionUrl(id),
+  })),
   { label: 'Buscar', hint: 'Todo el sitio', href: searchUrl() },
 ];
 ---
@@ -63,7 +68,7 @@ const links = [
     max-height: 88vh;
     margin: auto auto 0;
     border-radius: 16px 16px 0 0;
-    background: var(--color-bg);
+    background: var(--color-surface);
     color: var(--color-text);
     overflow-y: auto;
   }
@@ -100,7 +105,7 @@ const links = [
     place-items: center;
     border-radius: 50%;
     border: var(--border);
-    background: var(--color-bg);
+    background: var(--color-surface-2);
   }
 
   nav {

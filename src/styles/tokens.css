@@ -1,28 +1,45 @@
 /*
  * Tokens de diseño: la única fuente de colores, tipografía, radios y medidas del sitio.
- * Los componentes nunca usan valores sueltos; para cambiar la ambientación del sitio
- * (fase 2) se edita este archivo.
+ * Los componentes nunca usan valores sueltos.
  *
- * Identidad actual: blanco, negro y el amarillo de la bandera de Ecuador.
+ * Ambientación "Dimensión 593": un laboratorio de ciencia ficción animada.
+ * Espacio profundo de fondo, plasma verde para la acción, cian de portal y rosa "goo"
+ * como acentos, contornos gruesos y sombras duras de caricatura.
+ * Identidad 100 % propia: sin personajes, logos ni frases de series o marcas de terceros.
  */
 :root {
-  /* Color */
-  --color-text: #111111;
-  --color-text-2: #3a3a3a;
-  --color-muted: #6b6b6b;
-  --color-bg: #ffffff;
-  --color-surface: #f3f4f5;
-  --color-line: #e3e3e3;
-  --color-accent: #ffd100;
-  --color-on-accent: #111111;
-  --color-inverse-bg: #111111;
-  --color-inverse-text: #ffffff;
-  --color-inverse-muted: #cfcfcf;
-  --color-inverse-line: #444444;
-  --color-overlay: rgb(17 17 17 / 45%);
+  /* Color: superficies */
+  --color-bg: #0d1023;
+  --color-bg-deep: #070914;
+  --color-surface: #161a37;
+  --color-surface-2: #20254d;
+  --color-line: #2c3266;
+
+  /* Color: texto */
+  --color-text: #f3f1ff;
+  --color-text-2: #c9c6ea;
+  --color-muted: #a19ed0;
+
+  /* Color: marca */
+  --color-accent: #9dff3a; /* plasma verde: acción principal */
+  --color-on-accent: #0d1023;
+  --color-accent-2: #3fe6ff; /* cian de portal */
+  --color-accent-3: #ff5db1; /* rosa goo */
+  --color-brand: #ffd23f; /* el 593: amarillo de la bandera de Ecuador */
+  --color-on-brand: #0d1023;
+
+  /* Color: paneles destacados (antes "inverso") */
+  --color-inverse-bg: #20254d;
+  --color-inverse-text: #f3f1ff;
+  --color-inverse-muted: #c9c6ea;
+  --color-inverse-line: #3a4180;
+
+  --color-outline: #f3f1ff; /* contornos de caricatura */
+  --color-overlay: rgb(7 9 20 / 75%);
 
   /* Tipografía */
   --font-sans: var(--font-schibsted), 'Helvetica Neue', Arial, system-ui, sans-serif;
+  --font-display: var(--font-lilita), 'Arial Black', Arial, sans-serif;
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
@@ -34,29 +51,47 @@
   --weight-bold: 700;
   --weight-heavy: 800;
   --weight-black: 900;
-  --tracking-tight: -0.02em;
-  --tracking-tighter: -0.04em;
+  --tracking-tight: -0.01em;
+  --tracking-tighter: -0.02em;
 
   /* Forma */
-  --radius-xs: 3px;
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 10px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
   --radius-pill: 999px;
   --border: 1px solid var(--color-line);
-  --border-strong: 1.5px solid var(--color-text);
+  --border-strong: 2px solid var(--color-outline);
+  /* Sombra dura, sin desenfoque: el sello de la caricatura */
+  --shadow-pop: 4px 4px 0 var(--color-accent);
+  --shadow-pop-2: 4px 4px 0 var(--color-accent-2);
+  --shadow-pop-3: 4px 4px 0 var(--color-accent-3);
+  --glow: 0 0 0 3px rgb(157 255 58 / 25%);
+
+  /* Fondo de estrellas (CSS puro, sin imágenes) */
+  --bg-stars:
+    radial-gradient(1.5px 1.5px at 12% 18%, rgb(255 255 255 / 70%) 50%, transparent 51%),
+    radial-gradient(1px 1px at 72% 12%, rgb(255 255 255 / 55%) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 38% 64%, rgb(63 230 255 / 55%) 50%, transparent 51%),
+    radial-gradient(1px 1px at 88% 52%, rgb(255 255 255 / 45%) 50%, transparent 51%),
+    radial-gradient(1px 1px at 22% 86%, rgb(255 93 177 / 45%) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 58% 34%, rgb(255 255 255 / 40%) 50%, transparent 51%);
+  --bg-nebula:
+    radial-gradient(60% 50% at 85% 0%, rgb(63 230 255 / 10%), transparent 70%),
+    radial-gradient(50% 40% at 0% 30%, rgb(157 255 58 / 7%), transparent 70%),
+    radial-gradient(40% 40% at 60% 100%, rgb(255 93 177 / 7%), transparent 70%);
 
   /* Medidas */
   --max-width: 1320px;
   --gutter: clamp(16px, 4vw, 48px);
   --header-height: 64px;
   --tap-target: 44px;
-  --focus-ring: 3px solid var(--color-text);
+  --focus-ring: 3px solid var(--color-accent-2);
 
   /* Movimiento */
-  --ease-press: transform 0.12s ease, background-color 0.15s ease;
+  --ease-press: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.15s ease;
 
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 @media (max-width: 1099px) {
