@@ -1,0 +1,41 @@
+---
+interface Props {
+  value: string;
+}
+
+const { value } = Astro.props;
+---
+
+<div class="fact">
+  <dt>
+    <slot />
+  </dt>
+  <dd>{value}</dd>
+</div>
+
+<style>
+  .fact {
+    border: var(--border-strong);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+  }
+
+  dd {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: var(--weight-black);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  dt {
+    font-size: var(--text-sm);
+    line-height: 1.4;
+    color: var(--color-text-2);
+    margin-top: 4px;
+  }
+</style>

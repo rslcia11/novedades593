@@ -1,0 +1,41 @@
+---
+/** Artículo en cuadrícula: portada arriba, etiqueta, título y fecha. */
+import { articleHref, articleKicker, type Article } from '@/lib/content';
+import Cover from './Cover.astro';
+import ArticleMeta from './ArticleMeta.astro';
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+const kicker = await articleKicker(article);
+---
+
+<a class="card pressable" href={articleHref(article)}>
+  <Cover article={article} />
+  <span class="tag">{kicker}</span>
+  <h3>{article.data.title}</h3>
+  <ArticleMeta article={article} />
+</a>
+
+<style>
+  .card {
+    display: grid;
+    gap: 8px;
+    align-content: start;
+    min-width: 0;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-heavy);
+    line-height: 1.22;
+  }
+
+  .card:hover h3 {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+</style>

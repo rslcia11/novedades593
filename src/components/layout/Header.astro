@@ -1,0 +1,187 @@
+---
+import { NAV_SECTIONS, SECTIONS } from '@/config/sections';
+import { sectionUrl, searchUrl } from '@/lib/urls';
+import Icon from '@/components/ui/Icon.astro';
+import Logo from './Logo.astro';
+import { currentSection } from './current-section';
+
+interface Props {
+  /** Muestra la barra de progreso de lectura (artículos). */
+  progress?: boolean;
+}
+
+const { progress = false } = Astro.props;
+const active = currentSection(Astro.url.pathname);
+---
+
+<header class="top">
+  <div class="wrap top-in">
+    <Logo class="top-logo" />
+    <nav class="nav" aria-label="Secciones">
+      {NAV_SECTIONS.map((id) => (
+        <a href={sectionUrl(id)} aria-current={active === id ? 'page' : undefined}>
+          {SECTIONS[id].name}
+        </a>
+      ))}
+    </nav>
+    <div class="top-r">
+      <a class="icon-btn" href={searchUrl()} aria-label="Buscar">
+        <Icon name="search" size={18} />
+      </a>
+    </div>
+  </div>
+  {progress && (
+    <reading-progress class="progress" aria-hidden="true">
+      <i></i>
+    </reading-progress>
+  )}
+</header>
+
+<script>
+  class ReadingProgress extends HTMLElement {
+    connectedCallback() {
+      const bar = this.querySelector('i');
+      if (!bar) return;
+      let frame = 0;
+      const update = () => {
+        frame = 0;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`;
+      };
+      window.addEventListener('scroll', () => (frame ||= requestAnimationFrame(update)), { passive: true });
+      update();
+    }
+  }
+
+  if (!customElements.get('reading-progress')) customElements.define('reading-progress', ReadingProgress);
+</script>
+
+<style>
+  .top {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--color-bg);
+    border-bottom: var(--border);
+  }
+
+  .top-in {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    min-height: 64px;
+  }
+
+  .nav {
+    display: flex;
+    gap: 22px;
+    font-weight: var(--weight-semibold);
+    font-size: 0.9375rem;
+  }
+
+  .nav a {
+    padding: 6px 0;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+
+  .nav a:hover,
+  .nav a[aria-current='page'] {
+    border-color: var(--color-text);
+  }
+
+  .top-r {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .icon-btn {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: var(--border);
+    background: var(--color-bg);
+    flex: none;
+  }
+
+  .icon-btn:hover {
+    border-color: var(--color-text);
+  }
+
+  .progress {
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 3px;
+    width: 100%;
+    pointer-events: none;
+  }
+
+  .progress i {
+    display: block;
+    height: 100%;
+    background: var(--color-text);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  /* Tablet: la navegación pasa a una segunda fila desplazable */
+  @media (max-width: 1099px) {
+    .top-in {
+      flex-wrap: wrap;
+      column-gap: 16px;
+      row-gap: 0;
+    }
+
+    .top-in :global(.top-logo) {
+      min-height: 64px;
+    }
+
+    .nav {
+      order: 3;
+      width: 100%;
+      overflow-x: auto;
+      gap: 6px;
+      scrollbar-width: none;
+      border-top: var(--border);
+      padding: 4px 0;
+    }
+
+    .nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav a {
+      padding: 10px;
+      border-bottom: 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .nav a:hover {
+      background: var(--color-surface);
+    }
+
+    .nav a[aria-current='page'] {
+      background: var(--color-accent);
+      color: var(--color-on-accent);
+    }
+  }
+
+  /* Celular: la navegación vive en la barra inferior */
+  @media (max-width: 700px) {
+    .nav {
+      display: none;
+    }
+  }
+
+  @media (pointer: coarse) {
+    .icon-btn {
+      width: var(--tap-target);
+      height: var(--tap-target);
+    }
+  }
+</style>

@@ -1,0 +1,121 @@
+---
+/**
+ * Espacio de anuncio. Qué muestra depende de PUBLIC_ADS_PROVIDER:
+ * - none: nada (ni siquiera el espacio reservado).
+ * - placeholder: recuadro gris con el tamaño, para revisar ubicaciones.
+ * - adsense: bloque de AdSense que se pide solo cuando está por entrar en pantalla.
+ * Siempre reserva el alto para que la página no salte al cargar (CLS = 0).
+ */
+import { PUBLIC_ADS_PROVIDER, PUBLIC_ADSENSE_CLIENT } from 'astro:env/server';
+import { AD_PLACEMENTS, type AdPlacement } from '@/config/ads';
+
+interface Props {
+  placement: AdPlacement;
+  class?: string;
+}
+
+const { placement, class: className } = Astro.props;
+const config = AD_PLACEMENTS[placement];
+if (!config) throw new Error(`Espacio de anuncio desconocido: ${placement}`);
+const provider = PUBLIC_ADS_PROVIDER;
+---
+
+{provider !== 'none' && (
+  <div
+    class:list={['ad', `ad--${placement}`, { 'ad--desktop': config.desktopOnly }, className]}
+    data-ad-placement={placement}
+    data-pagefind-ignore="all"
+  >
+    <p class="ad-label">Publicidad</p>
+    {provider === 'placeholder' ? (
+      <div class="ad-box">
+        <div>
+          <b>Anuncio {config.label}</b>
+          {config.note}
+        </div>
+      </div>
+    ) : (
+      <ins
+        class="adsbygoogle ad-box"
+        data-ad-client={PUBLIC_ADSENSE_CLIENT}
+        data-ad-slot={config.adsenseSlot}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
+    )}
+  </div>
+)}
+
+<script>
+  import { initAdSense } from '@/scripts/adsense';
+  initAdSense();
+</script>
+
+<style>
+  .ad {
+    --ad-height: 250px;
+    min-width: 0;
+  }
+
+  .ad--billboard {
+    --ad-height: 250px;
+  }
+
+  .ad--sidebar {
+    --ad-height: 250px;
+  }
+
+  .ad--sidebar-tall {
+    --ad-height: 600px;
+  }
+
+  .ad--in-article {
+    --ad-height: 280px;
+    margin-block: 36px;
+  }
+
+  @media (max-width: 700px) {
+    .ad--billboard {
+      --ad-height: 100px;
+    }
+  }
+
+  @media (max-width: 960px) {
+    .ad--desktop {
+      display: none;
+    }
+  }
+
+  .ad-label {
+    font-size: 0.6875rem;
+    color: var(--color-muted);
+    text-align: center;
+    margin: 0 0 6px;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+  }
+
+  .ad-box {
+    display: grid;
+    place-items: center;
+    min-height: var(--ad-height);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    text-align: center;
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+    line-height: 1.5;
+    padding: 10px;
+  }
+
+  ins.ad-box {
+    display: block;
+    padding: 0;
+  }
+
+  b {
+    display: block;
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-2);
+  }
+</style>

@@ -1,0 +1,19 @@
+---
+/** Recomendaciones de productos. Uso: <Picks><Pick ... /></Picks> */
+---
+
+<ol class="picks">
+  <slot />
+</ol>
+
+<style>
+  .picks {
+    list-style: none;
+    margin-inline: 0;
+    margin-bottom: 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+    counter-reset: pick;
+  }
+</style>

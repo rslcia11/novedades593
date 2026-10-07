@@ -1,0 +1,40 @@
+---
+import { SITE } from '@/config/site';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<a class:list={['logo', className]} href="/" aria-label={`${SITE.name}, inicio`}>
+  {SITE.logo.text}
+  <b>{SITE.logo.highlight}</b>
+</a>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    font-weight: var(--weight-heavy);
+    font-size: var(--text-xl);
+    letter-spacing: -0.035em;
+    white-space: nowrap;
+  }
+
+  b {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    padding: 1px 6px 2px;
+    margin-left: 3px;
+    border-radius: var(--radius-xs);
+    font-weight: var(--weight-black);
+  }
+
+  @media (max-width: 700px) {
+    .logo {
+      font-size: var(--text-lg);
+    }
+  }
+</style>

@@ -1,0 +1,134 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { SECTIONS } from '@/config/sections';
+import { articleHref, getArticles, getGames, type Game } from '@/lib/content';
+import { inGame } from '@/lib/article-utils';
+import { breadcrumbSchema, schemaContext } from '@/lib/seo';
+import { sectionUrl } from '@/lib/urls';
+import HubHeader from '@/components/ui/HubHeader.astro';
+import TagFilter from '@/components/ui/TagFilter.astro';
+import ArticleList from '@/components/articles/ArticleList.astro';
+import TopList from '@/components/articles/TopList.astro';
+import Countdown from '@/components/tools/Countdown.astro';
+import AdSlot from '@/components/ads/AdSlot.astro';
+
+export const getStaticPaths = (async () => {
+  const games = await getGames();
+  return games.map((game) => ({ params: { game: game.id }, props: { game } }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  game: Game;
+}
+
+const { game } = Astro.props;
+const articles = inGame(await getArticles(), game.id);
+const starters = articles.slice(0, 3);
+const starterLabels = ['Recién actualizado', 'Para empezar', 'También te sirve'];
+// Solo los filtros que tienen artículos, para no mostrar botones que llevan a una lista vacía.
+const tags = game.data.tags.filter((tag) => articles.some((a) => a.data.tag === tag));
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: SECTIONS.juegos.name, href: sectionUrl('juegos') },
+  { label: game.data.name },
+];
+---
+
+<BaseLayout
+  title={`${game.data.name}: guías, trucos y novedades`}
+  description={game.data.description}
+  schema={[breadcrumbSchema(crumbs, schemaContext(Astro.site))]}
+>
+  <div class="wrap">
+    <HubHeader
+      crumbs={crumbs}
+      title={game.data.name}
+      description={game.data.description}
+      facts={[{ value: String(articles.length), label: 'artículos' }, ...game.data.facts]}
+    />
+
+    {tags.length > 1 && <TagFilter tags={tags} target="game-list" />}
+
+    {starters.length > 0 && (
+      <ul class="start">
+        {starters.map((a, i) => (
+          <li>
+            <a href={articleHref(a)}>
+              <small>{starterLabels[i]}</small>
+              <strong>{a.data.title}</strong>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+
+    {game.data.releaseDate && (
+      <div class="countdown-wrap">
+        <Countdown game={game.id} variant="band" href={starters[0] ? articleHref(starters[0]) : undefined} />
+      </div>
+    )}
+
+    <div class="split">
+      <ArticleList articles={articles} id="game-list">
+        <p class="empty" data-empty hidden>
+          Todavía no hay guías en este filtro.
+        </p>
+      </ArticleList>
+      <aside class="side" aria-label={`Lo más leído de ${game.data.name}`}>
+        <div class="sticky">
+          <TopList title={`Lo más leído de ${game.data.name}`} articles={articles.slice(0, 3)} />
+          <AdSlot placement="sidebar" />
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .start {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .start a {
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    display: grid;
+    gap: 6px;
+    align-content: start;
+    height: 100%;
+  }
+
+  .start a:hover {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  small {
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+    font-weight: var(--weight-semibold);
+  }
+
+  strong {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-heavy);
+    line-height: 1.2;
+  }
+
+  .countdown-wrap {
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 760px) {
+    .start {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

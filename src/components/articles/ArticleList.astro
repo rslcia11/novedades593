@@ -1,0 +1,25 @@
+---
+import type { Article } from '@/lib/content';
+import ArticleRow from './ArticleRow.astro';
+
+interface Props {
+  articles: Article[];
+  compact?: boolean;
+  id?: string;
+}
+
+const { articles, compact = false, id } = Astro.props;
+---
+
+<div class="list" id={id}>
+  {articles.map((article) => (
+    <ArticleRow article={article} compact={compact} />
+  ))}
+  <slot />
+</div>
+
+<style>
+  .list {
+    display: grid;
+  }
+</style>

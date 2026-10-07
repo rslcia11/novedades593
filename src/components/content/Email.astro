@@ -1,0 +1,14 @@
+---
+/** Correo del sitio desde la configuración (así no se repite en cada página). */
+import { SITE } from '@/config/site';
+
+interface Props {
+  kind: keyof typeof SITE.email;
+}
+
+const email = SITE.email[Astro.props.kind];
+---
+
+<p>
+  <a href={`mailto:${email}`}>{email}</a>
+</p>

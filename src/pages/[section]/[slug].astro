@@ -1,0 +1,40 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ArticleView from '@/components/articles/ArticleView.astro';
+import ViralView from '@/components/articles/ViralView.astro';
+import { SECTIONS } from '@/config/sections';
+import { getArticles, type Article } from '@/lib/content';
+import { sectionUrl } from '@/lib/urls';
+import { articleSeo } from '@/lib/article-seo';
+
+/** Artículos de equipo, creadores, noticias y virales: /<sección>/<artículo>/ (los de juegos cuelgan de su juego). */
+export const getStaticPaths = (async () => {
+  const articles = await getArticles();
+  return articles
+    .filter((a) => a.data.section !== 'juegos')
+    .map((article) => ({ params: { section: article.data.section, slug: article.id }, props: { article } }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+const section = SECTIONS[article.data.section];
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: section.name, href: sectionUrl(article.data.section) },
+  { label: article.data.title },
+];
+const seo = await articleSeo(article, crumbs, Astro.site);
+const isViral = article.data.type === 'viral';
+---
+
+<BaseLayout {...seo} readingProgress={!isViral}>
+  {isViral ? (
+    <ViralView article={article} crumbs={crumbs} />
+  ) : (
+    <ArticleView article={article} crumbs={crumbs} />
+  )}
+</BaseLayout>

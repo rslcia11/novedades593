@@ -1,0 +1,23 @@
+---
+/** Datos clave en recuadros. Uso: <Facts><Fact value="Y -59">la capa con más diamantes</Fact></Facts> */
+---
+
+<dl class="facts">
+  <slot />
+</dl>
+
+<style>
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-inline: 0;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 560px) {
+    .facts {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

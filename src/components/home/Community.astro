@@ -1,0 +1,93 @@
+---
+/** Invitación a la comunidad (canales del creador) y botón de Google "Fuente preferida". */
+import { COMMUNITY, GOOGLE_PREFERRED_SOURCE_URL } from '@/config/site';
+---
+
+<div class="join">
+  <div>
+    <h2>Únete a la comunidad.</h2>
+    <p>Códigos nuevos, avisos de lives y guías importantes, antes que nadie.</p>
+  </div>
+  <div class="btns">
+    {COMMUNITY.map((channel, i) =>
+      channel.url ? (
+        <a
+          class:list={['btn', i === 0 ? 'btn--accent' : 'btn--outline']}
+          href={channel.url}
+          target="_blank"
+          rel="noopener"
+        >
+          {channel.name}
+        </a>
+      ) : (
+        <span class:list={['btn', i === 0 ? 'btn--accent' : 'btn--outline']} aria-disabled="true">
+          {channel.name} · pronto
+        </span>
+      ),
+    )}
+  </div>
+</div>
+{GOOGLE_PREFERRED_SOURCE_URL && (
+  <div class="follow">
+    <div>
+      <b>Síguenos en Google</b>
+      <p>
+        Márcanos como fuente preferida y Google te mostrará nuestras guías primero cuando busques algo de
+        juegos.
+      </p>
+    </div>
+    <a class="btn btn--outline" href={GOOGLE_PREFERRED_SOURCE_URL} target="_blank" rel="noopener">
+      Seguir en Google
+    </a>
+  </div>
+)}
+
+<style>
+  .join {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 20px;
+    align-items: center;
+    border-top: 2px solid var(--color-text);
+    padding-top: 28px;
+  }
+
+  h2 {
+    font-size: clamp(22px, 2.6vw, 28px);
+    font-weight: var(--weight-heavy);
+  }
+
+  p {
+    color: var(--color-text-2);
+    margin-top: 6px;
+  }
+
+  .btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .follow {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 16px;
+    align-items: center;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+    margin-top: 16px;
+  }
+
+  .follow p {
+    font-size: 0.9375rem;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 760px) {
+    .join,
+    .follow {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

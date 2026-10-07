@@ -1,0 +1,40 @@
+---
+import SectionPage from '@/components/layout/SectionPage.astro';
+import { articleHref, getArticles } from '@/lib/content';
+import { inSection } from '@/lib/article-utils';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import PhoneRecommender from '@/components/tools/PhoneRecommender.astro';
+import ArticleList from '@/components/articles/ArticleList.astro';
+import AdSlot from '@/components/ads/AdSlot.astro';
+
+const articles = await getArticles();
+const items = inSection(articles, 'equipo');
+const phonesGuide = articles.find((a) => a.id === 'celulares-free-fire');
+if (!phonesGuide) throw new Error('Falta la guía celulares-free-fire, enlazada desde el recomendador.');
+---
+
+<SectionPage
+  section="equipo"
+  seoTitle="Equipo para jugar y hacer stream"
+  facts={[{ value: String(items.length), label: 'artículos' }]}
+>
+  <section class="sec sec--tight" aria-labelledby="reco-h">
+    <SectionHeader
+      title="¿Qué celular me alcanza?"
+      id="reco-h"
+      description="Responde dos preguntas y te decimos qué buscar."
+    />
+    <PhoneRecommender guideHref={articleHref(phonesGuide)} />
+  </section>
+  <section class="sec split" aria-labelledby="gear-h">
+    <div>
+      <SectionHeader title="Guías de equipo" id="gear-h" />
+      <ArticleList articles={items} />
+    </div>
+    <aside class="side" aria-label="Publicidad">
+      <div class="sticky">
+        <AdSlot placement="sidebar-tall" />
+      </div>
+    </aside>
+  </section>
+</SectionPage>

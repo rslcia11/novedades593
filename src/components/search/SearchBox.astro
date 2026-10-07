@@ -1,0 +1,238 @@
+---
+/**
+ * Buscador. Es un formulario normal (GET /buscar/?q=...), así funciona sin JavaScript;
+ * con JavaScript muestra sugerencias mientras se escribe y se navega con las flechas.
+ */
+import { SITE } from '@/config/site';
+import Icon from '@/components/ui/Icon.astro';
+
+interface Props {
+  id: string;
+  value?: string;
+  /** Mostrar sugerencias al escribir (en la página de búsqueda no hace falta). */
+  suggestions?: boolean;
+}
+
+const { id, value = '', suggestions = true } = Astro.props;
+const listId = `${id}-suggestions`;
+---
+
+<search-box class="search" data-suggestions={suggestions ? '' : undefined}>
+  <form action="/buscar/" method="get" role="search">
+    <label class="sr-only" for={id}>
+      Buscar en {SITE.name}
+    </label>
+    <div class="search-box">
+      <Icon name="search" size={20} />
+      <input
+        id={id}
+        name="q"
+        type="search"
+        value={value}
+        autocomplete="off"
+        enterkeyhint="search"
+        placeholder="Busca un juego o una duda…"
+        data-search-input
+        role={suggestions ? 'combobox' : undefined}
+        aria-autocomplete={suggestions ? 'list' : undefined}
+        aria-expanded={suggestions ? 'false' : undefined}
+        aria-controls={suggestions ? listId : undefined}
+      />
+      <button class="clear" type="button" data-clear aria-label="Borrar búsqueda" hidden>
+        <Icon name="x" size={14} />
+      </button>
+      <button class="btn" type="submit" aria-label="Buscar">
+        <Icon name="search" size={16} />
+        <span>Buscar</span>
+      </button>
+    </div>
+  </form>
+  {suggestions && <ul class="suggest" id={listId} role="listbox" aria-label="Sugerencias" hidden />}
+</search-box>
+
+<script>
+  import { searchAsYouType } from '@/scripts/search';
+  import { searchUrl } from '@/lib/urls';
+
+  class SearchBox extends HTMLElement {
+    connectedCallback() {
+      const input = this.querySelector<HTMLInputElement>('[data-search-input]');
+      const clear = this.querySelector<HTMLButtonElement>('[data-clear]');
+      const list = this.querySelector<HTMLUListElement>('.suggest');
+      if (!input || !clear) return;
+      let active = -1;
+      let version = 0;
+
+      const options = () => (list ? [...list.querySelectorAll<HTMLAnchorElement>('a')] : []);
+      const close = () => {
+        if (!list) return;
+        list.hidden = true;
+        input.setAttribute('aria-expanded', 'false');
+        input.removeAttribute('aria-activedescendant');
+        active = -1;
+      };
+      const highlight = (index: number) => {
+        const items = options();
+        active = (index + items.length) % items.length;
+        items.forEach((item, i) => item.setAttribute('aria-selected', String(i === active)));
+        const current = items[active];
+        if (current) input.setAttribute('aria-activedescendant', current.id);
+      };
+
+      const render = async () => {
+        clear.hidden = !input.value;
+        if (!list) return;
+        const query = input.value.trim();
+        const current = ++version;
+        if (!query) return close();
+        const hits = await searchAsYouType(query);
+        if (current !== version) return; // llegó una búsqueda más nueva
+        list.replaceChildren();
+        const make = (href: string, title: string, hint: string, i: number) => {
+          const li = document.createElement('li');
+          li.setAttribute('role', 'presentation');
+          const a = document.createElement('a');
+          a.href = href;
+          a.id = `${list.id}-${i}`;
+          a.setAttribute('role', 'option');
+          a.setAttribute('aria-selected', 'false');
+          const span = document.createElement('span');
+          span.textContent = title;
+          const small = document.createElement('small');
+          small.textContent = hint;
+          a.append(span, small);
+          li.append(a);
+          list.append(li);
+        };
+        if (hits && hits.length > 0) hits.forEach((hit, i) => make(hit.url, hit.title, hit.kicker, i));
+        else make(searchUrl(query), `Buscar "${query}"`, 'Ver resultados', 0);
+        active = -1;
+        list.hidden = false;
+        input.setAttribute('aria-expanded', 'true');
+      };
+
+      input.addEventListener('input', render);
+      input.addEventListener('keydown', (event) => {
+        if (!list || list.hidden) return;
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          event.preventDefault();
+          highlight(active + (event.key === 'ArrowDown' ? 1 : -1));
+        } else if (event.key === 'Enter' && active > -1) {
+          event.preventDefault();
+          options()[active]?.click();
+        } else if (event.key === 'Escape') {
+          close();
+        }
+      });
+      clear.addEventListener('click', () => {
+        input.value = '';
+        clear.hidden = true;
+        close();
+        input.focus();
+      });
+      document.addEventListener('click', (event) => {
+        if (!this.contains(event.target as Node)) close();
+      });
+      clear.hidden = !input.value;
+    }
+  }
+
+  if (!customElements.get('search-box')) customElements.define('search-box', SearchBox);
+</script>
+
+<style>
+  .search {
+    display: block;
+    position: relative;
+    max-width: 720px;
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 60px;
+    border: 2px solid var(--color-text);
+    border-radius: var(--radius-md);
+    padding: 0 8px 0 18px;
+    background: var(--color-bg);
+  }
+
+  .search-box:focus-within {
+    outline: var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    font-size: var(--text-md);
+  }
+
+  .btn {
+    min-height: var(--tap-target);
+  }
+
+  .clear {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 0;
+    background: var(--color-surface);
+    display: grid;
+    place-items: center;
+    flex: none;
+  }
+
+  .clear:hover {
+    background: var(--color-line);
+  }
+
+  .suggest {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 66px;
+    z-index: 30;
+    list-style: none;
+    margin: 0;
+    background: var(--color-bg);
+    border: 2px solid var(--color-text);
+    border-radius: var(--radius-md);
+    padding: 6px;
+    display: grid;
+  }
+
+  .suggest :global(a) {
+    padding: 10px 12px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .suggest :global(a:hover),
+  .suggest :global(a[aria-selected='true']) {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  .suggest :global(small) {
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 520px) {
+    .btn span {
+      display: none;
+    }
+
+    .btn {
+      width: var(--tap-target);
+      padding: 0;
+    }
+  }
+</style>

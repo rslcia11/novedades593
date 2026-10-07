@@ -1,0 +1,190 @@
+---
+/**
+ * Página completa de un artículo (guía, códigos, comparativa, creador o noticia).
+ * Los virales tienen su propia vista: ViralView.
+ */
+import { render } from 'astro:content';
+import { articleHref, articleKicker, getArticles, getAuthor, type Article } from '@/lib/content';
+import { pickRelated } from '@/lib/article-utils';
+import { mdxComponents } from '@/components/content';
+import Breadcrumbs, { type Crumb } from '@/components/ui/Breadcrumbs.astro';
+import ShareButtons from '@/components/ui/ShareButtons.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import AdSlot from '@/components/ads/AdSlot.astro';
+import AffiliateDisclosure from '@/components/content/AffiliateDisclosure.astro';
+import Byline from './Byline.astro';
+import Cover from './Cover.astro';
+import Toc from './Toc.astro';
+import Feedback from './Feedback.astro';
+import ArticleCard from './ArticleCard.astro';
+
+interface Props {
+  article: Article;
+  crumbs: Crumb[];
+}
+
+const { article, crumbs } = Astro.props;
+const { Content, headings } = await render(article);
+const [author, all, kicker] = await Promise.all([
+  getAuthor(article.data.author.id),
+  getArticles(),
+  articleKicker(article),
+]);
+const related = pickRelated(article, all);
+const canonical = new URL(articleHref(article), Astro.site).href;
+const { data } = article;
+---
+
+<div class="wrap">
+  <header class="a-head">
+    <Breadcrumbs items={crumbs} />
+    <h1 data-pagefind-meta="title">{data.title}</h1>
+    <p class="dek">{data.description}</p>
+    <Byline article={article} author={author} />
+    <ShareButtons title={data.title} url={canonical} />
+  </header>
+
+  <figure class="a-cover">
+    <Cover article={article} size="hero" eager />
+    {data.cover.caption && <figcaption>{data.cover.caption}</figcaption>}
+  </figure>
+
+  <div class="a-grid">
+    <article class="prose" data-pagefind-body data-pagefind-meta={`kicker:${kicker}`}>
+      {data.affiliate && <AffiliateDisclosure />}
+      {data.summary && (
+        <div class="quick">
+          <b>Respuesta corta</b>
+          {data.summary}
+        </div>
+      )}
+      <Toc headings={headings} variant="mobile" />
+      <Content components={mdxComponents} />
+      <Feedback />
+      {data.sources.length > 0 && (
+        <p class="sources">
+          Fuentes:{' '}
+          {data.sources.map((s, i) => (
+            <>
+              {s.url ? (
+                <a href={s.url} rel="noopener" target="_blank">
+                  {s.name}
+                </a>
+              ) : (
+                s.name
+              )}
+              {i < data.sources.length - 1 ? ' · ' : '.'}
+            </>
+          ))}
+        </p>
+      )}
+    </article>
+    <aside class="a-side" aria-label="Más en esta página">
+      <div class="sticky">
+        <Toc headings={headings} variant="sidebar" />
+        <AdSlot placement="sidebar-tall" />
+      </div>
+    </aside>
+  </div>
+
+  <section class="sec related" aria-labelledby="related-title">
+    <SectionHeader title="Sigue con" id="related-title" />
+    <div class="grid">
+      {related.map((a) => (
+        <ArticleCard article={a} />
+      ))}
+    </div>
+  </section>
+</div>
+
+<style>
+  .a-head {
+    padding-top: 32px;
+    max-width: 820px;
+    display: grid;
+    gap: 16px;
+  }
+
+  .a-head > :global(*) {
+    min-width: 0;
+  }
+
+  h1 {
+    font-size: clamp(30px, 4.6vw, 52px);
+    font-weight: var(--weight-black);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+  }
+
+  .dek {
+    font-size: 1.1875rem;
+    color: var(--color-text-2);
+  }
+
+  .a-cover {
+    margin-top: 28px;
+  }
+
+  figcaption {
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+    margin-top: 8px;
+  }
+
+  .a-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 700px) 300px;
+    justify-content: space-between;
+    gap: 48px;
+    margin-top: 36px;
+  }
+
+  .quick {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    border-radius: var(--radius-md);
+    padding: 20px 22px;
+    font-size: var(--text-md);
+    line-height: 1.55;
+  }
+
+  .quick b {
+    display: block;
+    font-size: var(--text-sm);
+    margin-bottom: 4px;
+  }
+
+  .sources {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+
+  .a-side {
+    display: grid;
+    align-content: start;
+  }
+
+  .related {
+    margin-top: 64px;
+  }
+
+  @media (max-width: 1060px) {
+    .a-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .a-side {
+      display: none;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .a-head {
+      padding-top: 20px;
+    }
+
+    .dek {
+      font-size: var(--text-md);
+    }
+  }
+</style>

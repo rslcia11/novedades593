@@ -1,0 +1,72 @@
+/*
+ * Tokens de diseño: la única fuente de colores, tipografía, radios y medidas del sitio.
+ * Los componentes nunca usan valores sueltos; para cambiar la ambientación del sitio
+ * (fase 2) se edita este archivo.
+ *
+ * Identidad actual: blanco, negro y el amarillo de la bandera de Ecuador.
+ */
+:root {
+  /* Color */
+  --color-text: #111111;
+  --color-text-2: #3a3a3a;
+  --color-muted: #6b6b6b;
+  --color-bg: #ffffff;
+  --color-surface: #f3f4f5;
+  --color-line: #e3e3e3;
+  --color-accent: #ffd100;
+  --color-on-accent: #111111;
+  --color-inverse-bg: #111111;
+  --color-inverse-text: #ffffff;
+  --color-inverse-muted: #cfcfcf;
+  --color-inverse-line: #444444;
+  --color-overlay: rgb(17 17 17 / 45%);
+
+  /* Tipografía */
+  --font-sans: var(--font-schibsted), 'Helvetica Neue', Arial, system-ui, sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --weight-regular: 400;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-heavy: 800;
+  --weight-black: 900;
+  --tracking-tight: -0.02em;
+  --tracking-tighter: -0.04em;
+
+  /* Forma */
+  --radius-xs: 3px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-pill: 999px;
+  --border: 1px solid var(--color-line);
+  --border-strong: 1.5px solid var(--color-text);
+
+  /* Medidas */
+  --max-width: 1320px;
+  --gutter: clamp(16px, 4vw, 48px);
+  --header-height: 64px;
+  --tap-target: 44px;
+  --focus-ring: 3px solid var(--color-text);
+
+  /* Movimiento */
+  --ease-press: transform 0.12s ease, background-color 0.15s ease;
+
+  color-scheme: light;
+}
+
+@media (max-width: 1099px) {
+  :root {
+    --header-height: 112px;
+  }
+}
+
+@media (max-width: 700px) {
+  :root {
+    --header-height: 64px;
+  }
+}

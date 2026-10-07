@@ -1,0 +1,159 @@
+---
+/** Resultados de búsqueda. La búsqueda corre en el navegador con el índice de Pagefind. */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { SEARCH_SUGGESTIONS } from '@/config/site';
+import { searchUrl } from '@/lib/urls';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import SearchBox from '@/components/search/SearchBox.astro';
+---
+
+<BaseLayout
+  title="Buscar"
+  description="Busca guías de juegos, equipo, trucos para creadores y herramientas."
+  noindex
+>
+  <div class="wrap">
+    <header class="s-head">
+      <Breadcrumbs items={[{ label: 'Inicio', href: '/' }, { label: 'Buscar' }]} />
+      <h1>Buscar</h1>
+      <SearchBox id="q-page" suggestions={false} />
+    </header>
+
+    <search-results class="sec sec--tight">
+      <p class="meta" role="status" data-summary></p>
+      <div class="hits" data-hits></div>
+      <div data-suggestions>
+        <p class="popular">
+          <span>Prueba con:</span>
+          {SEARCH_SUGGESTIONS.map((s) => (
+            <a href={searchUrl(s)}>{s}</a>
+          ))}
+        </p>
+      </div>
+      <p class="empty" data-empty hidden>
+        No encontramos nada. Prueba con el nombre del juego, por ejemplo "Minecraft" o "Roblox".
+      </p>
+      <p class="empty" data-unavailable hidden>
+        El buscador se activa al construir el sitio (npm run build). En modo desarrollo no hay índice.
+      </p>
+      <noscript>
+        <p class="empty">Para buscar necesitas activar JavaScript.</p>
+      </noscript>
+    </search-results>
+  </div>
+</BaseLayout>
+
+<script>
+  import { renderExcerpt, search } from '@/scripts/search';
+  import { required } from '@/scripts/dom';
+
+  class SearchResults extends HTMLElement {
+    async connectedCallback() {
+      const query = new URLSearchParams(window.location.search).get('q')?.trim() ?? '';
+      const input = document.querySelector<HTMLInputElement>('#q-page');
+      if (input) input.value = query;
+      if (!query) return;
+
+      const $ = (selector: string) => required(this, selector);
+      $('[data-suggestions]').hidden = true;
+      document.title = `${query} · Buscar · entretenimiento593`;
+      const hits = await search(query);
+      if (hits === null) {
+        $('[data-unavailable]').hidden = false;
+        return;
+      }
+      $('[data-summary]').textContent =
+        `${hits.length} resultado${hits.length === 1 ? '' : 's'} para "${query}"`;
+      $('[data-empty]').hidden = hits.length > 0;
+      const list = $('[data-hits]');
+      for (const hit of hits) {
+        const link = document.createElement('a');
+        link.className = 'hit';
+        link.href = hit.url;
+        const kicker = document.createElement('span');
+        kicker.className = 'tag';
+        kicker.textContent = hit.kicker;
+        const title = document.createElement('h2');
+        title.textContent = hit.title;
+        const excerpt = document.createElement('p');
+        renderExcerpt(excerpt, hit.excerpt);
+        link.append(kicker, title, excerpt);
+        list.append(link);
+      }
+    }
+  }
+
+  if (!customElements.get('search-results')) customElements.define('search-results', SearchResults);
+</script>
+
+<style>
+  .s-head {
+    padding-top: 32px;
+    display: grid;
+    gap: 16px;
+  }
+
+  h1 {
+    font-size: clamp(30px, 4.6vw, 52px);
+    font-weight: var(--weight-black);
+    line-height: 1.05;
+  }
+
+  search-results {
+    display: block;
+  }
+
+  [data-summary]:empty {
+    display: none;
+  }
+
+  .meta {
+    margin-bottom: 16px;
+  }
+
+  .hits {
+    display: grid;
+    max-width: 820px;
+  }
+
+  .hits :global(.hit) {
+    display: grid;
+    gap: 4px;
+    padding: 18px 0;
+    border-top: var(--border);
+  }
+
+  .hits :global(.hit:first-child) {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .hits :global(h2) {
+    font-size: var(--text-xl);
+    font-weight: var(--weight-heavy);
+    line-height: 1.2;
+  }
+
+  .hits :global(.hit:hover h2) {
+    text-decoration: underline;
+  }
+
+  .hits :global(p) {
+    color: var(--color-text-2);
+    font-size: 0.9375rem;
+  }
+
+  .popular {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+
+  .popular a {
+    color: var(--color-text);
+    font-weight: var(--weight-semibold);
+    border-bottom: var(--border);
+  }
+</style>

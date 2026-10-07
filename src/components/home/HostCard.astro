@@ -1,0 +1,87 @@
+---
+/** Tarjeta del creador: su experiencia es la razón para confiar en las guías. */
+import { CREATOR } from '@/config/site';
+import { getAuthor } from '@/lib/content';
+import { authorUrl, sectionUrl } from '@/lib/urls';
+import Avatar from '@/components/ui/Avatar.astro';
+
+const author = await getAuthor(CREATOR.authorId);
+---
+
+<div class="host">
+  <Avatar initials={author.data.initials} size="lg" />
+  <div>
+    <h3>Aprende con {author.data.name}</h3>
+    <p>{author.data.bio}</p>
+  </div>
+  <dl class="stats">
+    {CREATOR.stats.map((s) => (
+      <div>
+        <dt>{s.label}</dt>
+        <dd>{s.value}</dd>
+      </div>
+    ))}
+  </dl>
+  <div class="actions">
+    <a class="btn" href={sectionUrl('creadores')}>
+      Ver sus guías
+    </a>
+    <a class="profile" href={authorUrl(author.id)}>
+      Su perfil
+    </a>
+  </div>
+</div>
+
+<style>
+  .host {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  h3 {
+    font-size: 1.625rem;
+    font-weight: var(--weight-black);
+    line-height: 1.1;
+  }
+
+  p {
+    font-size: var(--text-base);
+    margin-top: 8px;
+  }
+
+  .stats {
+    display: flex;
+    gap: 22px;
+    font-size: 0.8125rem;
+    margin: 0;
+  }
+
+  .stats div {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  dd {
+    margin: 0;
+    font-size: 1.375rem;
+    font-weight: var(--weight-black);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .profile {
+    font-weight: var(--weight-bold);
+    border-bottom: 1.5px solid currentColor;
+  }
+</style>

@@ -1,0 +1,64 @@
+---
+import SectionPage from '@/components/layout/SectionPage.astro';
+import { getArticles } from '@/lib/content';
+import { inSection } from '@/lib/article-utils';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import HostCard from '@/components/home/HostCard.astro';
+import ArticleCard from '@/components/articles/ArticleCard.astro';
+import ArticleList from '@/components/articles/ArticleList.astro';
+import AdSlot from '@/components/ads/AdSlot.astro';
+
+const items = inSection(await getArticles(), 'creadores');
+---
+
+<SectionPage
+  section="creadores"
+  seoTitle="Guías para creadores: TikTok LIVE, batallas y OBS"
+  facts={[{ value: String(items.length), label: 'artículos' }]}
+>
+  <section class="sec sec--tight creators" aria-label="Destacados">
+    <HostCard />
+    <div class="c-grid">
+      {items.slice(0, 4).map((a) => (
+        <ArticleCard article={a} />
+      ))}
+    </div>
+  </section>
+  <section class="sec split" aria-labelledby="all-h">
+    <div>
+      <SectionHeader title="Todas las guías para creadores" id="all-h" />
+      <ArticleList articles={items} />
+    </div>
+    <aside class="side" aria-label="Publicidad">
+      <div class="sticky">
+        <AdSlot placement="sidebar-tall" />
+      </div>
+    </aside>
+  </section>
+</SectionPage>
+
+<style>
+  .creators {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 2fr);
+    gap: 24px;
+  }
+
+  .c-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 20px;
+  }
+
+  @media (max-width: 900px) {
+    .creators {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .c-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

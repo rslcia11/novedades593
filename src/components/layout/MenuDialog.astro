@@ -1,0 +1,132 @@
+---
+/** Menú completo en un <dialog> nativo: atrapa el foco, se cierra con Esc y devuelve el foco al botón. */
+import { FOOTER_LINKS } from '@/config/site';
+import { NAV_SECTIONS, SECTIONS } from '@/config/sections';
+import { searchUrl, sectionUrl } from '@/lib/urls';
+import Icon from '@/components/ui/Icon.astro';
+
+const links = [
+  ...NAV_SECTIONS.map((id) => ({ label: SECTIONS[id].name, hint: SECTIONS[id].hint, href: sectionUrl(id) })),
+  { label: 'Buscar', hint: 'Todo el sitio', href: searchUrl() },
+];
+---
+
+<site-menu>
+  <dialog id="site-menu" class="sheet" aria-labelledby="site-menu-title">
+    <div class="sheet-h">
+      <h2 id="site-menu-title">Menú</h2>
+      <button class="close" type="button" data-menu-close aria-label="Cerrar menú">
+        <Icon name="x" size={18} />
+      </button>
+    </div>
+    <nav aria-label="Todas las secciones">
+      {links.map((l) => (
+        <a href={l.href}>
+          {l.label} <small>{l.hint}</small>
+        </a>
+      ))}
+    </nav>
+    <h3>El sitio</h3>
+    <nav aria-label="El sitio">
+      {FOOTER_LINKS.site.map((l) => (
+        <a href={l.href}>{l.label}</a>
+      ))}
+    </nav>
+  </dialog>
+</site-menu>
+
+<script>
+  class SiteMenu extends HTMLElement {
+    connectedCallback() {
+      const dialog = this.querySelector('dialog');
+      if (!dialog) return;
+      document.querySelectorAll('[data-menu-open]').forEach((button) => {
+        button.addEventListener('click', () => dialog.showModal());
+      });
+      this.querySelector('[data-menu-close]')?.addEventListener('click', () => dialog.close());
+      // Clic en el fondo oscuro: el evento llega al propio <dialog>.
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+    }
+  }
+
+  if (!customElements.get('site-menu')) customElements.define('site-menu', SiteMenu);
+</script>
+
+<style>
+  .sheet {
+    border: 0;
+    padding: 20px 20px calc(24px + env(safe-area-inset-bottom, 0px));
+    width: 100%;
+    max-width: 560px;
+    max-height: 88vh;
+    margin: auto auto 0;
+    border-radius: 16px 16px 0 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    overflow-y: auto;
+  }
+
+  .sheet::backdrop {
+    background: var(--color-overlay);
+  }
+
+  @media (min-width: 701px) {
+    .sheet {
+      margin: 0 0 0 auto;
+      max-width: 380px;
+      height: 100%;
+      max-height: none;
+      border-radius: 0;
+    }
+  }
+
+  .sheet-h {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-size: var(--text-lg);
+  }
+
+  .close {
+    width: var(--tap-target);
+    height: var(--tap-target);
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: var(--border);
+    background: var(--color-bg);
+  }
+
+  nav {
+    display: grid;
+  }
+
+  nav a {
+    padding: 14px 4px;
+    border-bottom: var(--border);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  small {
+    font-weight: var(--weight-regular);
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+  }
+
+  h3 {
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+    margin: 22px 0 6px;
+    font-weight: var(--weight-semibold);
+  }
+</style>

@@ -1,0 +1,31 @@
+---
+import SectionPage from '@/components/layout/SectionPage.astro';
+import { getArticles } from '@/lib/content';
+import { featured, inSection, sortByPublished } from '@/lib/article-utils';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import NewsList from '@/components/articles/NewsList.astro';
+import TopList from '@/components/articles/TopList.astro';
+import AdSlot from '@/components/ads/AdSlot.astro';
+
+const articles = await getArticles();
+const items = sortByPublished(inSection(articles, 'noticias'));
+---
+
+<SectionPage
+  section="noticias"
+  seoTitle="Noticias gamer y de streaming"
+  facts={[{ value: String(items.length), label: 'noticias' }]}
+>
+  <section class="sec sec--tight split" aria-labelledby="news-h">
+    <div>
+      <SectionHeader title="Lo último" id="news-h" />
+      <NewsList articles={items} />
+    </div>
+    <aside class="side" aria-label="Lo más leído">
+      <div class="sticky">
+        <TopList title="Lo más leído" articles={featured(articles).slice(0, 5)} />
+        <AdSlot placement="sidebar" />
+      </div>
+    </aside>
+  </section>
+</SectionPage>

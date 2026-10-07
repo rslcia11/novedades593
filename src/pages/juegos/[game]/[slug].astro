@@ -1,0 +1,38 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ArticleView from '@/components/articles/ArticleView.astro';
+import { SECTIONS } from '@/config/sections';
+import { getArticles, getGame, requireGameId, type Article } from '@/lib/content';
+import { gameUrl, sectionUrl } from '@/lib/urls';
+import { articleSeo } from '@/lib/article-seo';
+
+/** Guías de la sección juegos: /juegos/<juego>/<artículo>/ */
+export const getStaticPaths = (async () => {
+  const articles = await getArticles();
+  return articles
+    .filter((a) => a.data.section === 'juegos')
+    .map((article) => ({
+      params: { game: requireGameId(article), slug: article.id },
+      props: { article },
+    }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+const game = await getGame(requireGameId(article));
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: SECTIONS.juegos.name, href: sectionUrl('juegos') },
+  { label: game.data.name, href: gameUrl(game.id) },
+  { label: article.data.title },
+];
+const seo = await articleSeo(article, crumbs, Astro.site);
+---
+
+<BaseLayout {...seo} readingProgress>
+  <ArticleView article={article} crumbs={crumbs} />
+</BaseLayout>

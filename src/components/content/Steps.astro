@@ -1,0 +1,18 @@
+---
+/** Lista de pasos numerados. Uso: <Steps><Step title="...">detalle</Step></Steps> */
+---
+
+<ol class="steps">
+  <slot />
+</ol>
+
+<style>
+  .steps {
+    list-style: none;
+    margin-inline: 0;
+    margin-bottom: 0;
+    padding: 0;
+    counter-reset: step;
+    display: grid;
+  }
+</style>

@@ -1,0 +1,20 @@
+---
+import SectionPage from '@/components/layout/SectionPage.astro';
+import { getArticles } from '@/lib/content';
+import { inSection } from '@/lib/article-utils';
+import ClipRail from '@/components/articles/ClipRail.astro';
+import AdSlot from '@/components/ads/AdSlot.astro';
+
+const items = inSection(await getArticles(), 'virales');
+---
+
+<SectionPage
+  section="virales"
+  seoTitle="Virales gamer y de los lives"
+  facts={[{ value: String(items.length), label: 'clips' }]}
+>
+  <section class="sec sec--tight" aria-label="Clips">
+    <ClipRail articles={items} layout="grid" />
+  </section>
+  <AdSlot placement="billboard" class="sec" />
+</SectionPage>

@@ -1,0 +1,73 @@
+---
+import { TOOLS } from '@/config/tools';
+import Icon from '@/components/ui/Icon.astro';
+
+interface Props {
+  limit?: number;
+  exclude?: string;
+}
+
+const { limit, exclude } = Astro.props;
+const tools = TOOLS.filter((t) => t.id !== exclude).slice(0, limit);
+---
+
+<div class="tools">
+  {tools.map((tool) => (
+    <a class="tool pressable" href={tool.href}>
+      <Icon name={tool.icon} />
+      <h3>{tool.name}</h3>
+      <p>{tool.description}</p>
+      <span class="go">{tool.cta} →</span>
+    </a>
+  ))}
+</div>
+
+<style>
+  .tools {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .tool {
+    border: var(--border-strong);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    display: grid;
+    gap: 10px;
+    align-content: start;
+  }
+
+  .tool:hover {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  .tool :global(svg) {
+    width: 40px;
+    height: 40px;
+  }
+
+  h3 {
+    font-size: var(--text-xl);
+    font-weight: var(--weight-heavy);
+    line-height: 1.15;
+  }
+
+  p {
+    color: var(--color-text-2);
+    font-size: 0.9375rem;
+  }
+
+  .go {
+    font-weight: var(--weight-bold);
+    font-size: 0.9375rem;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 800px) {
+    .tools {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

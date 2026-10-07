@@ -1,0 +1,91 @@
+---
+/** Artículo en lista: portada a la izquierda, título, entradilla y fecha. */
+import { articleHref, articleKicker, type Article } from '@/lib/content';
+import Cover from './Cover.astro';
+import ArticleMeta from './ArticleMeta.astro';
+
+interface Props {
+  article: Article;
+  compact?: boolean;
+}
+
+const { article, compact = false } = Astro.props;
+const kicker = await articleKicker(article);
+---
+
+<a
+  class:list={['row', 'pressable', { compact }]}
+  href={articleHref(article)}
+  data-tag={article.data.tag}
+  data-article={article.id}
+>
+  <Cover article={article} />
+  <div>
+    <span class="tag">{kicker}</span>
+    <h3>{article.data.title}</h3>
+    <p>{article.data.description}</p>
+    <ArticleMeta article={article} />
+  </div>
+</a>
+
+<style>
+  .row {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: 20px;
+    padding: 18px 0;
+    border-top: var(--border);
+    align-items: center;
+  }
+
+  .row:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  h3 {
+    font-size: var(--text-xl);
+    font-weight: var(--weight-heavy);
+    line-height: 1.2;
+    margin: 4px 0 6px;
+  }
+
+  .row:hover h3 {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  p {
+    color: var(--color-text-2);
+    font-size: 0.9375rem;
+  }
+
+  .compact {
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .compact h3 {
+    font-size: var(--text-base);
+  }
+
+  .compact p {
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    .row {
+      grid-template-columns: 112px minmax(0, 1fr);
+      gap: 14px;
+    }
+
+    h3 {
+      font-size: var(--text-base);
+    }
+
+    p {
+      display: none;
+    }
+  }
+</style>

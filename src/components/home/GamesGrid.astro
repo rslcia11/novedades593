@@ -1,0 +1,103 @@
+---
+import { getArticles, getGames } from '@/lib/content';
+import { inGame } from '@/lib/article-utils';
+import { gameUrl, sectionUrl } from '@/lib/urls';
+import { plural } from '@/lib/format';
+import Icon from '@/components/ui/Icon.astro';
+
+const [games, articles] = await Promise.all([getGames(), getArticles()]);
+---
+
+<div class="games">
+  {games.map((game) => (
+    <a class="game pressable" href={gameUrl(game.id)}>
+      <Icon name={game.data.icon} />
+      <div>
+        <strong>{game.data.name}</strong>
+        <small>{plural(inGame(articles, game.id).length, 'artículo')}</small>
+      </div>
+    </a>
+  ))}
+  <a class="game game--all pressable" href={sectionUrl('juegos')}>
+    <Icon name="grid" />
+    <div>
+      <strong>Todos</strong>
+      <small>{plural(games.length, 'juego')}</small>
+    </div>
+  </a>
+</div>
+
+<style>
+  .games {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .game {
+    border: var(--border-strong);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+  }
+
+  .game:hover {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  strong {
+    font-size: clamp(18px, 1.9vw, 24px);
+    font-weight: var(--weight-heavy);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    display: block;
+  }
+
+  small {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--color-text-2);
+    margin-top: 4px;
+  }
+
+  .game :global(svg) {
+    width: 34px;
+    height: 34px;
+  }
+
+  .game--all {
+    background: var(--color-inverse-bg);
+    color: var(--color-inverse-text);
+  }
+
+  .game--all small {
+    color: var(--color-inverse-muted);
+  }
+
+  .game--all:hover small {
+    color: var(--color-text-2);
+  }
+
+  @media (max-width: 900px) {
+    .games {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 520px) {
+    .games {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .game {
+      aspect-ratio: auto;
+      min-height: 112px;
+      gap: 14px;
+    }
+  }
+</style>

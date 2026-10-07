@@ -1,0 +1,227 @@
+---
+/** Calculadora de TikTok LIVE: monedas → diamantes → dólares, y simulador de batalla. */
+import {
+  BATTLE_STEP,
+  INITIAL_BATTLE,
+  coinsToDiamonds,
+  coinsToUsd,
+  summarizeBattle,
+} from '@/lib/tools/diamonds';
+import { formatNumber, formatUsd } from '@/lib/format';
+
+const INITIAL_COINS = 20_000;
+const QUICK_VALUES = [1_000, 5_000, 20_000, 100_000];
+const battle = summarizeBattle(INITIAL_BATTLE);
+---
+
+<diamond-calculator class="panel" role="group" aria-labelledby="calc-title">
+  <h2 id="calc-title" class="sr-only">
+    Calculadora de diamantes
+  </h2>
+  <div>
+    <label for="calc-coins">Monedas que te regalaron</label>
+    <div class="field">
+      <input
+        id="calc-coins"
+        type="number"
+        inputmode="numeric"
+        min="0"
+        step="1"
+        value={INITIAL_COINS}
+        data-coins
+        aria-describedby="calc-how"
+      />
+      <span>monedas</span>
+    </div>
+  </div>
+  <div class="chips" role="group" aria-label="Valores rápidos">
+    {QUICK_VALUES.map((v) => (
+      <button type="button" data-value={v}>
+        {formatNumber(v)}
+      </button>
+    ))}
+  </div>
+  <div class="out" aria-live="polite">
+    <div>
+      <span>Diamantes para ti</span>
+      <strong data-diamonds>{formatNumber(coinsToDiamonds(INITIAL_COINS))}</strong>
+    </div>
+    <div class="out--accent">
+      <span>En dólares</span>
+      <strong data-usd>{formatUsd(coinsToUsd(INITIAL_COINS))}</strong>
+    </div>
+  </div>
+  <p class="how" id="calc-how">
+    <b>Cómo se calcula:</b> recibes cerca del 50 % de las monedas como diamantes, y cada diamante vale unos
+    $0,005. Son valores aproximados: TikTok no publica una tasa oficial.
+  </p>
+
+  <div class="battle">
+    <span class="label" id="battle-title">
+      Modo batalla
+    </span>
+    <div class="vs">
+      <span>
+        Tú <span data-you>{formatNumber(INITIAL_BATTLE.you)}</span>
+      </span>
+      <span>
+        <span data-rival>{formatNumber(INITIAL_BATTLE.rival)}</span> Rival
+      </span>
+    </div>
+    <div class="bar" aria-hidden="true">
+      <i class="bar-you" data-bar-you></i>
+      <i class="bar-rival"></i>
+    </div>
+    <div class="chips" role="group" aria-labelledby="battle-title">
+      <button type="button" data-battle="you">
+        +{formatNumber(BATTLE_STEP)} para ti
+      </button>
+      <button type="button" data-battle="rival">
+        +{formatNumber(BATTLE_STEP)} al rival
+      </button>
+      <button type="button" data-battle="reset">
+        Reiniciar
+      </button>
+    </div>
+    <p class="how" aria-live="polite">
+      Vas <span data-status>{battle.winning ? 'ganando' : 'perdiendo'}</span> por{' '}
+      <b data-gap>{formatUsd(battle.gapUsd)}</b> en lo que recibe el creador.
+    </p>
+  </div>
+</diamond-calculator>
+
+<script>
+  import {
+    BATTLE_STEP,
+    INITIAL_BATTLE,
+    coinsToDiamonds,
+    coinsToUsd,
+    sanitizeCoins,
+    summarizeBattle,
+    type BattleScore,
+  } from '@/lib/tools/diamonds';
+  import { formatNumber, formatUsd } from '@/lib/format';
+  import { required } from '@/scripts/dom';
+
+  class DiamondCalculator extends HTMLElement {
+    connectedCallback() {
+      const $ = <T extends HTMLElement = HTMLElement>(selector: string) => required<T>(this, selector);
+      const input = $<HTMLInputElement>('[data-coins]');
+      const score: BattleScore = { ...INITIAL_BATTLE };
+
+      const renderCoins = () => {
+        const coins = sanitizeCoins(input.value);
+        $('[data-diamonds]').textContent = formatNumber(coinsToDiamonds(coins));
+        $('[data-usd]').textContent = formatUsd(coinsToUsd(coins));
+      };
+
+      const renderBattle = () => {
+        const summary = summarizeBattle(score);
+        $('[data-you]').textContent = formatNumber(score.you);
+        $('[data-rival]').textContent = formatNumber(score.rival);
+        $('[data-bar-you]').style.setProperty('--share', `${summary.youShare}%`);
+        $('[data-status]').textContent = summary.winning ? 'ganando' : 'perdiendo';
+        $('[data-gap]').textContent = formatUsd(summary.gapUsd);
+      };
+
+      input.addEventListener('input', renderCoins);
+      this.querySelectorAll<HTMLButtonElement>('[data-value]').forEach((button) =>
+        button.addEventListener('click', () => {
+          input.value = button.dataset['value'] ?? '0';
+          renderCoins();
+        }),
+      );
+      this.querySelectorAll<HTMLButtonElement>('[data-battle]').forEach((button) =>
+        button.addEventListener('click', () => {
+          const action = button.dataset['battle'];
+          if (action === 'you') score.you += BATTLE_STEP;
+          else if (action === 'rival') score.rival += BATTLE_STEP;
+          else Object.assign(score, INITIAL_BATTLE);
+          renderBattle();
+        }),
+      );
+      renderCoins();
+      renderBattle();
+    }
+  }
+
+  if (!customElements.get('diamond-calculator'))
+    customElements.define('diamond-calculator', DiamondCalculator);
+</script>
+
+<style>
+  .out {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .out div {
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    min-width: 0;
+  }
+
+  .out .out--accent {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  .out span {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+  }
+
+  .out strong {
+    display: block;
+    font-size: clamp(28px, 4.4vw, 48px);
+    font-weight: var(--weight-black);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    margin-top: 6px;
+    overflow-wrap: anywhere;
+  }
+
+  .battle {
+    display: grid;
+    gap: 10px;
+  }
+
+  .vs {
+    display: flex;
+    justify-content: space-between;
+    font-weight: var(--weight-heavy);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .bar {
+    height: 18px;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    background: var(--color-surface);
+  }
+
+  .bar i {
+    display: block;
+    height: 100%;
+  }
+
+  .bar-you {
+    width: var(--share, 50%);
+    background: var(--color-inverse-bg);
+  }
+
+  .bar-rival {
+    flex: 1;
+    background: var(--color-accent);
+  }
+
+  @media (max-width: 460px) {
+    .out {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

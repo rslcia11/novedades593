@@ -1,0 +1,67 @@
+---
+/**
+ * Filtros por etiqueta de una lista de artículos (página de cada juego).
+ * Sin JavaScript se ve la lista completa; con JavaScript se filtra sin recargar.
+ */
+interface Props {
+  tags: string[];
+  /** id de la lista a filtrar (sus filas llevan `data-tag`). */
+  target: string;
+}
+
+const { tags, target } = Astro.props;
+const ALL = 'Todo';
+---
+
+<tag-filter class="filters chips" role="group" aria-label="Filtrar artículos" data-target={target} hidden>
+  {[ALL, ...tags].map((tag, i) => (
+    <button type="button" data-tag={i === 0 ? '' : tag} aria-pressed={i === 0 ? 'true' : 'false'}>
+      {tag}
+    </button>
+  ))}
+</tag-filter>
+
+<script>
+  class TagFilter extends HTMLElement {
+    connectedCallback() {
+      const list = document.getElementById(this.dataset['target'] ?? '');
+      if (!list) return;
+      this.hidden = false;
+      const empty = list.querySelector<HTMLElement>('[data-empty]');
+      this.addEventListener('click', (event) => {
+        const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button');
+        if (!button) return;
+        const tag = button.dataset['tag'] ?? '';
+        this.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+        let shown = 0;
+        list.querySelectorAll<HTMLElement>('[data-article]').forEach((row) => {
+          const visible = !tag || row.dataset['tag'] === tag;
+          row.hidden = !visible;
+          if (visible) shown++;
+        });
+        if (empty) empty.hidden = shown > 0;
+      });
+    }
+  }
+
+  if (!customElements.get('tag-filter')) customElements.define('tag-filter', TagFilter);
+</script>
+
+<style>
+  .filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 20px 0;
+    scrollbar-width: none;
+  }
+
+  .filters:not([hidden]) {
+    display: flex;
+  }
+
+  .filters button {
+    flex: none;
+    height: 40px;
+    border: var(--border-strong);
+  }
+</style>

@@ -1,0 +1,51 @@
+---
+/** Preguntas frecuentes en desplegables nativos (se leen bien sin JavaScript). */
+interface Props {
+  items: { question: string; answer: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<section class="faq" aria-labelledby="faq-title">
+  <h2 id="faq-title">Preguntas frecuentes</h2>
+  {items.map((item) => (
+    <details>
+      <summary>{item.question}</summary>
+      <p>{item.answer}</p>
+    </details>
+  ))}
+</section>
+
+<style>
+  .faq {
+    margin-top: 40px;
+    display: grid;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+    font-weight: var(--weight-black);
+    margin-bottom: 12px;
+  }
+
+  details {
+    border-top: var(--border);
+    padding: 14px 0;
+  }
+
+  details:last-child {
+    border-bottom: var(--border);
+  }
+
+  summary {
+    font-weight: var(--weight-bold);
+    font-size: var(--text-md);
+    cursor: pointer;
+  }
+
+  p {
+    margin-top: 8px;
+    color: var(--color-text-2);
+  }
+</style>

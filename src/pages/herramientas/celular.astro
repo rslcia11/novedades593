@@ -1,0 +1,20 @@
+---
+import ToolPage from '@/components/layout/ToolPage.astro';
+import PhoneRecommender from '@/components/tools/PhoneRecommender.astro';
+import { articleHref, getArticles } from '@/lib/content';
+
+const guide = (await getArticles()).find((a) => a.id === 'celulares-free-fire');
+if (!guide) throw new Error('Falta la guía celulares-free-fire, enlazada desde el recomendador.');
+
+const faq = [
+  {
+    question: '¿Por qué no dicen un modelo exacto?',
+    answer: 'Porque los precios cambian por país. En la guía de celulares ponemos los modelos que probamos.',
+  },
+  { question: '¿Qué importa más para jugar?', answer: 'La memoria RAM y la pantalla. Después, la batería.' },
+];
+---
+
+<ToolPage tool="celular" seoTitle="¿Qué celular me alcanza para jugar? Recomendador gratis" faq={faq}>
+  <PhoneRecommender guideHref={articleHref(guide)} />
+</ToolPage>

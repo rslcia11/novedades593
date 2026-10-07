@@ -1,0 +1,105 @@
+---
+/** Perfil de autor: quién escribe y qué publicó. Señal de confianza (E-E-A-T) para lectores y Google. */
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getArticles, type Author } from '@/lib/content';
+import { authorSchema, breadcrumbSchema, schemaContext } from '@/lib/seo';
+import { authorUrl } from '@/lib/urls';
+import { plural } from '@/lib/format';
+import HubHeader from '@/components/ui/HubHeader.astro';
+import Avatar from '@/components/ui/Avatar.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import ArticleList from '@/components/articles/ArticleList.astro';
+
+export const getStaticPaths = (async () => {
+  const authors = await getCollection('authors');
+  return authors.map((author) => ({ params: { author: author.id }, props: { author } }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  author: Author;
+}
+
+const { author } = Astro.props;
+const articles = (await getArticles()).filter((a) => a.data.author.id === author.id);
+const crumbs = [{ label: 'Inicio', href: '/' }, { label: author.data.name }];
+const ctx = schemaContext(Astro.site);
+---
+
+<BaseLayout
+  title={`${author.data.name}: ${author.data.role}`}
+  description={author.data.bio}
+  schema={[
+    authorSchema(
+      {
+        id: author.id,
+        name: author.data.name,
+        kind: author.data.kind,
+        url: authorUrl(author.id),
+        sameAs: author.data.links.map((l) => l.url),
+      },
+      ctx,
+    ),
+    breadcrumbSchema(crumbs, ctx),
+  ]}
+>
+  <div class="wrap">
+    <HubHeader
+      crumbs={crumbs}
+      title={author.data.name}
+      description={author.data.bio}
+      facts={[{ value: String(articles.length), label: 'artículos' }]}
+    />
+    <div class="role">
+      <Avatar
+        initials={author.data.initials}
+        size="lg"
+        tone={author.data.kind === 'person' ? 'inverse' : 'accent'}
+      />
+      <div>
+        <b>{author.data.role}</b>
+        {author.data.links.length > 0 && (
+          <ul>
+            {author.data.links.map((l) => (
+              <li>
+                <a href={l.url} rel="me noopener" target="_blank">
+                  {l.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+    <section class="sec sec--tight" aria-labelledby="author-articles">
+      <SectionHeader
+        title="Sus artículos"
+        id="author-articles"
+        description={plural(articles.length, 'artículo')}
+      />
+      <ArticleList articles={articles} />
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .role {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  ul {
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 0;
+    display: flex;
+    gap: 12px;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+</style>

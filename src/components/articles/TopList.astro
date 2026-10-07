@@ -1,0 +1,83 @@
+---
+/** Lista numerada ("Lo más leído"). */
+import { articleHref, articleKicker, type Article } from '@/lib/content';
+
+interface Props {
+  title: string;
+  articles: Article[];
+}
+
+const { title, articles } = Astro.props;
+const items = await Promise.all(articles.map(async (a) => ({ article: a, kicker: await articleKicker(a) })));
+---
+
+{items.length > 0 && (
+  <section class="top5" aria-label={title}>
+    <h2>{title}</h2>
+    <ol>
+      {items.map(({ article, kicker }) => (
+        <li>
+          <div>
+            <a href={articleHref(article)}>{article.data.title}</a>
+            <small>{kicker}</small>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+)}
+
+<style>
+  h2 {
+    font-size: var(--text-xl);
+    font-weight: var(--weight-heavy);
+    margin-bottom: 10px;
+  }
+
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: n;
+  }
+
+  li {
+    counter-increment: n;
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 8px;
+    padding: 12px 0;
+    border-top: var(--border);
+  }
+
+  li::before {
+    content: counter(n);
+    font-weight: var(--weight-black);
+    font-size: 1.375rem;
+    line-height: 1.1;
+  }
+
+  li:first-child::before {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    width: 28px;
+    text-align: center;
+    border-radius: var(--radius-xs);
+  }
+
+  a {
+    font-weight: var(--weight-semibold);
+    line-height: 1.35;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  small {
+    display: block;
+    color: var(--color-muted);
+    font-size: 0.8125rem;
+    margin-top: 2px;
+  }
+</style>

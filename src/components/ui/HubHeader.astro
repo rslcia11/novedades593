@@ -1,0 +1,95 @@
+---
+/** Encabezado grande de las páginas de sección, juego, herramientas y autor. */
+import Breadcrumbs, { type Crumb } from './Breadcrumbs.astro';
+
+interface Props {
+  crumbs: Crumb[];
+  title: string;
+  description: string;
+  facts?: { value: string; label: string }[];
+}
+
+const { crumbs, title, description, facts = [] } = Astro.props;
+---
+
+<header class="hub-h">
+  <div>
+    <Breadcrumbs items={crumbs} />
+    <h1>{title}</h1>
+    <p>{description}</p>
+  </div>
+  {facts.length > 0 && (
+    <dl class="facts">
+      {facts.map((f) => (
+        <div>
+          <dt>{f.label}</dt>
+          <dd>{f.value}</dd>
+        </div>
+      ))}
+    </dl>
+  )}
+</header>
+
+<style>
+  .hub-h {
+    padding-top: 40px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px;
+    align-items: end;
+    border-bottom: 2px solid var(--color-text);
+    padding-bottom: 28px;
+  }
+
+  h1 {
+    font-size: clamp(44px, 7.5vw, 96px);
+    font-weight: var(--weight-black);
+    line-height: 0.92;
+    letter-spacing: -0.05em;
+    overflow-wrap: anywhere;
+  }
+
+  p {
+    font-size: var(--text-lg);
+    color: var(--color-text-2);
+    margin-top: 14px;
+    max-width: 56ch;
+  }
+
+  .facts {
+    display: flex;
+    gap: 28px;
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+
+  .facts div {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  dd {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: var(--weight-black);
+    color: var(--color-text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 700px) {
+    .hub-h {
+      grid-template-columns: minmax(0, 1fr);
+      padding-top: 28px;
+    }
+
+    .facts {
+      flex-wrap: wrap;
+      gap: 12px 24px;
+    }
+
+    dd {
+      font-size: 1.25rem;
+    }
+  }
+</style>

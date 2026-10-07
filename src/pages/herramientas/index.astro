@@ -1,0 +1,17 @@
+---
+import SectionPage from '@/components/layout/SectionPage.astro';
+import { TOOLS } from '@/config/tools';
+import ToolsGrid from '@/components/tools/ToolsGrid.astro';
+import AdSlot from '@/components/ads/AdSlot.astro';
+---
+
+<SectionPage
+  section="herramientas"
+  seoTitle="Herramientas gratis para gamers y creadores"
+  facts={[{ value: String(TOOLS.length), label: 'herramientas' }]}
+>
+  <section class="sec sec--tight" aria-label="Herramientas">
+    <ToolsGrid />
+  </section>
+  <AdSlot placement="billboard" class="sec" />
+</SectionPage>

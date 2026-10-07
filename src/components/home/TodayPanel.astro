@@ -1,0 +1,206 @@
+---
+/** Panel "Hoy" de la portada: cuenta regresiva, códigos del día y la calculadora más usada. */
+import { SITE } from '@/config/site';
+import { getCodes, getGame } from '@/lib/content';
+import { formatTime } from '@/lib/dates';
+import { formatUsd, plural } from '@/lib/format';
+import { diamondsToUsd } from '@/lib/tools/diamonds';
+import { toolUrl } from '@/lib/urls';
+import CopyButton from '@/components/ui/CopyButton.astro';
+import Countdown from '@/components/tools/Countdown.astro';
+
+interface Props {
+  countdownHref: string;
+  codesHref: string;
+}
+
+const { countdownHref, codesHref } = Astro.props;
+const [gta, codes] = await Promise.all([getGame('gta6'), getCodes('roblox', 'active')]);
+const firstCode = codes[0];
+const checked = codes.reduce<Date | undefined>(
+  (latest, c) => (!latest || c.data.checkedAt > latest ? c.data.checkedAt : latest),
+  undefined,
+);
+const releaseLabel = gta.data.facts[0]?.value ?? '';
+---
+
+<aside class="today" aria-labelledby="today-title">
+  <div class="today-h">
+    <h2 id="today-title">Hoy en {SITE.name}</h2>
+    {checked && <span>Actualizado {formatTime(checked)}</span>}
+  </div>
+
+  <div class="t-card t-main">
+    <small>
+      {gta.data.name} · {releaseLabel}
+    </small>
+    <div class="row2">
+      <h3>Faltan pocos días para {gta.data.name}.</h3>
+      <Countdown game="gta6" variant="clock" />
+    </div>
+    <a class="go" href={countdownHref}>
+      Todo lo que sabemos
+    </a>
+  </div>
+
+  <div class="t-card t-accent">
+    <small>Códigos de Roblox</small>
+    <h3>{plural(codes.length, 'activo')} hoy</h3>
+    {firstCode && (
+      <div class="code-line">
+        <span>{firstCode.id}</span>
+        <CopyButton text={firstCode.id} ariaLabel={`Copiar código ${firstCode.id}`} />
+      </div>
+    )}
+    <a class="go" href={codesHref}>
+      Ver todos
+    </a>
+  </div>
+
+  <a class="t-card t-outline pressable" href={toolUrl('diamantes')}>
+    <small>TikTok LIVE</small>
+    <span>
+      <span class="big">{formatUsd(diamondsToUsd(1_000)).replace(/,00$/, '')}</span>
+      <br />
+      por cada 1.000 diamantes
+    </span>
+    <span class="go">Calcular los míos</span>
+  </a>
+</aside>
+
+<style>
+  .today {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .today-h {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+
+  h2 {
+    color: var(--color-text);
+    font-size: 0.9375rem;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0;
+  }
+
+  .t-card {
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    display: grid;
+    gap: 10px;
+    align-content: space-between;
+    min-width: 0;
+  }
+
+  small {
+    font-size: 0.8125rem;
+    font-weight: var(--weight-bold);
+  }
+
+  h3 {
+    font-size: var(--text-xl);
+    font-weight: var(--weight-black);
+    line-height: 1.15;
+  }
+
+  .t-main {
+    grid-column: 1 / -1;
+    background: var(--color-inverse-bg);
+    color: var(--color-inverse-text);
+    padding: 24px;
+  }
+
+  .t-main small {
+    color: var(--color-accent);
+  }
+
+  .t-main h3 {
+    font-size: clamp(24px, 2.6vw, 32px);
+  }
+
+  .row2 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .t-accent {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  .t-outline {
+    border: var(--border-strong);
+  }
+
+  .code-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: rgb(255 255 255 / 55%);
+    border-radius: var(--radius-sm);
+    padding: 6px 6px 6px 12px;
+    font-weight: var(--weight-heavy);
+    letter-spacing: 0.02em;
+    min-width: 0;
+  }
+
+  .code-line > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.9375rem;
+  }
+
+  .code-line :global(.copy) {
+    min-height: 34px;
+    padding: 0 10px;
+    font-size: 0.8125rem;
+  }
+
+  .big {
+    font-size: 2.125rem;
+    font-weight: var(--weight-black);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .go {
+    font-weight: var(--weight-bold);
+    font-size: var(--text-sm);
+    border-bottom: 1.5px solid currentColor;
+    justify-self: start;
+  }
+
+  @media (min-width: 701px) and (max-width: 1099px) {
+    .today {
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    .t-main {
+      grid-column: auto;
+    }
+
+    .t-main h3 {
+      font-size: 1.375rem;
+    }
+  }
+
+  @media (max-width: 460px) {
+    .today {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

@@ -1,0 +1,73 @@
+---
+/** Lista de códigos de un juego desde `src/content/codes.yaml`. Los activos llevan botón para copiar. */
+import { getCodes } from '@/lib/content';
+import CopyButton from '@/components/ui/CopyButton.astro';
+
+interface Props {
+  game: string;
+  status: 'active' | 'expired';
+}
+
+const { game, status } = Astro.props;
+const codes = await getCodes(game, status);
+---
+
+{codes.length === 0 ? (
+  <p class="empty">
+    {status === 'active'
+      ? 'Hoy no hay códigos activos. Revisamos la lista cada mañana.'
+      : 'No hay códigos expirados.'}
+  </p>
+) : (
+  <ul class="codes" data-status={status}>
+    {codes.map((code) => (
+      <li class:list={['code', { off: !code.data.active }]}>
+        <div>
+          <strong>{code.id}</strong>
+          <span>{code.data.reward}</span>
+        </div>
+        {code.data.active && <CopyButton text={code.id} ariaLabel={`Copiar código ${code.id}`} />}
+      </li>
+    ))}
+  </ul>
+)}
+
+<style>
+  .codes {
+    list-style: none;
+    margin-inline: 0;
+    margin-bottom: 0;
+    padding: 0;
+    display: grid;
+    border-top: 2px solid var(--color-text);
+    font-size: var(--text-base);
+    line-height: 1.5;
+  }
+
+  .code {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: var(--border);
+  }
+
+  strong {
+    font-size: var(--text-md);
+    font-weight: var(--weight-heavy);
+    letter-spacing: 0.02em;
+    overflow-wrap: anywhere;
+  }
+
+  span {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--color-text-2);
+  }
+
+  .off strong {
+    text-decoration: line-through;
+    color: var(--color-muted);
+  }
+</style>
