@@ -4,7 +4,7 @@ test('la navegación lleva a cada sección y marca la sección actual', async ({
   test.skip(isMobile, 'En celular la navegación está en la barra inferior (ver prueba de celular).');
   await page.goto('/');
   const nav = page.getByRole('navigation', { name: 'Secciones' });
-  for (const name of ['Juegos', 'Equipo', 'Creadores', 'Noticias', 'Virales', 'Herramientas']) {
+  for (const name of ['Juegos', 'Equipo', 'Creadores', 'Noticias', 'Herramientas']) {
     await nav.getByRole('link', { name }).click();
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(name);
     await expect(nav.getByRole('link', { name })).toHaveAttribute('aria-current', 'page');
@@ -56,4 +56,13 @@ test('el atajo "/" enfoca el buscador', async ({ page, isMobile }) => {
   await page.goto('/');
   await page.keyboard.press('/');
   await expect(page.getByRole('combobox', { name: /Buscar en/ })).toBeFocused();
+});
+
+test('una sección sin contenido no aparece en el menú y queda fuera de Google', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('header a[href="/virales/"]')).toHaveCount(0);
+  await expect(page.locator('footer a[href="/virales/"]')).toHaveCount(0);
+  await page.goto('/virales/');
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+  await expect(page.getByText('Muy pronto')).toBeVisible();
 });

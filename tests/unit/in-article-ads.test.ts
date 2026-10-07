@@ -12,6 +12,11 @@ describe('anuncios dentro del artículo', () => {
     expect(pickAdPositions(blocks('p', 'h2', 'Steps', 'p', 'h2', 'p', 'p', 'p'))).toEqual([2, 5]);
   });
 
+  it('no separa una frase que presenta una lista de su lista', () => {
+    const list = [{ name: 'p' }, { name: 'p', leadsIn: true }, { name: 'ul' }, { name: 'p' }];
+    expect(pickAdPositions(list)).toEqual([2]);
+  });
+
   it('no supera el máximo de dos', () => {
     expect(pickAdPositions(blocks(...Array<string>(30).fill('p')))).toHaveLength(2);
   });

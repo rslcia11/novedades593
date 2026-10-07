@@ -15,6 +15,11 @@ test.describe('todas las plantillas', () => {
       const jsonLd = await page.locator('script[type="application/ld+json"]').allTextContents();
       for (const block of jsonLd) expect(() => JSON.parse(block)).not.toThrow();
 
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      );
+      expect(overflow, 'la página no debe desbordarse hacia los lados').toBeLessThanOrEqual(0);
+
       const results = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
         .analyze();

@@ -63,8 +63,8 @@ test('el recomendador de celular cambia según juego y presupuesto', async ({ pa
   await expect(page.getByRole('button', { name: 'Free Fire' })).toHaveAttribute('aria-pressed', 'false');
   await expect(page.locator('[data-tier]')).toHaveText('Gama de entrada');
   await expect(page.locator('[data-advice]')).toContainText('Minecraft corre en gráficos bajos');
-  await page.getByRole('link', { name: 'Ver los modelos que probamos' }).click();
-  await expect(page).toHaveURL(/\/equipo\/celulares-free-fire\/$/);
+  await page.getByRole('link', { name: 'Ver los requisitos oficiales' }).click();
+  await expect(page).toHaveURL(/\/juegos\/freefire\/requisitos-free-fire\/$/);
 });
 
 test('la cuenta regresiva de GTA VI muestra números reales', async ({ page }) => {

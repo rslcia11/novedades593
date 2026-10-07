@@ -23,11 +23,11 @@ test.describe('artículo de guía', () => {
       : page.getByRole('navigation', { name: 'En esta guía' });
     if (isMobile) await toc.locator('summary').click();
     const links = toc.getByRole('link');
-    await expect(links).toHaveCount(3);
-    await links.nth(2).click();
+    await expect(links).toHaveCount(6);
+    await links.nth(3).click();
     // Los id de los títulos conservan las tildes (github-slugger, el mismo criterio de GitHub).
-    await expect.poll(() => decodeURIComponent(page.url())).toMatch(/#método-3-cofres$/);
-    await expect(page.getByRole('heading', { name: 'Método 3: cofres' })).toBeInViewport();
+    await expect.poll(() => decodeURIComponent(page.url())).toMatch(/#método-3-cofres-de-estructuras$/);
+    await expect(page.getByRole('heading', { name: 'Método 3: cofres de estructuras' })).toBeInViewport();
   });
 
   test('inserta como máximo dos anuncios dentro del texto, nunca antes del segundo bloque', async ({
@@ -68,43 +68,50 @@ test.describe('artículo de guía', () => {
 });
 
 test('las noticias se marcan como NewsArticle', async ({ page }) => {
-  await page.goto('/noticias/gta-6-48-dias/');
+  await page.goto('/noticias/gta-6-precarga-precio/');
   const data = JSON.parse((await page.locator('script[type="application/ld+json"]').textContent()) ?? '{}');
   expect(data['@graph'][0]['@type']).toBe('NewsArticle');
 });
 
-test('las comparativas muestran el aviso de afiliados', async ({ page }) => {
-  await page.goto('/equipo/celulares-free-fire/');
-  await expect(page.getByText('Si compras desde nuestros enlaces')).toBeVisible();
-  await expect(page.locator('.pick')).toHaveCount(3);
+test('cada artículo cita sus fuentes con enlaces', async ({ page }) => {
+  await page.goto('/creadores/kick-twitch-tiktok/');
+  const sources = page.locator('.sources a');
+  expect(await sources.count()).toBeGreaterThanOrEqual(3);
+  for (const href of await sources.evaluateAll((links) => links.map((l) => l.getAttribute('href')))) {
+    expect(href).toMatch(/^https:\/\//);
+  }
 });
 
-test('los códigos activos se copian y los expirados aparecen tachados', async ({
-  page,
-  context,
-  browserName,
-}) => {
-  test.skip(browserName !== 'chromium', 'Permisos de portapapeles de Chromium.');
+test('la portada del artículo es una imagen optimizada y se usa para redes', async ({ page }) => {
+  await page.goto('/juegos/minecraft/diamantes-minecraft/');
+  const cover = page.locator('.a-cover img');
+  await expect(cover).toHaveAttribute('alt', /diamante/);
+  await expect(cover).toHaveAttribute('srcset', /\.webp/);
+  expect(await cover.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
+  const ogImage = await page.locator('meta[property="og:image"]').getAttribute('content');
+  expect(ogImage).toMatch(/\/_astro\/.+\.jpg$/);
+});
+
+test('el botón "Copiar enlace" copia la URL canónica', async ({ page, context }) => {
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.goto('/juegos/roblox/codigos-roblox/');
-  await expect(page.locator('[data-status="active"] .code')).toHaveCount(5);
-  await expect(page.locator('[data-status="expired"] .code.off')).toHaveCount(2);
-
-  const button = page.getByRole('button', { name: 'Copiar código LOBBY593' });
+  // Se ubica por su función y no por el texto, que cambia a "Copiado ✓" al hacer clic.
+  const button = page.locator('.share [data-copy]');
+  await expect(button).toHaveText('Copiar enlace');
   await button.click();
   await expect(button).toHaveText('Copiado ✓');
-  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe('LOBBY593');
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toMatch(
+    /\/juegos\/roblox\/codigos-roblox\/$/,
+  );
 });
 
-test('un viral muestra el clip, texto propio y más virales', async ({ page }) => {
-  await page.goto('/virales/batalla-ultimo-segundo/');
-  await expect(page.getByRole('img', { name: /Clip de 0:42/ })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Si te gustó, esto te sirve' })).toBeVisible();
-  await expect(page.getByRole('region', { name: 'Más virales' }).getByRole('listitem')).toHaveCount(4);
+test('el perfil de la redacción lista todos sus artículos', async ({ page }) => {
+  await page.goto('/autores/redaccion/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Redacción entretenimiento593');
+  await expect(page.locator('#contenido .row')).toHaveCount(20);
 });
 
-test('el perfil del creador lista sus artículos', async ({ page }) => {
+test('un autor sin artículos muestra un mensaje en vez de una lista vacía', async ({ page }) => {
   await page.goto('/autores/yeri-loco/');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Yeri Loco');
-  await expect(page.locator('#contenido .row')).toHaveCount(6);
+  await expect(page.getByText('Todavía no hay artículos firmados')).toBeVisible();
 });

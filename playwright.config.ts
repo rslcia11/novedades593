@@ -24,7 +24,9 @@ export default defineConfig({
     { name: 'mobile', use: { ...devices['Pixel 7'] } },
   ],
   webServer: {
-    command: `npx astro preview --port ${PORT}`,
+    // --ignore-lock mantiene el servidor en primer plano: Astro 7 lo manda a segundo plano
+    // cuando detecta que lo ejecuta un agente, y Playwright lo tomaría como que terminó.
+    command: `npx astro preview --port ${PORT} --ignore-lock`,
     url: `http://localhost:${PORT}/`,
     reuseExistingServer: !process.env['CI'],
     timeout: 60_000,
