@@ -1,3 +1,5 @@
+import { withBase } from '@/lib/urls';
+
 /** Herramientas interactivas. `href` sirve para tarjetas que llevan a un artículo en vez de a una página propia. */
 
 export interface ToolInfo {
@@ -16,7 +18,7 @@ export const TOOLS: readonly ToolInfo[] = [
     description: 'Cuánto valen tus diamantes y tus batallas de TikTok LIVE en dólares.',
     icon: 'tool',
     cta: 'Calcular',
-    href: '/herramientas/diamantes/',
+    href: withBase('/herramientas/diamantes/'),
   },
   {
     id: 'nombres',
@@ -24,7 +26,7 @@ export const TOOLS: readonly ToolInfo[] = [
     description: 'Para Free Fire, TikTok y Roblox. Escribe tu nombre y copia.',
     icon: 'text',
     cta: 'Crear nombre',
-    href: '/herramientas/nombres/',
+    href: withBase('/herramientas/nombres/'),
   },
   {
     id: 'celular',
@@ -32,7 +34,7 @@ export const TOOLS: readonly ToolInfo[] = [
     description: 'Elige tu juego y tu presupuesto y te decimos qué buscar.',
     icon: 'phone',
     cta: 'Recomendarme',
-    href: '/herramientas/celular/',
+    href: withBase('/herramientas/celular/'),
   },
   {
     id: 'codigos',
@@ -40,7 +42,7 @@ export const TOOLS: readonly ToolInfo[] = [
     description: 'Los códigos activos de hoy, revisados, con botón para copiar.',
     icon: 'copy',
     cta: 'Ver códigos',
-    href: '/juegos/roblox/codigos-roblox/',
+    href: withBase('/juegos/roblox/codigos-roblox/'),
   },
 ];
 

@@ -11,6 +11,7 @@ interface PagefindResultData {
 }
 
 interface PagefindModule {
+  options?: (options: { baseUrl?: string }) => Promise<void>;
   init?: () => Promise<void>;
   search: (query: string) => Promise<{ results: { id: string; data: () => Promise<PagefindResultData> }[] }>;
   debouncedSearch?: (
@@ -27,12 +28,16 @@ export interface SearchHit {
   kicker: string;
 }
 
-const PAGEFIND_URL = '/pagefind/pagefind.js';
+import { withBase } from '@/lib/urls';
+
+const PAGEFIND_URL = withBase('/pagefind/pagefind.js');
 let pagefind: Promise<PagefindModule | null> | undefined;
 
 export function loadSearch(): Promise<PagefindModule | null> {
   pagefind ??= import(/* @vite-ignore */ PAGEFIND_URL)
     .then(async (mod: PagefindModule) => {
+      // Las URLs del índice son relativas a dist/: se les antepone la base del sitio.
+      await mod.options?.({ baseUrl: withBase('/') });
       await mod.init?.();
       return mod;
     })

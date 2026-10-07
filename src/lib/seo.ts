@@ -4,6 +4,7 @@
  * Docs: https://developers.google.com/search/docs/appearance/structured-data/article
  */
 import { SITE } from '@/config/site';
+import { homeUrl, searchUrl, withBase } from './urls';
 
 export type JsonLd = Record<string, unknown>;
 
@@ -17,10 +18,10 @@ const abs = (path: string, { site }: SchemaContext) => new URL(path, site).href;
 export function organizationSchema(ctx: SchemaContext): JsonLd {
   return {
     '@type': 'Organization',
-    '@id': abs('/#organization', ctx),
+    '@id': abs(`${homeUrl()}#organization`, ctx),
     name: SITE.name,
-    url: abs('/', ctx),
-    logo: { '@type': 'ImageObject', url: abs('/logo.png', ctx), width: 512, height: 512 },
+    url: abs(homeUrl(), ctx),
+    logo: { '@type': 'ImageObject', url: abs(withBase('/logo.png'), ctx), width: 512, height: 512 },
     email: SITE.email.contact,
   };
 }
@@ -28,14 +29,14 @@ export function organizationSchema(ctx: SchemaContext): JsonLd {
 export function websiteSchema(ctx: SchemaContext): JsonLd {
   return {
     '@type': 'WebSite',
-    '@id': abs('/#website', ctx),
+    '@id': abs(`${homeUrl()}#website`, ctx),
     name: SITE.name,
-    url: abs('/', ctx),
+    url: abs(homeUrl(), ctx),
     inLanguage: SITE.lang,
-    publisher: { '@id': abs('/#organization', ctx) },
+    publisher: { '@id': abs(`${homeUrl()}#organization`, ctx) },
     potentialAction: {
       '@type': 'SearchAction',
-      target: { '@type': 'EntryPoint', urlTemplate: `${abs('/buscar/', ctx)}?q={search_term_string}` },
+      target: { '@type': 'EntryPoint', urlTemplate: `${abs(searchUrl(), ctx)}?q={search_term_string}` },
       'query-input': 'required name=search_term_string',
     },
   };
@@ -96,7 +97,7 @@ export function articleSchema(input: ArticleSchemaInput, ctx: SchemaContext): Js
     articleSection: input.section,
     inLanguage: SITE.lang,
     author: [authorSchema(input.author, ctx)],
-    publisher: { '@id': abs('/#organization', ctx) },
+    publisher: { '@id': abs(`${homeUrl()}#organization`, ctx) },
   };
 }
 

@@ -1,5 +1,6 @@
 ---
 import { SITE } from '@/config/site';
+import { homeUrl } from '@/lib/urls';
 
 interface Props {
   class?: string;
@@ -8,7 +9,7 @@ interface Props {
 const { class: className } = Astro.props;
 ---
 
-<a class:list={['logo', className]} href="/" aria-label={`${SITE.name}, inicio`}>
+<a class:list={['logo', className]} href={homeUrl()} aria-label={`${SITE.name}, inicio`}>
   {SITE.logo.text}
   <b>{SITE.logo.highlight}</b>
 </a>

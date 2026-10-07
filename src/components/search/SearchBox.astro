@@ -5,6 +5,7 @@
  */
 import { SITE } from '@/config/site';
 import Icon from '@/components/ui/Icon.astro';
+import { searchUrl } from '@/lib/urls';
 
 interface Props {
   id: string;
@@ -18,7 +19,7 @@ const listId = `${id}-suggestions`;
 ---
 
 <search-box class="search" data-suggestions={suggestions ? '' : undefined}>
-  <form action="/buscar/" method="get" role="search">
+  <form action={searchUrl()} method="get" role="search">
     <label class="sr-only" for={id}>
       Buscar en {SITE.name}
     </label>

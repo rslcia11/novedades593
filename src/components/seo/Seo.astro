@@ -6,6 +6,7 @@
 import { PUBLIC_SITE_INDEXABLE } from 'astro:env/server';
 import { SITE } from '@/config/site';
 import { graph, serializeJsonLd, type JsonLd } from '@/lib/seo';
+import { homeUrl, withBase } from '@/lib/urls';
 
 export interface SeoProps {
   title: string;
@@ -25,7 +26,7 @@ const {
   title,
   description,
   path = Astro.url.pathname,
-  image = '/og-default.png',
+  image = withBase('/og-default.png'),
   imageAlt = `${SITE.name}: ${SITE.tagline}`,
   type = 'website',
   article,
@@ -36,7 +37,7 @@ const {
 if (!Astro.site) throw new Error('Falta `site` en astro.config.ts.');
 const canonical = new URL(path, Astro.site).href;
 const imageUrl = new URL(image, Astro.site).href;
-const fullTitle = path === '/' ? `${SITE.name} · ${SITE.tagline}` : `${title} · ${SITE.name}`;
+const fullTitle = path === homeUrl() ? `${SITE.name} · ${SITE.tagline}` : `${title} · ${SITE.name}`;
 const indexable = PUBLIC_SITE_INDEXABLE && !noindex;
 const robots = indexable
   ? 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'

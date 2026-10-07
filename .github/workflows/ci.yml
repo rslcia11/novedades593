@@ -3,7 +3,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [claude/confident-hamilton-ni5yb0]
   pull_request:
 
 concurrency:
@@ -45,6 +45,13 @@ jobs:
 
       - name: Enlaces y metadatos
         run: npm run test:links
+
+      # Igual que en GitHub Pages: el sitio vive en una subcarpeta y ningún enlace puede ignorarla.
+      - name: Enlaces con el sitio en una subcarpeta
+        run: |
+          BASE_PATH=/novedades593 SITE_URL=https://example.github.io npm run build
+          BASE_PATH=/novedades593 npm run test:links
+          npm run build
 
       - name: Instalar navegador para las pruebas
         run: npx playwright install --with-deps chromium

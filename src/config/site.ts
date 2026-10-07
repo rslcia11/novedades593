@@ -1,3 +1,5 @@
+import { withBase } from '@/lib/urls';
+
 /**
  * Datos generales del sitio. Lo que cambie la marca o el creador se edita aquí, no en los componentes.
  */
@@ -18,7 +20,7 @@ export const SITE = {
   locale: 'es-EC',
   lang: 'es',
   timeZone: 'America/Guayaquil',
-  themeColor: '#FFD100',
+  themeColor: '#0d1023',
   foundingYear: 2026,
   email: {
     contact: 'hola@entretenimiento593.com',
@@ -62,10 +64,10 @@ export const KEY_ARTICLES = {
 
 /** Búsquedas frecuentes que se muestran bajo el buscador de la portada. */
 export const POPULAR_SEARCHES = [
-  { label: 'códigos de Roblox', href: '/juegos/roblox/codigos-roblox/' },
-  { label: 'diamantes en Minecraft', href: '/juegos/minecraft/diamantes-minecraft/' },
-  { label: 'GTA VI: precio y fecha', href: '/juegos/gta6/gta-6-todo-lo-que-sabemos/' },
-  { label: 'cuánto paga TikTok LIVE', href: '/herramientas/diamantes/' },
+  { label: 'códigos de Roblox', href: withBase('/juegos/roblox/codigos-roblox/') },
+  { label: 'diamantes en Minecraft', href: withBase('/juegos/minecraft/diamantes-minecraft/') },
+  { label: 'GTA VI: precio y fecha', href: withBase('/juegos/gta6/gta-6-todo-lo-que-sabemos/') },
+  { label: 'cuánto paga TikTok LIVE', href: withBase('/herramientas/diamantes/') },
 ] as const;
 
 /** Sugerencias de la página de búsqueda vacía. */
@@ -73,13 +75,13 @@ export const SEARCH_SUGGESTIONS = ['roblox', 'diamantes', 'tiktok', 'celular', '
 
 export const FOOTER_LINKS = {
   site: [
-    { label: 'Quiénes somos', href: '/quienes-somos/' },
-    { label: 'Cómo trabajamos', href: '/como-trabajamos/' },
-    { label: 'Anuncia con nosotros', href: '/anuncia/' },
-    { label: 'Contacto', href: '/contacto/' },
+    { label: 'Quiénes somos', href: withBase('/quienes-somos/') },
+    { label: 'Cómo trabajamos', href: withBase('/como-trabajamos/') },
+    { label: 'Anuncia con nosotros', href: withBase('/anuncia/') },
+    { label: 'Contacto', href: withBase('/contacto/') },
   ],
   legal: [
-    { label: 'Privacidad y cookies', href: '/privacidad/' },
-    { label: 'Términos de uso', href: '/terminos/' },
+    { label: 'Privacidad y cookies', href: withBase('/privacidad/') },
+    { label: 'Términos de uso', href: withBase('/terminos/') },
   ],
 } as const;

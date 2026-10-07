@@ -4,7 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { SECTIONS } from '@/config/sections';
 import { getTool } from '@/config/tools';
 import { breadcrumbSchema, schemaContext } from '@/lib/seo';
-import { sectionUrl } from '@/lib/urls';
+import { homeUrl, sectionUrl } from '@/lib/urls';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
 import ToolsGrid from '@/components/tools/ToolsGrid.astro';
@@ -21,7 +21,7 @@ interface Props {
 const { tool: toolId, seoTitle, faq } = Astro.props;
 const tool = getTool(toolId);
 const crumbs = [
-  { label: 'Inicio', href: '/' },
+  { label: 'Inicio', href: homeUrl() },
   { label: SECTIONS.herramientas.name, href: sectionUrl('herramientas') },
   { label: tool.name },
 ];

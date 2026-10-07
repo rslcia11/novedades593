@@ -4,6 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { SECTIONS, type SectionId } from '@/config/sections';
 import { breadcrumbSchema, schemaContext } from '@/lib/seo';
 import HubHeader from '@/components/ui/HubHeader.astro';
+import { homeUrl } from '@/lib/urls';
 
 interface Props {
   section: SectionId;
@@ -16,7 +17,7 @@ interface Props {
 
 const { section: id, facts, seoTitle, noindex = false } = Astro.props;
 const section = SECTIONS[id];
-const crumbs = [{ label: 'Inicio', href: '/' }, { label: section.name }];
+const crumbs = [{ label: 'Inicio', href: homeUrl() }, { label: section.name }];
 ---
 
 <BaseLayout

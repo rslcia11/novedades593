@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import SearchBox from '@/components/search/SearchBox.astro';
 import GamesGrid from '@/components/home/GamesGrid.astro';
 import Portal from '@/components/ui/Portal.astro';
+import { homeUrl } from '@/lib/urls';
 ---
 
 <BaseLayout
@@ -20,7 +21,7 @@ import Portal from '@/components/ui/Portal.astro';
       </p>
       <SearchBox id="q-404" />
       <div>
-        <a class="btn" href="/">
+        <a class="btn" href={homeUrl()}>
           Ir al inicio
         </a>
       </div>

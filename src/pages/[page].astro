@@ -8,6 +8,7 @@ import { breadcrumbSchema, schemaContext } from '@/lib/seo';
 import { formatDate } from '@/lib/dates';
 import { mdxComponents } from '@/components/content';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import { homeUrl } from '@/lib/urls';
 
 export const getStaticPaths = (async () => {
   const pages = await getCollection('pages');
@@ -20,7 +21,7 @@ interface Props {
 
 const { page } = Astro.props;
 const { Content } = await render(page);
-const crumbs = [{ label: 'Inicio', href: '/' }, { label: page.data.title }];
+const crumbs = [{ label: 'Inicio', href: homeUrl() }, { label: page.data.title }];
 ---
 
 <BaseLayout

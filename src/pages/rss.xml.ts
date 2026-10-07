@@ -2,6 +2,7 @@ import rss from '@astrojs/rss';
 import type { APIRoute } from 'astro';
 import { SITE } from '@/config/site';
 import { articleHref, getArticles } from '@/lib/content';
+import { homeUrl } from '@/lib/urls';
 import { SECTIONS } from '@/config/sections';
 
 export const GET: APIRoute = async ({ site }) => {
@@ -10,7 +11,7 @@ export const GET: APIRoute = async ({ site }) => {
   return rss({
     title: SITE.name,
     description: SITE.description,
-    site,
+    site: new URL(homeUrl(), site),
     customData: `<language>${SITE.lang}</language>`,
     items: articles.map((a) => ({
       title: a.data.title,

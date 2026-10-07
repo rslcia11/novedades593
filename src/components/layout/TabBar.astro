@@ -1,12 +1,12 @@
 ---
 /** Barra de navegación inferior en celular. El botón "Menú" abre el diálogo con todas las secciones. */
 import { SECTIONS } from '@/config/sections';
-import { sectionUrl } from '@/lib/urls';
+import { homeUrl, sectionUrl } from '@/lib/urls';
 import Icon from '@/components/ui/Icon.astro';
 import { currentSection } from './current-section';
 
 const active = currentSection(Astro.url.pathname);
-const isHome = Astro.url.pathname === '/';
+const isHome = Astro.url.pathname === homeUrl();
 const tabs = (['juegos', 'equipo', 'creadores'] as const).map((id) => ({
   id,
   label: SECTIONS[id].name,
@@ -16,7 +16,7 @@ const tabs = (['juegos', 'equipo', 'creadores'] as const).map((id) => ({
 ---
 
 <nav class="tabbar" aria-label="Navegación principal">
-  <a href="/" aria-current={isHome ? 'page' : undefined}>
+  <a href={homeUrl()} aria-current={isHome ? 'page' : undefined}>
     <Icon name="home" />
     Inicio
   </a>

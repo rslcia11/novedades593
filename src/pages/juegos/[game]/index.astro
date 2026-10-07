@@ -5,7 +5,7 @@ import { SECTIONS } from '@/config/sections';
 import { articleHref, getArticles, getGames, type Game } from '@/lib/content';
 import { inGame } from '@/lib/article-utils';
 import { breadcrumbSchema, schemaContext } from '@/lib/seo';
-import { sectionUrl } from '@/lib/urls';
+import { homeUrl, sectionUrl } from '@/lib/urls';
 import HubHeader from '@/components/ui/HubHeader.astro';
 import TagFilter from '@/components/ui/TagFilter.astro';
 import ArticleList from '@/components/articles/ArticleList.astro';
@@ -29,7 +29,7 @@ const starterLabels = ['Recién actualizado', 'Para empezar', 'También te sirve
 // Solo los filtros que tienen artículos, para no mostrar botones que llevan a una lista vacía.
 const tags = game.data.tags.filter((tag) => articles.some((a) => a.data.tag === tag));
 const crumbs = [
-  { label: 'Inicio', href: '/' },
+  { label: 'Inicio', href: homeUrl() },
   { label: SECTIONS.juegos.name, href: sectionUrl('juegos') },
   { label: game.data.name },
 ];
