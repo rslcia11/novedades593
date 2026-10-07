@@ -2,7 +2,7 @@
 import { FOOTER_LINKS, SITE } from '@/config/site';
 import { SECTIONS } from '@/config/sections';
 import { getNavSections } from '@/lib/content';
-import { sectionUrl } from '@/lib/urls';
+import { sectionUrl, withBase } from '@/lib/urls';
 import Logo from './Logo.astro';
 
 const sections = await getNavSections();
@@ -44,7 +44,7 @@ const sections = await getNavSections();
             </li>
           ))}
           <li>
-            <a href="/rss.xml">RSS</a>
+            <a href={withBase('/rss.xml')}>RSS</a>
           </li>
         </ul>
       </nav>

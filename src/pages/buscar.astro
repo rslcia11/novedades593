@@ -2,7 +2,7 @@
 /** Resultados de búsqueda. La búsqueda corre en el navegador con el índice de Pagefind. */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { SEARCH_SUGGESTIONS } from '@/config/site';
-import { searchUrl } from '@/lib/urls';
+import { homeUrl, searchUrl } from '@/lib/urls';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import SearchBox from '@/components/search/SearchBox.astro';
 ---
@@ -14,7 +14,7 @@ import SearchBox from '@/components/search/SearchBox.astro';
 >
   <div class="wrap">
     <header class="s-head">
-      <Breadcrumbs items={[{ label: 'Inicio', href: '/' }, { label: 'Buscar' }]} />
+      <Breadcrumbs items={[{ label: 'Inicio', href: homeUrl() }, { label: 'Buscar' }]} />
       <h1>Buscar</h1>
       <SearchBox id="q-page" suggestions={false} />
     </header>

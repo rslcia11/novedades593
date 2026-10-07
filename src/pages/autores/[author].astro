@@ -5,7 +5,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getArticles, type Author } from '@/lib/content';
 import { authorSchema, breadcrumbSchema, schemaContext } from '@/lib/seo';
-import { authorUrl } from '@/lib/urls';
+import { authorUrl, homeUrl } from '@/lib/urls';
 import { plural } from '@/lib/format';
 import HubHeader from '@/components/ui/HubHeader.astro';
 import Avatar from '@/components/ui/Avatar.astro';
@@ -24,7 +24,7 @@ interface Props {
 
 const { author } = Astro.props;
 const articles = (await getArticles()).filter((a) => a.data.author.id === author.id);
-const crumbs = [{ label: 'Inicio', href: '/' }, { label: author.data.name }];
+const crumbs = [{ label: 'Inicio', href: homeUrl() }, { label: author.data.name }];
 const ctx = schemaContext(Astro.site);
 ---
 

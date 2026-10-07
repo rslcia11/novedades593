@@ -82,6 +82,7 @@ Copia `.env.example` como `.env`. Todas son públicas (se usan al construir).
 
 | Variable                | Valores                                          | Para qué                                                        |
 | ----------------------- | ------------------------------------------------ | --------------------------------------------------------------- |
+| `BASE_PATH`             | vacío o `/` (por defecto) / `/repo`              | Subcarpeta donde vive el sitio (GitHub Pages de proyecto)       |
 | `SITE_URL`              | `https://dominio.com`                            | Canonical, sitemap, RSS y datos estructurados                   |
 | `PUBLIC_SITE_INDEXABLE` | `false` (por defecto) / `true`                   | Con `false`, todo lleva `noindex` y `robots.txt` bloquea Google |
 | `PUBLIC_ADS_PROVIDER`   | `placeholder` (por defecto) / `none` / `adsense` | Recuadros de vista previa, nada o anuncios reales               |
@@ -89,14 +90,24 @@ Copia `.env.example` como `.env`. Todas son públicas (se usan al construir).
 
 **Activar AdSense:** pon los IDs de bloque en `src/config/ads.ts`, `PUBLIC_ADS_PROVIDER=adsense` y `PUBLIC_ADSENSE_CLIENT`. Si falta algo, el build falla con un mensaje claro (nunca se publica a medias). `ads.txt` y la CSP se ajustan solos.
 
-## Publicar en Cloudflare Pages
+## Publicar
+
+### GitHub Pages (configurado)
+
+El flujo `.github/workflows/deploy.yml` construye y publica el sitio cada vez que cambia la rama principal.
+
+1. **Una sola vez:** en GitHub, ve a **Settings → Pages → Build and deployment → Source** y elige **GitHub Actions**. Con la opción "Deploy from branch", GitHub intenta compilar el repositorio con Jekyll y falla, porque es un proyecto de Astro.
+2. Cada push a la rama principal publica el sitio en `https://<usuario>.github.io/<repo>/`. El flujo detecta solo la URL y la subcarpeta (`SITE_URL` y `BASE_PATH`), y con un dominio propio la subcarpeta pasa a ser `/` sin cambiar nada.
+3. También se puede publicar a mano desde **Actions → Desplegar en GitHub Pages → Run workflow**.
+
+GitHub Pages no lee `public/_headers`: la política de seguridad (CSP) sigue activa porque va dentro de cada página, pero los demás encabezados solo se aplican en Cloudflare.
+
+### Cloudflare Pages (alternativa)
 
 1. En Cloudflare → Workers & Pages → Crear → Pages → conectar este repositorio.
 2. Comando de build: `npm run build` · Carpeta de salida: `dist` · Variable `NODE_VERSION=22`.
-3. Agregar las variables de entorno de la tabla de arriba (en producción y en vista previa).
-4. Cada push a la rama principal publica el sitio; cada pull request genera una URL de vista previa.
-
-`public/_headers` define los encabezados de seguridad y caché para Cloudflare.
+3. Agregar las variables de entorno de la tabla de arriba (`BASE_PATH` vacío).
+4. Cada push publica el sitio; cada pull request genera una URL de vista previa.
 
 ## Escribir contenido
 

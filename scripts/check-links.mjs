@@ -3,15 +3,18 @@
  * - cada enlace interno (href/src) apunta a un archivo que existe,
  * - cada ancla (#id) existe en la página de destino,
  * - ninguna URL interna de página olvida la barra final,
- * - cada página tiene <title>, meta description y canonical.
+ * - cada página tiene <title>, meta description y canonical,
+ * - si el sitio vive en una subcarpeta (BASE_PATH), todo enlace interno la incluye.
  *
  * Uso: npm run build && npm run test:links
+ *      BASE_PATH=/novedades593 npm run build && BASE_PATH=/novedades593 npm run test:links
  */
 import { readdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 
 const DIST = path.resolve('dist');
-const SKIP_PREFIXES = ['/pagefind/', '/_astro/'];
+const BASE = `/${(process.env.BASE_PATH ?? '').replace(/^\/+|\/+$/g, '')}/`.replace('//', '/');
+const SKIP_PREFIXES = ['pagefind/', '_astro/'].map((p) => BASE + p);
 
 async function listHtml(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -57,9 +60,17 @@ for (const page of pages) {
 
   for (const [, attr, raw] of html.matchAll(/\s(href|src)="([^"]+)"/g)) {
     if (/^(https?:|mailto:|tel:|data:|javascript:)/.test(raw) || raw.startsWith('//')) continue;
-    const url = new URL(raw.replaceAll('&amp;', '&'), `http://sitio${'/' + rel.replace(/index\.html$/, '')}`);
+    const pageUrl = `http://sitio${BASE}${rel.replace(/index\.html$/, '')}`;
+    const url = new URL(raw.replaceAll('&amp;', '&'), pageUrl);
     if (SKIP_PREFIXES.some((p) => url.pathname.startsWith(p)) && attr === 'src') continue;
     checked++;
+
+    if (!url.pathname.startsWith(BASE)) {
+      problems.push(`${rel}: "${raw}" no incluye la base del sitio (${BASE})`);
+      continue;
+    }
+    // Ruta dentro de dist/ (sin la subcarpeta pública).
+    url.pathname = `/${url.pathname.slice(BASE.length)}`;
 
     const looksLikePage = !path.extname(url.pathname);
     if (looksLikePage && !url.pathname.endsWith('/')) {

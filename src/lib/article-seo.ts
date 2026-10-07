@@ -4,9 +4,9 @@ import type { SeoProps } from '@/components/seo/Seo.astro';
 import { SECTIONS } from '@/config/sections';
 import { articleHref, getAuthor, type Article } from './content';
 import { articleSchema, breadcrumbSchema, schemaContext } from './seo';
-import { authorUrl } from './urls';
+import { authorUrl, withBase } from './urls';
 
-const DEFAULT_IMAGE = '/og-default.png';
+const DEFAULT_IMAGE = withBase('/og-default.png');
 
 export async function articleSeo(
   article: Article,

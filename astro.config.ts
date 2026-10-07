@@ -4,12 +4,15 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { satteri } from '@astrojs/markdown-satteri';
 import { inArticleAdsPlugin } from './src/lib/markdown/in-article-ads';
+import { baseLinksPlugin } from './src/lib/markdown/base-links';
 import { buildCspDirectives, scriptSources, styleSources } from './src/config/csp';
 
 // Las variables de .env no están en process.env cuando se lee este archivo:
 // https://docs.astro.build/en/guides/environment-variables/#in-the-astro-config-file
 const env = loadEnv(process.env['NODE_ENV'] ?? 'production', process.cwd(), '');
 const adsProvider = env['PUBLIC_ADS_PROVIDER'] ?? 'placeholder';
+// Subcarpeta donde vive el sitio: '/' en un dominio propio, '/novedades593' en GitHub Pages.
+const base = env['BASE_PATH'] || '/';
 
 const FONT_DIR = './node_modules/@fontsource-variable/schibsted-grotesk/files';
 const DISPLAY_FONT_DIR = './node_modules/@fontsource/lilita-one/files';
@@ -19,6 +22,7 @@ const LATIN =
 
 export default defineConfig({
   site: env['SITE_URL'] ?? 'https://entretenimiento593.pages.dev',
+  base,
   trailingSlash: 'always',
   build: {
     format: 'directory',
@@ -31,7 +35,7 @@ export default defineConfig({
     // Sin bloques de código en el contenido; Shiki además usa estilos en línea que choca con la CSP.
     syntaxHighlight: false,
     processor: satteri({
-      hastPlugins: [inArticleAdsPlugin],
+      hastPlugins: [inArticleAdsPlugin, baseLinksPlugin(base)],
     }),
   },
   integrations: [

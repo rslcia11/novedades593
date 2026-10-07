@@ -11,11 +11,12 @@ import GamesGrid from '@/components/home/GamesGrid.astro';
 import ArticleList from '@/components/articles/ArticleList.astro';
 import TopList from '@/components/articles/TopList.astro';
 import AdSlot from '@/components/ads/AdSlot.astro';
+import { homeUrl } from '@/lib/urls';
 
 const [articles, games] = await Promise.all([getArticles(), getGames()]);
 const guides = inSection(articles, 'juegos');
 const section = SECTIONS.juegos;
-const crumbs = [{ label: 'Inicio', href: '/' }, { label: section.name }];
+const crumbs = [{ label: 'Inicio', href: homeUrl() }, { label: section.name }];
 ---
 
 <BaseLayout

@@ -1,5 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { absoluteUrl, articleUrl, gameUrl, searchUrl, sectionUrl, toolUrl } from '@/lib/urls';
+import {
+  absoluteUrl,
+  articleUrl,
+  gameUrl,
+  joinBase,
+  searchUrl,
+  sectionUrl,
+  stripBase,
+  toolUrl,
+} from '@/lib/urls';
 import { displayDate, formatDate, formatShortDate, formatTime } from '@/lib/dates';
 import { countWords, readingMinutes } from '@/lib/reading-time';
 import { formatNumber, formatUsd, plural } from '@/lib/format';
@@ -25,6 +34,20 @@ describe('URLs', () => {
 
   it('codifica la búsqueda', () => {
     expect(searchUrl('free fire & más')).toBe('/buscar/?q=free%20fire%20%26%20m%C3%A1s');
+  });
+
+  it('antepone la subcarpeta del sitio (GitHub Pages) sin duplicar barras', () => {
+    expect(joinBase('/', '/juegos/')).toBe('/juegos/');
+    expect(joinBase('/novedades593/', '/juegos/')).toBe('/novedades593/juegos/');
+    expect(joinBase('/novedades593', '/juegos/')).toBe('/novedades593/juegos/');
+    expect(joinBase('/novedades593/', '/')).toBe('/novedades593/');
+  });
+
+  it('quita la subcarpeta para reconocer la sección actual', () => {
+    expect(stripBase('/novedades593/', '/novedades593/juegos/roblox/')).toBe('/juegos/roblox/');
+    expect(stripBase('/novedades593/', '/novedades593/')).toBe('/');
+    expect(stripBase('/', '/juegos/')).toBe('/juegos/');
+    expect(stripBase('/novedades593/', '/otra/')).toBe('/otra/');
   });
 
   it('arma URLs absolutas con el dominio del sitio', () => {
