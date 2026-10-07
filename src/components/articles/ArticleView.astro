@@ -17,6 +17,7 @@ import Cover from './Cover.astro';
 import Toc from './Toc.astro';
 import Feedback from './Feedback.astro';
 import ArticleCard from './ArticleCard.astro';
+import NewTabHint from '@/components/ui/NewTabHint.astro';
 
 interface Props {
   article: Article;
@@ -69,6 +70,7 @@ const { data } = article;
               {s.url ? (
                 <a href={s.url} rel="noopener" target="_blank">
                   {s.name}
+                  <NewTabHint visible />
                 </a>
               ) : (
                 s.name

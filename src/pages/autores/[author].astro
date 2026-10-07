@@ -11,6 +11,7 @@ import HubHeader from '@/components/ui/HubHeader.astro';
 import Avatar from '@/components/ui/Avatar.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
 import ArticleList from '@/components/articles/ArticleList.astro';
+import NewTabHint from '@/components/ui/NewTabHint.astro';
 
 export const getStaticPaths = (async () => {
   const authors = await getCollection('authors');
@@ -65,6 +66,7 @@ const ctx = schemaContext(Astro.site);
               <li>
                 <a href={l.url} rel="me noopener" target="_blank">
                   {l.name}
+                  <NewTabHint />
                 </a>
               </li>
             ))}

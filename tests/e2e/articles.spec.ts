@@ -80,6 +80,8 @@ test('cada artículo cita sus fuentes con enlaces', async ({ page }) => {
   for (const href of await sources.evaluateAll((links) => links.map((l) => l.getAttribute('href')))) {
     expect(href).toMatch(/^https:\/\//);
   }
+  // Los enlaces que abren otra pestaña lo avisan a los lectores de pantalla.
+  await expect(sources.first()).toContainText('se abre en otra pestaña');
 });
 
 test('la portada del artículo es una imagen optimizada y se usa para redes', async ({ page }) => {
@@ -114,4 +116,12 @@ test('el perfil de la redacción lista todos sus artículos', async ({ page }) =
 test('un autor sin artículos muestra un mensaje en vez de una lista vacía', async ({ page }) => {
   await page.goto('/autores/yeri-loco/');
   await expect(page.getByText('Todavía no hay artículos firmados')).toBeVisible();
+});
+
+test('en celular, las migas de pan no repiten el título del artículo', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'Solo en celular.');
+  await page.goto('/juegos/minecraft/diamantes-minecraft/');
+  const crumbs = page.getByRole('navigation', { name: 'Migas de pan' });
+  await expect(crumbs.locator('[aria-current="page"]')).toBeHidden();
+  await expect(crumbs.getByRole('link', { name: 'Minecraft' })).toBeVisible();
 });

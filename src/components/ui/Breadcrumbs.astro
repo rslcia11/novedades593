@@ -42,6 +42,13 @@ const { items } = Astro.props;
     gap: 0 6px;
   }
 
+  /* En celular, la página actual ya está en el título (h1) justo debajo: no se repite. */
+  @media (max-width: 700px) {
+    li:last-child:not(:first-child) {
+      display: none;
+    }
+  }
+
   li + li::before {
     content: '/';
     margin-right: 6px;

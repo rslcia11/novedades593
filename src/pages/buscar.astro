@@ -57,8 +57,11 @@ import SearchBox from '@/components/search/SearchBox.astro';
       const $ = (selector: string) => required(this, selector);
       $('[data-suggestions]').hidden = true;
       document.title = `${query} · Buscar · entretenimiento593`;
+      // Estado visible mientras carga el índice (en conexiones lentas puede tardar).
+      $('[data-summary]').textContent = `Buscando "${query}"…`;
       const hits = await search(query);
       if (hits === null) {
+        $('[data-summary]').textContent = '';
         $('[data-unavailable]').hidden = false;
         return;
       }

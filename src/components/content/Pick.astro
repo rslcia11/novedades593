@@ -1,4 +1,5 @@
 ---
+import NewTabHint from '@/components/ui/NewTabHint.astro';
 /**
  * Producto recomendado. Si tiene `url` (enlace de afiliado) muestra el botón de compra,
  * marcado como patrocinado para Google (rel="sponsored").
@@ -52,6 +53,7 @@ const { badge, name, price, specs, pros, cons, url, store = 'Mercado Libre' } = 
     <div>
       <a class="btn btn--accent btn--sm" href={url} target="_blank" rel="sponsored nofollow noopener">
         Ver precio en {store}
+        <NewTabHint />
       </a>
     </div>
   )}

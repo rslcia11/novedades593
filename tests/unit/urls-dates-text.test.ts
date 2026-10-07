@@ -55,7 +55,8 @@ describe('fechas en hora de Ecuador', () => {
 
 describe('tiempo de lectura', () => {
   it('cuenta palabras sin etiquetas ni atributos', () => {
-    expect(countWords('<Step title="no cuenta">Hola mundo</Step>\n\n## Título')).toBe(3);
+    expect(countWords('<Step title="Baja hasta Y -58.">Hola mundo</Step>\n\n## Título')).toBe(7);
+    expect(countWords('<Fact value="3">métodos</Fact>')).toBe(2);
   });
 
   it('nunca baja de 1 minuto y redondea a 200 palabras por minuto', () => {

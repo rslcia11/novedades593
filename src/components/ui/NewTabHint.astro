@@ -1,0 +1,28 @@
+---
+/**
+ * Aviso para lectores de pantalla en enlaces que abren otra pestaña,
+ * para que el cambio de contexto no sorprenda (WCAG 3.2.5).
+ */
+interface Props {
+  /** Muestra además una flecha visible (↗). */
+  visible?: boolean;
+}
+
+const { visible = false } = Astro.props;
+---
+
+{visible && (
+  <span class="arrow" aria-hidden="true">
+    ↗
+  </span>
+)}
+<span class="sr-only"> (se abre en otra pestaña)</span>
+
+<style>
+  .arrow {
+    margin-left: 2px;
+    font-size: 0.85em;
+    text-decoration: none;
+    display: inline-block;
+  }
+</style>
